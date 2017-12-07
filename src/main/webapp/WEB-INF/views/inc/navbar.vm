@@ -1,0 +1,117 @@
+ <div class="navbar">
+        <div class="navbar-inner">
+            <div class="navbar-container">
+                <!-- Navbar Barnd -->
+                <div class="navbar-header pull-left">
+                    <a href="#" class="navbar-brand topNav">
+                        <small>
+                            <img src="http://a.mysteelcdn.com/libs/article/assets/img/mylogo.png" alt="" />
+                        </small>
+                    </a>
+                </div>
+                <!-- /Navbar Barnd -->
+
+                <!-- Sidebar Collapse -->
+                <div class="sidebar-collapse" id="sidebar-collapse">
+                    <i class="collapse-icon fa fa-bars"></i>
+                </div>
+                <!-- /Sidebar Collapse -->
+                <div class="pull-left navinfo">
+                    <div class="navbar-account">
+                        <ul class="sidebar-nav account-area">
+                            <li class="show">
+                                <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon fa fa-cogs"></i>
+                                </a>
+                                <!--Login Area Dropdown-->
+                                <ul id="topnav" class="pull-left themeprimary"></ul>
+                                <!--/Login Area Dropdown-->
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Account Area and Settings -->
+                <div class="navbar-header pull-right userinfo">
+                    <div class="navbar-account">
+                        <ul class="account-area pull-right">
+                            <li>
+                                <a class="home dropdown-toggle" title="我的钢铁首页" target="_blank" href="http://www.mysteel.com/">
+                                    <i class="icon fa fa-home"></i>
+                                    <span class="text">我的钢铁首页</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="home dropdown-toggle" title="意见反馈" target="_blank" href="#">
+                                    <i class="icon fa fa-comment"></i>
+                                    <span class="text">意见反馈</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="home dropdown-toggle" title="Tasks" href="#">
+                                    <span class="badge">0</span>
+                                    <i class="icon fa fa-bell-o"></i>
+                                    <span class="text">消息</span>
+                                </a>
+                                <!--Tasks Dropdown-->
+<!--                                 <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">
+    <li class="dropdown-header bordered-darkorange">
+        <i class="fa fa-bell-o"></i>
+        正在进行的工作
+    </li>
+    <li>
+        <a href="#">
+            <div class="clearfix">
+                <span class="pull-left">待分配</span>
+                <span class="pull-right">5个</span>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <div class="clearfix">
+                <span class="pull-left">待审核</span>
+                <span class="pull-right">5个</span>
+            </div>
+        </a>
+    </li>
+    <li>
+        <a style="padding: 5px 0;margin: 5px 0;" class="btn btn-success btn-xs white" href="javascript:void(0);">查看所有</a>
+    </li>
+</ul> -->
+                                <!--/Tasks Dropdown-->
+                            </li>
+                            <li>
+                                <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                    <div class="avatar" title="View your public profile">
+                                        <img src="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/avatars/adam-jansen.jpg">
+                                    </div>
+                                    <section class="minW">
+                                        <h2><span class="profile">陈某某</span></h2>
+                                    </section>
+                                </a>
+                                <!--Login Area Dropdown-->
+                                <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                    <li class="edit">
+                                        <a href="profile.html">修改信息</a>
+                                    </li>
+                                    <li class="edit">
+                                        <a href="profile.html">查看信息</a>
+                                    </li>
+                                    <li class="edit">
+                                        <a href="profile.html">
+                                            <i class="icon glyphicon glyphicon-off"></i>
+                                            <span class="text">退出</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <!--/Login Area Dropdown-->
+                            </li>
+                            <!-- /Account Area -->
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Account Area and Settings -->
+            </div>
+        </div>
+    </div>

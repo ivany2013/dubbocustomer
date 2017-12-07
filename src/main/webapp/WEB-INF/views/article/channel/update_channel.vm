@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    #parse("/inc/header.vm")
+    <style>
+        .modal-footer {text-align: center;}
+        .modal-footer button{margin: 0 5px;}
+         table td{ vertical-align:middle !important;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="well with-header">
+                    <div class="header">$!{channelPath}修改子频道</div>
+                    <div id="newChannel" class="row">
+                        <form id="channnelForm" class="form-horizontal"
+                          data-bv-message="输入错误，请重新输入">
+						  <input type="hidden" id="id" name="id" value="$!{result.id}"/>
+						  <input type="hidden" id="websiteId" value="$!{result.websiteId}"/>
+						  <input type="hidden" name="version" value="$!{result.version}"/>
+						  <table class="table table-striped table-bordered table-hover bigtable">
+                            <tbody>
+                                <tr>
+                                    <td class="odd text-center" width="15%">频道中文名称<span class="red">*</span></td>
+                                    <td width="85%">
+                                        <div class="form-group">
+                                        <input type="text" name="name" value="$!{result.name}" class="form-control" placeholder="频道中文名称"
+                                           data-bv-notempty="true"
+										   pattern="[\u4e00-\u9fa5]"
+                                           required
+                                           data-bv-regexp-message="请输入中文名称" />
+                                    </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道英文名称</td>
+                                    <td>
+										<input type="text" name="englishName" value="$!{result.englishName}" class="form-control" placeholder="频道英文名称" >
+									</td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道域名</td>
+                                    <td><input type="text" name="domain" value="$!{result.domain}" class="form-control" placeholder="频道域名"></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">内容页面模板</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" name="pageTemplate" value="$!{result.pageTemplate}" class="form-control" placeholder="内容页面模板">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" id="bootbox-options">选择</button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">内容页面名称规则</td>
+                                    <td><input type="text" name="pageNameRule" value="$!{result.pageNameRule}" class="form-control" placeholder="内容页面名称规则"></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">列表页面模板</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input type="text" name="listPageTemplate" value="$!{result.listPageTemplate}" class="form-control" placeholder="列表页面模板">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" id="bootbox-options2">选择</button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">列表页面名称规则</td>
+                                    <td><input type="text" name="listPageNameRule" value="$!{result.listPageNameRule}" class="form-control" placeholder="列表页面名称规则"></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道中文标题</td>
+                                    <td><textarea name="title" class="form-control" rows="3" placeholder="频道中文标题">$!{result.title}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道英文标题</td>
+                                    <td><textarea name="englishTitle" class="form-control" rows="3" placeholder="频道英文标题">$!{result.englishTitle}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">编辑器</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <select id="editorType" name="editorType" class="form-control">
+												#foreach($enum in $!{editorTypeEnums})
+													<option value="$!{enum.value}" #if($!{result.editorType} == $!{enum.value}) selected #end>$!{enum.desc}</option>
+												#end
+                                            </select>
+                                            <span class="input-group-btn">
+                                                <a class="btn btn-primary bjyl" href="javascript:void(0);"><i class="fa fa-eye"></i> 预览</a>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">编辑组</td>
+                                    <td>
+                                        <div class="form-title">
+                                            <a id="addEdite" class="btn btn-primary" href="javascript:void(0);"><i class="fa fa-plus"></i> 选择</a>
+                                        </div>
+                                        <div id="currentEditors">
+											#foreach($editor in $!{result.eidtorList})
+                                            <div class="input-group showcy channelEditors">
+												<input type="hidden" class="editorId" name="editorList[0].id" value="$!{editor.id}"/>
+												<input type="hidden" class="version" name="editorList[0].version" value="$!{editor.version}"/>
+												<input type="hidden" class="channelEditorId"  name="editorList[0].editorId" value="$!{editor.editorId}"/>
+												<input type="hidden" class="channelEditorName" name="editorList[0].editorName" value="$!{editor.editorName}"/>
+                                                <span class="form-control">$!{editor.editorName}</span>
+												
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default blue_color" type="button">移除</button>
+                                                </span>
+                                            </div>
+											#end
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">所需积分</td>
+                                    <td>
+										<div class="form-group">
+										<input type="text" id="accessScore" name="accessScore" value="$!{result.accessScore}" class="form-control" placeholder="0" value="0"
+										   pattern="^[\d]+$"
+                                           data-bv-regexp-message="只包含数字"/>
+                                        </div>  
+									</td>	
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">收费类型</td>
+                                    <td>
+                                        <div class="input-group">
+                                            <input readonly type="text" name="accessControl" value="$!{result.accessControl}" class="form-control" placeholder="收费类型">
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-primary" type="button" id="sflx">选择</button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">上传目录</td>
+                                    <td><input type="text" name="imageUploadFolder" value="$!{result.imageUploadFolder}" class="form-control" placeholder="上传目录"></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道关键字</td>
+                                    <td><textarea name="keywords" class="form-control" rows="3" placeholder="频道关键字">$!{result.keywords}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道描述</td>
+                                    <td><textarea name="description" class="form-control" rows="3" placeholder="频道描述">$!{result.description}</textarea></td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center">频道状态</td>
+                                    <td>
+                                        <div class="control-group">
+											#foreach($enum in $!{channelStatusEnums})
+                                            <div class="radio pull-left">
+                                                <label>
+                                                    <input name="status" type="radio" #if($!{result.status} == $!{enum.value}) checked #end value="$!{enum.value}">
+                                                    <span class="text">$!{enum.desc} </span>
+                                                </label>
+                                            </div>
+											#end
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="app">
+                                    <td class="odd text-center">操作</td>
+                                    <td>
+                                        <div class="buttons-preview">
+                                            <button id="channelSubmit" class="btn btn-primary"><i class="fa fa-check-circle"></i>  确认修改</button>
+                                            <a class="btn btn-primary" href="javascript:void(0);" id="return" onclick="mainjs.changemain(this)" datahref="/article/system/channel/toChannelManage?websiteId=$!{result.websiteId}&id=$!{result.id}"><i class="fa fa-reply"></i> 取消返回</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<div id="temp_Editors" style="display:none"></div>
+    <script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="/article/system/channel/toTemplateManage"></iframe>
+        </div>
+    </script>
+    <script id="addEditeModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="/article/system/channel/toEditorManage"></iframe>
+        </div>
+    </script>
+
+    <script id="sflxModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="/article/system/channel/toChargeTypeManage"></iframe>
+        </div>
+    </script>
+
+    #parse("/inc/footer.vm")
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/validation/bootstrapValidator.js"></script>
+	<script src="/assets/js/page/channel/modify.js"></script>
+
+</body>
+<!--  /Body -->
+</html>

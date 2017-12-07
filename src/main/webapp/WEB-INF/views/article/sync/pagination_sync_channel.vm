@@ -1,0 +1,47 @@
+<table class="table table-striped table-hover table-bordered" id="editabledatatable">
+	<input type="hidden" name="syncChannelId" id="syncChannelId" value="$!{syncChannelId}">
+    <thead>
+        <tr role="row">
+            <th width="5%">选择</th>
+            <th width="10%">频道ID</th>
+            <th width="10%">频道名称</th>
+            <th width="10%">品种名称</th>
+            <th width="10%">城市名称</th>
+            <th width="10%">钢厂名称</th>
+            <th width="10%">港口名称</th>
+            <th width="10%">状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        #set($size = $result.list.size())
+				#if($size==0)
+		      <tr><td colspan="9" align="center">没有数据!</td></tr> 
+		    #else
+				#foreach($syncChannel in ${result.list})
+				<tr id="$!syncChannel.id" version="$!syncChannel.version">
+            <td><div class="checkbox"><label><input type="checkbox" id="$!syncChannel.id"><span class="text"></span></label></div></div></td>
+            <td> $!syncChannel.masterChannelId </td>
+            <td id="masterChannelName"> $!syncChannel.masterChannelName </td>
+            <td> #if("$!syncChannel.masterBreeds" != "" || ${editorType} == 1)$!syncChannel.masterBreeds #else  全部品种 #end</td>
+            <td> #if("$!syncChannel.masterCitys" != "" || ${editorType} == 1 )$!syncChannel.masterCitys #else  全部城市 #end</td>
+            <td> #if("$!syncChannel.masterFactorys" != "" || ${editorType} == 1 )$!syncChannel.masterFactorys #else  全部钢厂 #end</td>
+            <td> #if("$!syncChannel.masterPorts" != "" || ${editorType} == 1 )$!syncChannel.masterPorts #else  全部港口 #end</td>
+            <td class="sync-channel-status-js">  #if($!syncChannel.status == 0) 启用  #else 停用 #end</td>
+            <td>
+                <div class="control-group">
+                    <div class="radio"><label><input class="change-status-js" status="0" id="$!syncChannel.id" version="$!syncChannel.version" name="form-field-radio_$!syncChannel.id" type="radio" #if($!syncChannel.status == 0) checked="checked" #end><span class="text">启用  </span></label></div>
+                    <div class="radio"><label><input class="change-status-js" status="1" id="$!syncChannel.id" version="$!syncChannel.version" name="form-field-radio_$!syncChannel.id" type="radio" class="inverted" #if($!syncChannel.status == 1) checked="checked" #end ><span class="text">停用</span></label></div>
+                </div>
+                <div class="buttons-preview">
+                    <a href="javascript:void(0);" onclick="mainjs.changemain(this)" class="btn btn-link btn-sm" id="modifySyncChannel">修改</a>
+                    <a href="javascript:void(0);" onclick="mainjs.changemain(this)" id="syncArticlePage" class="btn btn-link btn-xs">文章管理</a>
+                    <a href="javascript:void(0);" class="btn btn-link btn-xs remove">删除</a>
+                </div>
+            </td>
+        </tr>
+				#end
+				#end
+    </tbody>
+</table>
+<div class="row DTTTFooter">#pageNation($result)</div>

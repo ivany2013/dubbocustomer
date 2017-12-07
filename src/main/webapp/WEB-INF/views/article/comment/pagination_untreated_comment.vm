@@ -1,0 +1,63 @@
+
+ <div class="col-lg-12 col-sm-12 col-xs-12 showsub">
+	 #foreach($param in ${map.keySet()})
+		 <p class="status">$!param：<span class="red">未处理评论${map.get($param)} 条</span></p>
+		#end
+                        </div>
+ 
+ <div class="comments_content col-lg-12 col-sm-12 col-xs-12">
+	
+	#set($size = $result.list.size())
+			  #if($size==0)
+			<div class="list clearfix">
+			    <table align="center">
+					<tr >
+						<td >
+								没有数据!
+                                <br></br>
+                        </td>
+                    </tr>
+                </table>
+                </div>
+			   #else
+				#foreach($obj in ${result.list})
+    <div class="list">
+        <div class="comments_content1 col-lg-12 col-sm-12 col-xs-12">
+            <div class="row no-padding">
+                <p class="line col-sm-3 col-xs-12 text-left">评论时间：<span class="text-muted">$velocityTool.getNewTime($!obj.commentTime)</span></p>
+                <p class="line col-sm-4 col-xs-12 text-left">文章ID：<span class="text-muted">$!obj.articleId</span></p>
+                <p class="line col-sm-5 col-xs-12 text-left">文章标题：<span class="text-muted"> <a href="#">$!obj.articleTitle</a></span></p>
+                <p class="line col-sm-3 col-xs-12 text-left">评论人姓名：<span class="text-muted">$!obj.writerId</span></p>
+                <p class="line col-sm-4 col-xs-12 text-left">评论人公司：<span class="text-muted">$!obj.writerCompany</span></p>
+                <p class="line col-sm-5 col-xs-12 text-left">来源：<span class="text-muted">#foreach($website in $websites)#if($!obj.websiteId == $website.id)$website.name #end #end</span></p>
+				<p class="line col-sm-12 col-xs-12 text-left">评论内容：<span class="text-muted">$!obj.content</span></p>
+                <p class="line col-sm-12 col-xs-12 text-left">对应评论内容：<span class="text-muted">#if("$!obj.mapContent" == "") ---- #else $obj.mapContent #end</span></p>
+            </div>
+            <hr class="wide">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">回复内容</label>
+                        <span class="input-icon icon-right">
+                            <textarea class="form-control resize context-js" rows="5" ></textarea>
+							<input type="hidden" value="$obj.id" class = "id-js"/>
+							<input type="hidden" value="$obj.version" class = "version-js"/>
+                        </span>
+    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fltop" >
+            <a href="javascript:void(0);" onclick="commentApp.replyType('1',this)" class="btn btn-primary margin-right-10 margin-top-10">确定</a>
+            <a href="javascript:void(0);" onclick="commentApp.replyType('2',this)" class="btn btn-primary margin-right-10 margin-top-10">不回复</a>
+            <a href="javascript:void(0);" onclick="commentApp.replyType('3',this)" class="btn btn-primary margin-right-10 margin-top-10">前端隐藏</a>
+        </div>
+    </div>
+				#end
+			  #end
+    #if( $size < $pageSize )
+		#else
+    <p class="more_p"><i class="more_thread"></i><span class="more"  ><a href="javascript:void(0)" onclick="commentApp.showMore()">查看更多</a></span></p>
+	#end
+    </div>

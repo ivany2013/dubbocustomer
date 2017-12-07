@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	#parse("/inc/css.vm")
+	
+	
+    <style>
+        .well1.with-header {
+            padding-top: 46px;
+        }
+        .well1 .wide{
+            border-top:1px dashed #ccc;
+            margin-top:8px;
+            margin-bottom:8px;
+        }
+        .well1 .showcy{
+            margin-bottom:5px;
+        }
+        table td,table th{
+            text-align: center !important;
+        }
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body" id="app">
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab9">
+            <li class="active">
+                <a data-toggle="tab" href="#home9">
+                    文章搜索
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="home9" class="tab-pane in active">
+
+            <div class="row margin-top-10">
+                <div class="col-sm-12">
+                    <form id="registrationForm" method="post" class="form-horizontal"
+                          data-bv-message="This value is not valid"
+                          data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                          data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                          data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                        <div class="row margin-bottom-10 padding-left-10 text_field">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-horizontal">
+                              <div class="form-group">
+                                <label class=" control-label no-padding-right" style="float:left;">文章URL地址：</label>
+                                <div class="input-group col-md-5">
+                                    <input class="form-control" type="text" v-model="url">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-horizontal">
+                              <div class="form-group">
+                                <label class=" control-label  no-padding" style="float:left;width:88px; text-align:right;line-height:34px;">文章ID：</label>
+                                <div class="input-group col-md-7">
+                                    <input type="text" class="form-control" name="同步ID" v-model="articleId"
+                                       pattern="[a-zA-Z0-9]+"
+                                       data-bv-regexp-message="只能由字母数字组成" />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 form-horizontal">
+                              <div class="form-group">
+                                <label class=" control-label  no-padding" style="float:left;width:88px; text-align:right;line-height:34px;">文章标题：</label>
+                                <div class="input-group col-md-7">
+                                    <input type="text" class="form-control" v-model="title">
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-offset-4 col-md-offset-4 colsm-offset-4 col-lg-2 col-md-2 col-sm-12 col-xs-12 buttons-preview text-right">
+                              <button type="reset" class="btn btn-primary " v-on:click.stop.prevent="reset">重置</button><button v-on:click.stop.prevent="queryArticleByCond" class="btn btn-primary">搜索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+			        <div class="tablelist">
+						
+					</div>	
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+
+	<script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src=""></iframe>
+        </div>
+    </script>
+    <!--Basic Scripts-->
+	#parse("/inc/js.vm")
+	 <script src="/assets/js/mySteelZtree_nr2.js"></script>
+    <script>
+	$(function(){
+        bootbox.setDefaults({
+            locale: "zh_CN",
+        });
+        $(".tablelist").delegate(".bootbox-options",'click', function (e) {
+            var websiteId=$(e.target).closest("td").find(".websiteId").val();
+			var channelId=$(e.target).closest("td").find(".channelId").val();
+			var version=$(e.target).parent().find(".version").val();;
+			var src="/article/toMoveTreePage?websiteId="+websiteId+"&channelId="+channelId;
+			var myModel="<div class='row'> <iframe frameborder='0' id='main_frame' style='width: 100%;height: 400px;' src="+src+"></iframe></div>"
+			$("#myModal").html(myModel);
+			$("#myModal").html()
+			var articleId=$(e.target).closest("tr").find("td:eq(0)").text().trim();	
+			bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "移动文章",
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { 
+							var moveChannelId=Cookies.get('moveChannelId');
+							if(moveChannelId=='all'){
+								$.err("请选择站点下的频道");
+								return false;
+							}
+							if(!moveChannelId||moveChannelId==""){
+								$.err("请选择频道");
+								return false;
+							}
+							//否则修改文章的channelId和域名
+							var param={};
+							param.channelId=moveChannelId;
+							param.id=articleId;
+							param.version=version;
+							console.log(param);
+							vm.modifyArticleChannel(param);
+							Cookies.set('moveChannelId',"");
+						}
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("body").on("click",".return",function(){
+            var _this = this
+            bootbox.confirm("确认撤销发布?", function (result) {
+                if (result) {
+                    //window.location.reload();
+                }
+            });
+        })
+        $("body").on("click",".delete",function(e){
+            var _this = this
+            bootbox.confirm("确认删除文章?", function (result) {
+                if (result) {
+                    vm.removeArticle(e);
+                }
+            });
+        })
+	})
+    </script>
+    <script>
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				articleId:null,
+				title:null,
+				url:null
+			},
+			methods:{
+    			//重置条件查询文件
+    			reset:function(){
+					this.articleId="";
+					this.title="";
+					this.url="";
+    				var param={
+						articleId:this.articleId,
+						title:this.title,
+						url:this.url
+					};
+					
+					$(".tablelist").pagination({
+            			url : "/article/queryTableByCond",
+            			paramJson : param
+            		});
+					return false;
+				},
+				queryArticleByCond:function(){
+					var param={
+						articleId:this.articleId,
+						title:this.title,
+						url:this.url
+					};
+					
+					$(".tablelist").pagination({
+            			url : "/article/queryTableByCond",
+            			paramJson : param
+            		});
+					return false;
+				},
+				//修改文章 发送/撤销状态
+			modifyArticleStatus:function(param){
+				$.ajax({
+				   type:"POST",
+    			   url: "/article/modifyArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+    				   	if(data.status==200){
+    						$.msg("操作成功");
+							$(".tablelist").pagination("refresh");
+						}else{
+							$.err("操作失败");
+						}
+				   }
+    			});
+			},
+			//移动文章
+			modifyArticleChannel:function(param){
+				$.ajax({
+				   type:"POST",
+    			   url: "/article/modifyArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+    				   	if(data.status==200){
+    						$.msg("修改成功");
+							$(".tablelist").pagination("refresh");
+						}else{
+							$.err("修改失败");
+						}
+				   }
+    			});
+			},
+			removeArticle:function(e){
+				var param={};
+				param.articleId=$(e.target).parent().parent().parent().find("td").eq(0).text();
+				
+				$.ajax({
+				   url: "/article/removeArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+				   		vm.queryArticleByCond();
+				   }
+				})
+			}
+			}
+		})
+		//撤销删除状态点击事件
+	 $("body").delegate(".status","click",function(e){
+	  var alertStr="";
+	  if($(e.target).text().trim()=="发布"||$(e.target).text().trim()=="定时发布"){
+	  	alertStr="确认发布?"
+	  }else{
+	  	alertStr="确认撤销?"
+	  }
+	  bootbox.confirm(alertStr, function (result) {
+            if (result) {
+				var param={};
+    	if($(e.target).text().trim()=="发布"||$(e.target).text().trim()=="定时发布"){
+			//状态改为已发布
+			param.status=0;
+			//添加发布人id,发布人，发布时间
+			param.publisherId="$!admin.adminId";
+			param.publishTime=new moment().format("x");
+			param.publisherName="$!admin.name";
+		}
+		else{
+			//状态改为未发布
+			param.status=1;
+			//清空发布人id,发布人，发布时间
+			param.publisherId="";
+			param.publishTime="";
+			param.publisherName="";
+		}
+    	param.id=$(e.target).parent().parent().parent().find("td").eq(0).text();
+		param.channelId=vm.channelId;
+		param.websiteId=vm.websiteId;
+		param.version=$(e.target).parent().find(".version").val();
+		vm.modifyArticleStatus(param);
+                }
+        });
+        }
+    );
+	
+	
+	</script>
+</body>
+<!--  /Body -->
+</html>

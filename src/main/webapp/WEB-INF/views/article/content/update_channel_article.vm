@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+
+   #parse("/inc/css.vm")
+    <style type="text/css">
+    .topfrom {padding-left: 0;}
+    .topfrom li {float: left;line-height: 35px;list-style: none;text-align: right;padding-right: 10px;}
+    .topfrom .t1 {}
+    .topfrom .t2 {width: 25%;}
+    .topfrom .t3 {}
+    .topfrom .t4 {width: 50%;}
+    .topfrom .t5 {width: 5%;}
+    .topfrom .t6 {width: 20%;}
+
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Page Body -->
+    <div class="page-body">
+        <div class="input-group" style="display: block;overflow: hidden;">
+            <ul class="topfrom">
+                <li class="t3"><label for="searchValue" class="control-label no-padding-right">频道名称：</label></li>
+                <li class="t4"><input id="searchValue" type="text" class="form-control"></li>
+                <li class="t6"><button id="searchBtn" style="float: left;" class="btn btn-primary " type="button">搜索</button></li>
+            </ul>
+        </div>
+        <ul id="treeDemo" style="width: 100%;height: 300px;background-color: #fff;margin-top: 15px; border: 1px solid #ccc;" class="ztree"></ul>
+    </div>
+     <!--Basic Scripts-->
+	 #parse("/inc/js.vm")
+	 <script src="/assets/js/mySteelZtree_nr2.js"></script>
+    <script>
+	var moveChannelId;
+    $(document).ready(function(){
+	var param={};
+	 if($!websiteId!=""){
+	 	param.websiteId=$!websiteId;
+		param.channelId=$!channelId;
+		  getTree(param);
+	 }	   
+    });
+	function getTree(param){
+		$.ajax({
+		   url: "/article/moveTree",
+		   data:param,
+		   dataType:"json",
+		   success: function(data){
+		   	  var websiteName='$!websiteName';
+			  var zNodes=ztreeTool.formatRadioJson(data.data,websiteName,$!channelId);
+			  console.log(zNodes);
+			  if(!zNodes){
+			  	return false;
+			  }
+			  
+			  var setting={
+			  data: {
+			simpleData: {
+				enable: true
+			},
+		},
+			check: {
+				enable: true,
+				chkStyle: "radio",
+				radioType: "all",
+			},
+			callback: {
+				onCheck: onCheck,
+				//onClick:clickCallBack
+			}	
+			}
+		  mySteelZTree.initZtree("treeDemo",setting,zNodes);
+			  var tree = $.fn.zTree.getZTreeObj("treeDemo");
+			  ztreeTool.filterDisable(tree,zNodes);
+		   }
+		});
+	}
+	
+	//移动的频道不能是当前频道
+	var currChannelId= $!channelId;
+	console.log("currChannelId:"+currChannelId);
+	function clickCallBack(event, treeId, treeNode, clickFlag){
+		console.log(treeNode.id);
+		if(treeNode.id==currChannelId){
+			$.err("移动的频道不能是当前频道");
+			return false;
+		}else{
+    		Cookies.set('moveChannelId', treeNode.id);
+		}
+	}
+	function onCheck(e,treeId,treeNode) {
+		console.log(treeNode.id);
+		if(treeNode.id==currChannelId){
+			$.err("移动的频道不能是当前频道");
+			return false;
+		}else{
+    		Cookies.set('moveChannelId', treeNode.id);
+		}
+	}
+    </script>
+</body>
+<!--  /Body -->
+</html>

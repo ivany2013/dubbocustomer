@@ -1,0 +1,27 @@
+<!--Basic基础 Styles-->
+			<link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/weather-icons.min.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="http://a.mysteelcdn.com/libs/article/assets/js/ueditor/ueditor_custom.css">
+	<link href="/assets/css/common.css" rel="stylesheet" type="text/css" />
+
+    <!--Mysteel styles-->
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/demo.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/skins/black.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link id="mysteel-link" href="/assets/css/mysteel.min.css" rel="stylesheet" type="text/css" />
+        <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/skins.min.js?v=02"></script>
+	<link href="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<link href="http://a.mysteelcdn.com/libs/article/assets/css/main.css" rel="stylesheet" type="text/css" />
+
+
+	<style >
+		.edui-default .edui-for-insertimage .edui-dialog-content {height: 250px !important;width: 450px !important;}
+		.tablelist td {text-align:center}
+		.tablelist th {text-align:center}
+    </style>

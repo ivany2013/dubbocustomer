@@ -1,0 +1,47 @@
+<table class="table table-striped table-hover table-bordered" id="syncArticleTable">
+    <thead>
+        <tr role="row">
+            <th width="5%">选择</th>
+            <th width="10%">同步ID</th>
+						#if($!{editorType} == 0)
+            <th width="10%">文章标题</th>
+						#else
+            <th width="10%">文章内容</th>
+						#end
+            <th width="10%">编辑人</th>
+            <th width="10%">同步时间</th>
+            <th width="10%">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+				#set($size = $result.list.size())
+				#if($size==0)
+		      <tr><td colspan="6" align="center">没有数据!</td></tr> 
+		    #else
+			
+			  #foreach($syncChannelArticle in ${result.list})
+        <tr id="$!syncChannelArticle.syncId" articleid="$!syncChannelArticle.targetArticleId" syncChannelid="$!syncChannelId" targetArticleId="$!{syncChannelArticle.targetArticleId}" >
+            <td><div class="checkbox"><label><input type="checkbox"><span class="text"></span></label></div></div></td>
+            <td>$!syncChannelArticle.masterArticleId</td>
+						#if($!{editorType} == 0) 
+						<td>$!{syncChannelArticle.title}</td>
+						#else
+						<td>$!{syncChannelArticle.content}</td>
+						#end
+						
+            <td>$!{syncChannelArticle.editorName}</td>
+            <td>$velocityTool.formatTime($!syncChannelArticle.syncTime,"yyyy/MM/dd HH:mm") </td>
+            <td>
+                <div class="buttons-preview">
+                    <a href="javascript:void(0);" onclick="mainjs.changemain(this)" id="queryArticleDetail" class="btn btn-link btn-xs">查看</a>
+                    <a href="javascript:void(0);" class="btn btn-link btn-xs single-delete-js">删除</a>
+                </div>
+            </td>
+        </tr>
+        #end
+				#end
+				
+    </tbody>
+</table>
+
+<div class="row DTTTFooter">#pageNation($result)</div>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor图片对话框</title>
+    <script type="text/javascript" src="../internal.js"></script>
+
+    <!-- jquery -->
+    <script type="text/javascript" src="../../third-party/jquery-1.10.2.min.js"></script>
+    <!--Basic基础 Styles-->
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/weather-icons.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" /> 
+    <!--Fonts-->
+    <!--  <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
+
+    <!--Mysteel styles-->
+    <link id="mysteel-link" href="../../../../../assets/css/mysteel.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/demo.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/skins/black.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../../../../assets/css/main.css" rel="stylesheet" type="text/css" />
+
+    <!-- image dialog -->
+    <link rel="stylesheet" href="image1.css" type="text/css" />
+</head>
+<body>
+<div class="well with-header" style="margin-bottom: 20px;">
+    <div class="header bordered-sky">上传图片</div>
+    <div class="labels-container">
+            <div id="remote" style="height: 300px;margin-bottom: 0;" class="panel focus">
+                <div class="top">
+                    <div class="row">
+                        <label for="url">文 件：</label>
+                        <span>
+                            <input id="upfile" type="file" style="display:none">
+                            <input id="fileCover" class="input-large" type="text" style="height:30px; width: 390px;">
+                            <a class="btn btn-primary margin-left-5" onclick="$('input[id=upfile]').click();">浏览</a>
+                            <a href="javascript:void(0);" id="loadfile" class="btn btn-primary">上传</a>
+                        </span>
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="row">
+                        <label>来 源：</label>
+                        <span><input class="text" type="text" id="source"/> </span>
+                    </div>
+                    <div class="row">
+                        <label>标 题：</label>
+                        <span><input class="text" type="text" id="title"/> </span>
+                    </div>
+                    <div class="row">
+                        <label>描 述：</label>
+                        <span><input class="text" type="text" id="alt"/></span>
+                    </div>
+                </div>
+                <div class="right"><div id="preview" style="height: 180px;"><img src="/manage/ueditor/net/upload/image/20170321/6362571958898226638236006.jpg" width="260" height="180" border="0px solid #000" title=""></div></div>
+
+            </div>
+
+    </div>
+
+</div>
+
+    <div class="image-footer" style="display: block;">
+        <div style="text-align:center; margin: 15px auto 0 auto;">
+            <button id="local-ok" type="button" class="tui-btn tui-btn-negative">确定1111111111111</button>
+            <button id="local-cancel" type="button" class="tui-btn" style="margin-left: 20px;">取消111111111111111</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+(function() {
+    var cancel = document.getElementById('local-cancel');
+    var ok = document.getElementById('local-ok');
+    cancel.addEventListener('click', function(event) {
+    	alert(1);
+        dialog.close();
+    });
+    ok.addEventListener('click', function(event) {
+        upimg();
+        alert(1);
+        dialog.close();
+    }); 
+    $('input[id=lefile]').change(function() {
+        $('#photoCover').val($(this).val());
+    });
+    $('input[id=upfile]').change(function() {
+        $('#fileCover').val($(this).val());
+    });
+    var upimg = function(){
+        var thisHtml = $("#preview img");
+        thisHtml.attr({
+            source: $("#source").val(),
+            title: $("#title").val(),
+            alt: $("#alt").val()
+        });
+
+        console.log(thisHtml);
+        editor.execCommand( 'inserthtml', $("#preview").html());
+    }
+})();
+    alert(1);
+    </script>
+</body>
+</html>
+

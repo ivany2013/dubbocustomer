@@ -1,0 +1,35 @@
+ <!--Basic Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/bootstrap.min.js"></script>
+
+    <!--Mysteel Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/mysteel.min.js"></script>
+<!--     <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery-1.4.4.min.js"></script> -->
+    <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery.ztree.all.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/validation/bootstrapValidator.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/moment.js"></script>
+    <script src="/assets/js/datetime/daterangepicker.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datepicker.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/bootbox/bootbox.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/main.js"></script>
+	<!--
+	<script src="https://cdn.bootcss.com/vue/2.2.6/vue.js"></script>
+	-->
+	<script src="/assets/js/treeTool.js"></script>
+	<script src="/assets/js/pagination.js"></script>
+	<script src="/assets/js/js.cookie.js"></script>
+	<script src="/assets/js/ajaxfileupload.js"></script>
+	<script src="/assets/js/vue.min.js"></script>
+	<script src="/assets/js/datetime/moment.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://a.mysteelcdn.com/libs/jquery.cookie.min.js"></script>
+	<script src="/assets/js/mySteelZtree_nr.js"></script>
+	<script src="/assets/js/msgUtil.js"></script>
+	<script src="/assets/js/check.js"></script>
+	<script src="/assets/js/loading.js"></script>
+ <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/bootstrap.min.js"></script>
+ 

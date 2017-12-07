@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    #parse("/inc/header.vm")
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Page Body -->
+    <div class="page-body" style="padding: 0 15px;">
+        <h6>当前所选编辑员</h6>
+        <div id="currentEditors" style="overflow: hidden;margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px dashed #ccc">
+            
+        </div>
+        <div style="overflow: hidden;padding-bottom: 10px;border-bottom: 1px dashed #ccc" class="row inputrow">
+            <div class="col-xs-5">
+                <div style="width: 35%;float: left;line-height: 34px;text-align: right;">所在部门： </div>
+                <input style="width: 65%;float: left;" type="text" placeholder="部门名称" class="form-control department">
+            </div>
+            <div class="col-xs-5">
+                <div style="width: 35%;float: left;line-height: 34px;text-align: right;">管理员： </div>
+                <input style="width: 65%;float: left;" type="text" placeholder="管理名称" class="form-control admin">
+            </div>
+            <div class="col-xs-2">
+                <button type="button" class="btn btn-primary searchBtn">搜索</button>
+            </div>
+        </div>
+        <ul id="adminTree" class="ztree grouptree"></ul>
+    </div>
+    #parse("/inc/footer.vm")
+	<script src="/assets/js/page/channel/adminZtree.js"></script>
+	<script src="/assets/js/page/channel/editor.js"></script>
+</body>
+<!--  /Body -->
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/js/ueditor/themes/iframe.css" rel="stylesheet" type="text/css" ></script>
+    #parse("/inc/header.vm")
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+	
+<div class="well">
+<input type="hidden" name="toChannelAllName" value="$!{toChannelAllName}" id="toChannelAllName" >
+<input type="hidden" name="fromChannelAllName" value="$!{fromChannelAllName}" id="fromChannelAllName" >
+<input type="hidden" name="syncChannelId" value="$!{syncChannelId}" id="syncChannelId" >
+<input type="hidden" name="fromChannelId" id="fromChannelId" value="$!{fromChannelId}">  
+<input type="hidden" name="fromWebsiteId" id="fromWebsiteId" value="$!{fromWebsiteId}">
+<table class="table table-striped table-hover table-bordered" id="editabledatatable">
+    <tbody>
+        <tr>
+            <td align="center" width="15%">文章预览</td>
+            <td width="85%">
+                <div class="content" id="text" style="max-height: none;">
+									#if($!{article.articleContent.contentType} == 0)
+									$!{article.articleContent.content}
+									#else
+									<div class="hidden" id="pdfContext">$!{imgBaseUrl}/$!{article.articleContent.pdfUrl}</div>
+									<div id="pdfEdit">
+										<div>
+                      <button id="prev">上一页</button>
+                      <button id="next">下一页</button>
+                      &nbsp; &nbsp;
+                      <span>页数: <span id="page_num"></span> / <span id="page_count"></span></span>
+                    </div>
+												<canvas id="the-canvas" style="border:1px solid black;"/>
+									</div>
+									#end		
+                </div>
+            </td>
+        </tr>
+        <tr syncchannelid="$!{syncChannelId}" articleid="$!{article.id}">
+            <td align="center">操作</td>
+            <td><a class="btn btn-primary single-delete-detail-js" href="javascript:void(0);"> 删除文章</a> <a class="btn btn-primary"  id="backArticleList"> 返回</a></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+	  #parse("/inc/footer.vm")
+		<script src="/assets/js/pdf.js"></script>
+		<script src="/assets/js/pdf.worker.js"></script>
+		<script src="/assets/js/PDFTool.js"></script>
+		<script src="/assets/js/page/sync/syncChannelArticle.js"></script> 
+		
+</body>
+<!--  /Body -->
+</html>

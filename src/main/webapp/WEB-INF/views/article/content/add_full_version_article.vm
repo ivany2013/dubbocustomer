@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+	#parse("/inc/css.vm")	
+    <style>
+	.form-control_1{
+        display: inline-block;
+        height:34px;
+        line-height: 34px;
+    }
+    .modal-footer {text-align: center;}
+    .modal-footer button{margin: 0 5px;}
+	  table td{ vertical-align:middle !important;}
+	 .daterangepicker  select{padding: 5px 0;}
+    table td{ vertical-align:middle !important;}
+    .text_field1 {padding-left: 0;}
+    .text_field1 li {float: left;list-style: none;}
+	.modal-inverse1 {width:700px;margin:0 auto;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body >
+    <!-- Page Body -->
+    <div class="page-body" id="app">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+                <li class="active">
+                    <a  href="#home9">
+                        文章管理
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="home9" class="tab-pane in active">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                            <div class="well with-header">
+                                <div class="header">${currWebsite.name}-${channelName}-新增文章</div>
+                                <div class="row">
+                                    <form id="registrationForm" method="post" class="form-horizontal" data-bv-message="输入错误，请重新输入">
+                                    <table class="table table-striped table-bordered table-hover bigtable">
+                                        <tbody>
+											
+                                            <tr>
+                                                <td class="odd text-center">文章类型</td>
+                                                <td colspan="3">
+                                                    <div id="article_bt" class="control-group">
+                                                        <div class="radio pull-left" >
+                                                            <label>
+                                                                <input name="form-field-radio1" type="radio" checked="checked" v-model="canOriginal" value="0">
+                                                                <span class="text">原创版 </span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio pull-left" >
+                                                            <label>
+                                                                <input name="form-field-radio1" type="radio" v-model="canOriginal" value="1">
+                                                                <span class="text">转摘版</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                              
+                                            <tr>
+                                                <td class="odd text-center">文章标题<span class="red">*</span></td>
+                                                <td colspan="3">
+                                                    <ul class="text_field1" id="article_style">
+														<li>
+															<div class="form-group margin-right-10">
+                                                            <input id="article_title" v-model="title" type="text"  class="form-control" name="title"
+                                                               data-bv-notempty="true" data-bv-notempty-message="文章标题不能为空"
+															   data-bv-stringlength="true"
+															   data-bv-stringlength-min="6" data-bv-stringlength-max="30"
+															   data-bv-stringlength-message="文章标题至少大于6个字并且小于30个字"
+                                                               required
+                                                               />
+                                                            </div>
+														</li>
+                                                        <li>
+                                                            <select id="titleColor" size="1" name="article.titleColor" v-model="titleColor">
+																<option value="#000000" style="color:#000000" selected="">■■■■</option>
+                                                                <option value="#FF0000" style="color:#FF0000">■■■■</option>
+                                                                <option value="#FFCC00" style="color:#FFCC00">■■■■</option>
+                                                                <option value="#0000FF" style="color:#0000FF">■■■■</option>
+                                                            </select>
+                                                        </li>
+                                                        <li><div class="control-group">
+                                                                <div class="checkbox pull-left"><label><input type="checkbox" v-model="titleBold" v-bind:true-value="1" v-bind:false-value="0"><span class="text">加粗 </span></label>
+                                                                </div>
+                                                                <div class="checkbox pull-left"><label><input type="checkbox" v-model="titleItalic" v-bind:true-value="1" v-bind:false-value="0"><span class="text">斜体 </span></label>
+                                                                </div>
+                                                                <div class="checkbox pull-left"><label><input type="checkbox" v-model="titleUnderline" v-bind:true-value="1" v-bind:false-value="0"><span class="text">下划线</span></label>
+                                                                </div>
+                                                            </div></li>
+                                                    </ul>
+                                                </td>
+												
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">一稿多投</td>
+                                                <td colspan="3">
+                                                    <div id="article_ygdt" class="control-group form-group">
+														#set($ygdtSize=$ygdt.size())
+														#if($ygdtSize==0)
+															<div id="article_pzdz" class="control-group">
+																请先到<a href="/userCustom/toPage">定制管理</a>中新增频道
+															</div>
+														#else
+															#foreach($obj in $ygdt)
+																#if($obj.itemId!=$!channelId)
+    															<div class="checkbox pull-left"><label>
+																		<input v-model="channelList" name="channelList" type="checkbox" customId="$!obj.id" channelId="$!obj.itemId" channelName="$!obj.itemName" value="$!obj.itemId$velocityTool.getUserCustom('频道')$!admin.adminId" ><span class="text">$!obj.itemName</span></label>
+                                                            	</div>
+																#else
+																	#if($ygdtSize==1)
+            															<div id="article_pzdz" class="control-group">
+            																请先到<a href="/userCustom/toPage">定制管理</a>中新增频道
+            															</div>
+            														#end
+																#end
+															#end
+														#end	
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">关联品种<span class="red">*</span></td>
+                                                <td colspan="3">
+                                                    <div id="article_glpz" name="article_glpz" class="control-group form-group">
+														#set($breedSize=$breeds.size())
+														#if($breedSize==0)
+																请先到<a href="/userCustom/toPage">定制管理</a>中新增品种
+														#else
+															#foreach($obj in $breeds)
+    															<div class="checkbox pull-left"><label>
+																		<input v-model="breedList"  data-bv-notempty="true" data-bv-notempty-message="请选择品种" breedId="$!obj.itemId" name="breedList" type="checkbox" value="$!obj.itemId$velocityTool.getUserCustom('品种')$!admin.adminId" customId="$!obj.id"  breedName="$!obj.itemName"><span class="text">$!obj.itemName</span></label>
+                                                            	</div>
+															#end
+														#end	
+                                                    </div>
+                                                </td>
+                                            </tr>
+											
+                                            <tr>
+                                                <td class="odd text-center">关联城市</td>
+                                                <td colspan="3">
+                                                    <div id="article_glcs" class="control-group">
+														#set($citySize=$citys.size())
+														#if($citySize==0)
+																请先到<a href="/userCustom/toPage">定制管理</a>中新增品种
+														#else
+															#foreach($obj in $citys)
+    															<div class="checkbox pull-left"><label>
+																		<input v-model="cityList" name="cityList" cityId="$!obj.itemId" type="checkbox" value="$!obj.itemId$velocityTool.getUserCustom('城市')$!admin.adminId" customId="$!obj.id" cityName="$!obj.itemName"><span class="text">$!obj.itemName</span></label>
+                                                            	</div>
+															#end
+														#end		
+													</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">关联钢厂</td>
+                                                <td colspan="3">
+                                                    <div id="article_glgc" class="control-group">
+															#set($factorySize=$factorys.size())
+    														#if($factorySize==0)
+    																请先到<a href="/userCustom/toPage">定制管理</a>中新增钢厂
+    														#else
+    															#foreach($obj in $factorys)
+        															<div class="checkbox pull-left"><label>
+																			<input v-model="factoryList" name="factoryList" factoryId="$!obj.itemId" type="checkbox" value="$!obj.itemId$velocityTool.getUserCustom('钢厂')$!admin.adminId" customId="$!obj.id" factoryName="$!obj.itemName"><span class="text">$!obj.itemName</span></label>
+                                                                	</div>
+    															#end
+    														#end	
+													</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">关联港口</td>
+                                                <td colspan="3">
+                                                    <div id="article_glgk" class="control-group">
+															#set($portSize=$ports.size())
+    														#if($portSize==0)
+    																请先到<a href="/userCustom/toPage">定制管理</a>中新增港口
+    														#else
+    															#foreach($obj in $ports)
+        															<div class="checkbox pull-left"><label>
+																			<input v-model="portList" name="portList" portId="$!obj.itemId" type="checkbox" value="$!obj.itemId$velocityTool.getUserCustom('港口')$!admin.adminId" customId="$!obj.id" portName="$!obj.itemName"/><span class="text">$!obj.itemName</span></label>
+                                                                	</div>
+    															#end
+    														#end	
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center col-xs-2">是否置顶</td>
+                                                <td class="col-xs-4">
+                                                    <div id="article_sfzd" class="control-group">
+                                                        <div class="radio pull-left">
+                                                            <label>
+                                                                <input name="sfzd" type="radio" checked="checked" v-model="toped" value="0">
+                                                                <span class="text">否 </span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio pull-left">
+                                                            <label>
+                                                                <input name="sfzd" type="radio" v-model="toped" value="1">
+                                                                <span class="text">是</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="odd text-center col-xs-2">推荐程度</td>
+                                                <td class="col-xs-4"><select id="article_tjcd" v-model="importLevel">
+                                                      <option value="0">普通</option>
+                                                      <option value="1">一级</option>
+                                                      <option value="2">二级</option>
+                                                      <option value="3">三级</option>
+                                                      <option value="4">四级</option>
+                                                      <option value="5">五级</option>
+                                                    </select>
+                                                </td>
+												
+                                            </tr>
+											
+                                            <tr>
+                                                <td class="odd text-center">标签</td>
+                                                <td>
+                                                    <div class="control-group">
+                                                        <input id="article_bq" class="form-control" type="text" v-model="label">
+                                                    </div>
+                                                </td>
+                                                <td class="odd text-center">显示时间</td>
+                                                <td>
+                                                    <div class="control-group">
+                                                        <input id="article_sssj" class="form-control" type="text " >
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">信息来源</td>
+                                                <td>
+                                                    <div class="control-group">
+                                                        <input id="article_xxly" class="form-control" placeholder="$!currWebsite.name" type="text" >
+                                                    </div>
+                                                </td>
+                                                <td class="odd text-center">文章作者</td>
+                                                <td>
+                                                    <div class="control-group">
+                                                        <input id="article_wzzz" class="form-control" placeholder="$!admin.name" type="text" >
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">关键字<span class="red">*</span></td>
+                                                <td colspan="3">
+                                                    <div class="row" id="article_kw" >
+														<div class="col-xs-2 form-group">
+                                                            <input type="text" class="form-control" name="关键词1" v-model="kw1"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="关键字不能为空" />
+                                                        </div>
+                                                        <div class="col-xs-2 form-group">
+                                                            <input type="text" class="form-control" name="关键词2" v-model="kw2"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="关键字不能为空" />
+                                                        </div>
+                                                        <div class="col-xs-2 form-group">
+                                                            <input type="text" class="form-control" name="关键词3" v-model="kw3"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="关键字不能为空" />
+                                                        </div>
+                                                        <div class="col-xs-2 form-group">
+                                                            <input type="text" class="form-control" name="关键词4" v-model="kw4"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="关键字不能为空" />
+                                                        </div>
+                                                        <div class="col-xs-2 form-group">
+                                                            <input type="text" class="form-control" name="关键词5" v-model="kw5"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="关键字不能为空" />
+                                                        </div>
+                                                        <div class="col-xs-2 form-group">
+                                                            <input type="text" class="form-control" name="关键词6" v-model="kw6"
+                                                               data-bv-notempty="true"
+                                                               data-bv-notempty-message="关键字不能为空" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">文章内容</td>
+                                                <td colspan="3">
+                                                    <div class="stage">
+                                                        <div id="pagelet-write" class="pagelet-write ueEditor" >
+                                                            <div class="edit-wrap" >
+                                                                <script type="text/plain" id="editor" style="width: 100%;" ></script>
+                                                                <div class="con-split"></div>
+                                                            </div>
+                                                        </div>
+														<div id="pdfEdit" style="display:none">
+    													<div>
+                                                              <button id="prev">Previous</button>
+                                                              <button id="next">Next</button>
+                                                              &nbsp; &nbsp;
+                                                              <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+                                                            </div>
+        													<canvas id="the-canvas" style="border:1px solid black;"/>
+														</div>	
+                                                        <input id="upfile" name="upfile" type="file" style="display:none">
+															<input id="pdfFileId"  type="hidden">
+                                                        <div class="input-append col-xs-12 padding-10">
+                                                            <input v-if="pdfVisible==false"  id="fileCover" class="input-large col-xs-6" type="text" style="height:30px;" value="未选择任何文件">
+                                                            <a v-if="pdfVisible==false" class="btn btn-primary margin-left-5" onclick="$('input[id=upfile]').click();">浏览</a>
+                                                            <a v-if="pdfVisible==false" href="javascript:void(0);" id="loadfile" class="btn btn-primary" @click="pdfUpload" >上传文章</a>
+                                                            <a v-if="pdfVisible==true" href="javascript:void(0);" class="btn btn-primary reset_push " id="reset_pdf">重置</a>
+															<br/>
+                                                        </div>
+                                                    </div>
+													</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">版权说明</td>
+                                                <td colspan="3">
+                                                    <textarea id="article_bqsm" disabled="disabled" placeholder="" class="form-control" rows="2" v-model="bqsm">内容来自说明设置-我的钢铁网-原创版版权说明</textarea>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">免责说明</td>
+                                                <td colspan="3"><textarea id="article_mzsm" disabled="disabled" placeholder="" class="form-control" rows="2" v-model="escapeClause">内容来自说明设置-我的钢铁网-免责说明</textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">责任编辑</td>
+                                                <td colspan="3"><textarea id="article_zrbj" disabled="disabled" placeholder="" class="form-control" rows="2">陈志侃</textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">资讯监督</td>
+                                                <td colspan="3"><textarea id="article_zxjd" disabled="disabled" placeholder="" class="form-control" rows="2">陈志侃</textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">是否选择大模板</td>
+                                                <td>
+                                                    <div id="article_moban" class="control-group">
+                                                        <div class="radio pull-left">
+                                                            <label>
+                                                                <input type="radio" name="inverted1" checked="checked" v-model="bigTemplated" value="0">
+                                                                <span class="text">否 </span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio pull-left">
+                                                            <label>
+                                                                <input type="radio" name="inverted1" v-model="bigTemplated" value="1">
+                                                                <span class="text">是</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="odd text-center">评论选项</td>
+                                                <td>
+                                                    <div id="article_moban" class="control-group">
+                                                        <div class="radio pull-left">
+                                                            <label>
+                                                                <input type="radio" name="inverted2" checked="checked" v-model="denyReview" value="0">
+                                                                <span class="text">允许评论 </span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="radio pull-left">
+                                                            <label>
+                                                                <input type="radio" name="inverted2" v-model="denyReview" value="1">
+                                                                <span class="text">禁止评论</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" id="odd" class="odd text-center" style="cursor: pointer;">更多选项<i class="fa fa-angle-double-down margin-left-20 ico_down"></i> <i class="fa fa-angle-double-up margin-left-20 ico_up" style="display:none;"></i></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-striped table-bordered table-hover bigtable add-more" shwoData="0" style="display:none;">
+                                        <tbody>
+                                            <tr>
+                                                <td class="odd text-center col-xs-2">副标题</td>
+                                                <td colspan="3" class="col-xs-10"><input id="article_fbt" class="form-control" placeholder="副标题" type="text" v-model="subTitle"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">短标题</td>
+                                                <td colspan="3"><input id="article_dbt" class="form-control" placeholder="短标题" type="text" v-model="shortTitle"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">标题图片</td>
+                                                <td colspan="3"><!-- <input id="article_bttp" type="file" value=""> -->
+                                                    <input id="upimg" name="upfile" type="file" style="display:none" >
+													<input id="titlePic" type="hidden" v-model="titlePic" style="display:none" >
+                                                    <div class="input-append col-xs-12 padding-10">
+														<input type="hidden" class=""/>	
+														<span id="imgStatus"></span>
+                                                        <input v-if="upimgVisable==false" id="fileimg" class="input-large col-xs-6" type="text" style="height:30px;" value="未选择任何文件">
+                                                        <a v-if="upimgVisable==false" class="btn btn-primary margin-left-5" onclick="$('input[id=upimg]').click();">浏览</a>
+														<a v-if="upimgVisable==false" class="btn btn-primary margin-left-5" @click="upload('upimg')">上传图片</a>
+														<a v-if="upimgVisable==true" class="btn btn-primary margin-left-5 reset_push2" >重置</a>
+														<br/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">文章摘要</td>
+                                                <td colspan="3"><textarea id="article_wzzy" class="form-control" rows="3" v-model="summary"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">编者按</td>
+                                                <td colspan="3"><textarea id="article_bza" class="form-control" rows="3" v-model="editorNote"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">外部链接地址</td>
+                                                <td colspan="3"><input id="article_wblj" type="text" class="form-control_1 col-xs-5" v-model="outletUrl"><span style="line-height:34px;color:#666">如果是上传的文件，请在最前面加上http://img02.mysteelcdn.com/</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">显示产品终端</td>
+                                                <td colspan="3">
+                                                    <div id="article_xscpzd" class="control-group">
+														#set($webSitesSize=$webSites.size())
+														#if($webSitesSize==0)
+															占无站点信息
+														#else	
+    														#foreach($obj in $webSites)
+																 <div class="checkbox pull-left"><label><input type="checkbox" name="limitTerminal"  id="$!obj.id" value="$obj.name"><span class="text">$obj.name</span></label></div>
+    														#end
+														#end	
+													</div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="odd text-center">上传附件</td>
+                                                <td colspan="3">
+                                                    <input id="lefile" name="upfile" type="file" style="display:none">
+													<input type="hidden" v-model="attachment">
+                                                    <div class="input-append">
+														<span id="attachmentStatus"></span>
+                                                        <input v-if="lefileVisable==false" id="photoCover" class="input-large" type="text" style="height:30px;" value="未选择任何文件">
+														<a v-if="lefileVisable==false" class="btn btn-primary" onclick="$('input[id=lefile]').click();">浏览</a>
+                                                        <a v-if="lefileVisable==false" href="javascript:void(0);" class="btn btn-primary" v-on:click="upload('lefile')">上传附件</a>
+														<a v-if="lefileVisable==true" href="javascript:void(0);" class="btn btn-primary reset_push1">重置</a>
+														<br/>
+													</div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                     </table>
+                                     <table class="table table-striped table-bordered table-hover bigtable">
+                                        <tbody>
+                                            <tr>
+                                                <td class="odd text-center col-xs-2">操作</td>
+                                                <td class="col-xs-10" colspan="3">
+                                                    <div class="buttons-preview">
+                                                        <a href="javascript:void(0);" class="btn btn-blue">预览文章</a>
+                                                        <button   class="btn btn-primary addOper" v-on:click.stop.prevent="saveArticle" >保存文章</button>
+                                                        <a href="javascript:void(0);" class="btn btn-primary addOper" v-on:click.stop.prevent="publishArticle" >发布文章</a>
+                                                        <a href="javascript:void(0);" id="dsfb" class="btn btn-primary addOper" >定时发布</a>
+                                                        <a href="javascript:void(0);" onclick="window.history.go(-1)" class="btn btn-primary">取消返回</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                     </table>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="pingdao/moban.html"></iframe>
+        </div>
+    </script>
+
+    <script id="dsfbModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 150px;background-color:#fbfbfb" src="/article/toTimePublish"></iframe>
+        </div>
+    </script>
+
+	
+    #parse("/inc/js.vm")
+    <script type="text/javascript" charset="utf-8" src="/assets/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/assets/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/assets/js/myueditor.js"></script>
+	<script src="/assets/js/pdf.js"></script>
+	<script src="/assets/js/pdf.worker.js"></script>
+	<script src="/assets/js/PDFTool.js"></script>
+	<script src="/assets/js/page/content/contentCommand.js"></script>
+	<script src="/assets/js/page/content/mixin.js"></script>
+    <script type="text/javascript">
+    bootbox.setDefaults({
+        locale: "zh_CN",
+    })
+    $(function(){
+		//默认选中全部产品终端
+		$("input[name='limitTerminal']").prop("checked",true);
+	
+		$("#registrationForm").bootstrapValidator({
+    	});
+		
+		//读取版权说明
+		$("#article_bqsm").val();
+		//免责说明
+		$("#article_mzsm").val();
+		
+		$('#article_sssj').val(new moment().format('YYYY/MM/DD HH:mm'));
+		article=articleTime=new moment($("#article_sssj").val(),"YYYY/MM/DD HH:mm").format("x");
+
+		
+		 $("body").delegate('#odd',"click",function(){
+            if($('.add-more').attr('showData')=="1"){
+                $(this).find('.ico_up').hide().siblings('.ico_down').show();
+                $('.add-more').hide();
+                $('.add-more').attr('showData','0')
+            }else{
+                $(this).find('.ico_down').hide().siblings('.ico_up').show();
+                $('.add-more').show();
+                $('.add-more').attr('showData','1')
+            }
+        })
+		
+		$("body").delegate('.reset_push','click',function(){
+		
+		
+        bootbox.confirm("确认重置已上传文章？", function (result) {
+            if (result) {
+				vm.resetPdf();
+            }
+            });
+        })
+	
+		$("body").delegate('.reset_push1','click',function(){
+        bootbox.confirm("确认重置已上传附件？", function (result) {
+            if (result) {
+				vm.attachment="";
+				$("#lefile").val("");
+				$("#attachmentStatus").text("");
+				$("#photoCover").val("");
+				vm.lefileVisable=false;
+            }
+            });
+        })
+	$("body").delegate('.reset_push2','click',function(){
+        bootbox.confirm("确认重置已上传标题图片？", function (result) {
+            if (result) {
+				vm.titlePic="";
+				$("#fileimg").val("");
+				$("#imgStatus").text("");
+				vm.upimgVisable=false;
+            }
+        });
+    })
+    //window.UEDITOR_HOME_URL = 'http://192.168.20.123:8085/';
+        $("#bootbox-options,#bootbox-options2").on('click', function () {
+            bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "选择模板",
+                lage:true,
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { }
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("#addEdite").on('click', function () {
+            bootbox.dialog({
+                message: $("#addEditeModal").html(),
+                title: "选择模板",
+                lage:true,
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { }
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("#sflx").on('click', function () {
+            bootbox.dialog({
+                message: $("#sflxModal").html(),
+                title: "选择模板",
+                lage:true,
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { }
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("#titleColor").on('change', function () {
+            var color = $(this).val();
+            $(this).css({color:color});
+        });
+
+        $("#submit").on("click",function(){
+            //mainjs.changeLevel();
+            window.history.go(-1)
+        })
+        $("#return").on("click",function(){
+            //mainjs.changeLevel();
+            window.history.go(-1)
+        })
+        $("#dsfb").on("click",function(){
+            bootbox.dialog({
+                message: $("#dsfbModal").html(),
+                title: "定时发布",
+                className: "modal-inverse1",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () {
+							var flag=Cookies.get("timePublishError");
+							if(flag=="true"){
+    							vm.publisTimeArticle();
+							}else{
+								return false;
+							}
+						}
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        })
+
+        $("body").on("click",".showcy .btn-default",function(){
+            $(this).parents(".showcy").remove();
+        })
+        //文件上传
+        $("body").delegate("input[id=lefile]","change",function(){
+			 $('#photoCover').val($(this).val());
+		})
+		
+		$("body").delegate("input[id=upfile]","change",function(){
+			 $('#fileCover').val($(this).val());
+		})
+		
+		$("body").delegate("input[id=upimg]","change",function(){
+			 $('#fileimg').val($(this).val());
+		})
+
+		var startTime=new moment().format("YYYY/MM/DD HH:mm");
+		 $('#article_sssj').daterangepicker({
+           format : 'YYYY/MM/DD HH:mm',
+		   startDate:startTime,
+            timePicker: true,
+			timePicker12Hour: false,
+            singleDatePicker: true,
+            showDropdowns: true,
+			timePickerIncrement:1,
+			locale: {
+              applyLabel: '确定',
+              cancelLabel: '取消',
+          },
+        },function(start){
+			$('#article_sssj').val(start.format('YYYY/MM/DD HH:mm'));
+			clearInterval(refresh);
+		});
+		
+    var markeID = document.getElementsByName("id"), MAR_ARTI_ID;
+    if(markeID != null && markeID.length > 0){MAR_ARTI_ID = markeID[0].content;}
+    else{MAR_ARTI_ID=""}
+
+    })
+    
+	$("body").delegate(".download","click",function(e){
+		var fileId=$(e.target).attr("fileId");
+		var fileName=$(e.target).text();
+		window.location.href="/article/down?fileId="+fileId+"&fileName="+fileName;
+	})
+    </script>
+	<script>
+		//文章显示时间
+		var articleTime=0;
+		var vm=new Vue({
+			mixins:[inputMixin],
+			el:"#app",
+			data:{
+				websiteId:$!websiteId,
+				channelId:$!channelId,
+				canOriginal:0,
+				titleColor:"#000000",
+				title:"",
+				titleBold:0,
+                titleItalic:0,
+                titleUnderline:0,
+				toped:0,
+                importLevel:0,
+                label:"",
+				denyReview:0,
+                bigTemplated:0,
+                subTitle:"",
+				shortTitle:"",
+				summary:"",
+                editorNote:"",
+                outletUrl:"",
+                attachment:"",
+				attachmentName:"",
+				articleTime:0,
+				editorName:"$!admin.name",
+				editorId:$!admin.adminId,
+				titlePic:"",
+				kw1:"",
+				kw2:"",
+				kw3:"",
+				kw4:"",
+				kw5:"",
+				kw6:"",
+				channelList:[],
+				breedList:[],
+				portList:[],
+				factoryList:[],
+				cityList:[],
+				pdfUrl:"",
+				contentType:"0",
+				lefileVisable:false,
+				upimgVisable:false,
+				pdfVisible:false,
+				copyright:"",
+				articleReprint:"",
+				escapeClause:""
+			},
+			methods:{
+				//保存文章
+				saveArticle:function(event){
+					if(!this.checkForm()){
+						return false;
+					}
+					$(".addOper").attr("disabled","true");
+					//保存文章，没有发布时间和发布人
+					var request=this.getParam();
+					request.status=1;
+					$.ajax({
+						type:"POST",
+						url:"/article/addArticle",
+						data:JSON.stringify(request),
+						dataType:"json",  
+    					contentType : 'application/json;charset=utf-8', //设置请求头信息  
+						success:function(data){
+							$(".addOper").removeAttr("disabled");
+							if(data.status=="200"){
+								$.msg("保存成功");	
+								history.go(-1);
+							}else{
+								$.err("保存失败");		
+							}
+						}
+					})
+				},
+				//发布文章
+				publishArticle:function(){
+					if(!this.checkForm()){
+						return false;
+					}
+					$(".addOper").attr("disabled","true");
+					//发布文章需要发布时间和发布人
+					var param=this.getParam();
+					//发布文章 发布人是当前人
+					param.publisherId=$!admin.adminId;
+					param.publishTime=new moment().format("x");
+					param.publisherName="$!admin.name";
+					param.status=0;
+					$.ajax({
+						type:"POST",
+						url:"/article/addArticle",
+						data:JSON.stringify(param),
+						dataType:"json",  
+    					contentType : 'application/json;charset=utf-8', //设置请求头信息  
+						success:function(data){
+							$(".addOper").removeAttr("disabled");
+							if(data.status=="200"){
+								$.msg("发布成功");		
+								history.go(-1);
+							}else{
+								$.err("发布失败");		
+							}
+						}
+					})
+				},
+				//定时发布
+				publisTimeArticle:function(){
+					if(!this.checkForm()){
+						return false;
+					}
+					$(".addOper").attr("disabled","true");
+					//定时发布需要发布时间和发布人
+					var param=this.getParam();
+					param.publisherId=$!admin.adminId;
+					param.publishTime=Cookies.get("dsTime");
+					param.articleTime=Cookies.get("dsTime");
+					param.publisherName="$!admin.name";
+					param.status=2;
+					$.ajax({
+						type:"POST",
+						url:"/article/addArticle",
+						data:JSON.stringify(param),
+						dataType:"json",  
+    					contentType : 'application/json;charset=utf-8', //设置请求头信息  
+						success:function(data){
+							$(".addOper").removeAttr("disabled");
+							if(data.status=="200"){
+								$.msg("定时发布成功");	
+								history.go(-1);
+							}else{
+								$.err("定时发布失败");		
+							}
+						}
+					})
+				},
+				getAuthor:function(){
+        			var author=$("#article_wzzz").val().trim();
+        			if(this.canOriginal==0){
+        				if(author==""){
+        					author="$!admin.name";		
+        				}
+        			}
+        			return author;
+        		},
+				getSource:function(){
+        			var source=$("#article_xxly").val().trim();
+        			if(this.canOriginal==0){
+        				if(source==""){
+        					source="$!currWebsite.name"	
+        				}
+        			}
+        			return source;
+        		},
+				getParam(){
+					var param={};
+					param.channelId=this.channelId;
+					param.websiteId=this.websiteId;
+					param.sourceType="1";
+					param.contentTemplate="0";
+					param.title=this.title;
+					param.canOriginal=this.canOriginal;
+        			param.titleColor=this.titleColor;
+        			param.titleBold=this.titleBold;
+                    param.titleItalic=this.titleItalic;
+                    param.titleUnderline=this.titleUnderline;
+					param.toped=this.toped;
+                    param.importLevel=this.importLevel;
+					param.label=this.label;
+					param.outletUrl=this.outletUrl;
+                    param.limitTerminal=this.getLimitTerminal();
+					param.articleTime=this.getArticleTime();
+
+					param.publisherId="";
+					param.publishTime="";
+					param.publisherName="";
+					
+					
+					param.editorId=this.editorId;
+					param.lastEditorId=this.editorId;
+					param.editorName=this.editorName;
+					
+					var currTime=new moment().format("x");
+					param.editTime=currTime;
+					param.lastEditTime=currTime;
+					
+					var articleContent={};
+                    articleContent.subTitle=this.subTitle;
+        			articleContent.shortTitle=this.shortTitle;
+					articleContent.author=this.getAuthor();
+					articleContent.source=this.getSource();
+					articleContent.keywords=this.keywords;
+        			articleContent.summary=this.summary;
+                    articleContent.editorNote=this.editorNote;
+					articleContent.content=ue.getContent();
+                    articleContent.bigTemplated=this.bigTemplated;
+        			articleContent.denyReview=this.denyReview;
+                    articleContent.attachment=this.attachment;
+					articleContent.attachmentName=this.attachmentName;
+					articleContent.titlePic=this.titlePic;
+					
+					articleContent.pdfUrl=this.pdfUrl;
+					articleContent.contentType=this.contentType;
+					
+					
+					param.articleContent=articleContent;
+					param.portList=this.getPortList();
+					param.factoryList=this.getFactoryList();
+					param.cityList=this.getCityList();
+					param.channelList=this.getChannelList();
+					param.breedList=this.getBreedList();
+					
+					
+					
+					
+					console.log(param);
+					return param;
+				}
+			},
+			mounted:function(){
+				this.queryNotice();
+			}	
+		})
+		   var refresh= setInterval("accessTimeRefresh()",10000);//1000为1秒钟
+			function accessTimeRefresh(){
+				$("#article_sssj").val(new moment().format("YYYY/MM/DD HH:mm"));
+			}
+			
+			$("body").delegate("input[name='form-field-radio1']","change",function(){
+				if(vm.canOriginal==0){
+					$("#article_xxly").attr("placeholder","$!currWebsite.name");
+					$("#article_wzzz").attr("placeholder","$!admin.name");
+				}else{
+					$("#article_xxly").attr("placeholder","");
+					$("#article_wzzz").attr("placeholder","");
+				}
+			})
+			
+			
+	</script>
+</body>
+<!--  /Body -->
+</html>

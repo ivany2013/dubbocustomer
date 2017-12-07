@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+
+    <!--Basic基础 Styles-->
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/weather-icons.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+
+     <link type="text/css" rel="stylesheet" href="../../assets/js/ueditor/ueditor_custom.css">
+
+    <!--Fonts-->
+    <!--  <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
+
+    <!--Mysteel styles-->
+    <link id="mysteel-link" href="../../assets/css/mysteel.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/demo.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/animate.min.css" rel="stylesheet" />
+    <link id="skin-link" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/skins/black.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/article/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="../../assets/css/main1.css" rel="stylesheet" type="text/css" />
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="../../assets/js/skins.min.js?v=02"></script>
+    <style>
+
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body comments">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <div class="well with-header">
+                    <div class="header">钢联数据-一级频道3-新增文章</div>
+                    <div class="row">
+                        <form id="defaultForm" class="form-horizontal form-bordered bv-form" role="form" novalidate="novalidate">
+                        <table class="table table-striped table-bordered table-hover bigtable">
+                            <tbody>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">期名</span></td>
+                                    <td colspan="3">
+                                        <div class="control-group form-group col-xs-6">
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">数据日期</span></td>
+                                    <td colspan="3">
+                                        <div class="control-group form-group col-xs-4">
+                                            <input class="t_form_style col-xs-12 date1" type="text ">
+                                            <i class="fa fa-calendar  t_time_ico"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">信息来源</span></td>
+                                    <td >
+                                        <div class="control-group form-group col-xs-12">
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </td>
+                                    <td class="odd text-center"><span class="table_line">文章作者</span></td>
+                                    <td >
+                                        <div class="control-group form-group col-xs-12">
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">本期观点</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor1" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">热点资讯</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor2" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">Mysteel铁矿石<br/>掉期成交信息</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor3" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">左部说明</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor4" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">远期现货</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor5" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">广告位</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor6" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">港口现货</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor7" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">国产矿</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor8" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">黑色产业链日度数据观察</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor9" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">右部图表说明</span></td>
+                                    <td colspan="3">
+                                        <div class="stage">
+                                            <div id="pagelet-write" class="pagelet-write">
+                                                <div class="edit-wrap">
+                                                    <script type="text/plain" id="editor10" style="width: 100%;" name="content"></script>
+                                                    <div class="con-split"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">主编</span></td>
+                                    <td colspan="3">
+                                        <textarea   placeholder="" class="form-control" rows="2">内容来自文章管理-钢联数据-定制管理-主编，可编辑</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">指导</span></td>
+                                    <td colspan="3">
+                                        <textarea placeholder="" class="form-control" rows="2">内容来自文章管理-钢联数据-定制管理-主编，可编辑</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">编辑</span></td>
+                                    <td colspan="3">
+                                        <textarea placeholder="" class="form-control" rows="2">内容来自文章管理-钢联数据-定制管理-主编，可编辑</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">联系地址</span></td>
+                                    <td colspan="3">
+                                        <textarea placeholder="" class="form-control" rows="2">内容来自文章管理-钢联数据-定制管理-主编，可编辑</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="odd text-center"><span class="table_line">版权说明</span></td>
+                                    <td colspan="3"><span class="table_line">内容来自说明设置-钢联数据-版权说明</span></td>
+                                </tr>
+                                <tr>
+                                <td class="odd text-center"><span class="table_line">操作</span></td>
+                                <td colspan="3">
+                                    <div class="buttons-preview">
+                                        <a href="javascript:void(0);" class="btn btn-primary">预览文章</a>
+                                        <a href="javascript:void(0);" id="wzsubmit" class="btn btn-primary">保存文章</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary submit1">发布文章</a>
+                                        <a href="javascript:void(0);" onclick="window.history.go(-1)" class="btn btn-primary">取消返回</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--Basic Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/bootstrap.min.js"></script>
+
+    <!--Mysteel Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/mysteel.min.js"></script>
+<!--     <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery-1.4.4.min.js"></script> -->
+    <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery.ztree.all.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+
+    <script src="../../assets/js/datetime/moment.js"></script>
+    <script src="../../assets/js/datetime/daterangepicker.js"></script>
+    <script src="../../assets/js/datetime/bootstrap-datepicker.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/bootbox/bootbox.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/main.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="http://a.mysteelcdn.com/libs/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../assets/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../../assets/js/ueditor/ueditor.all.min.js"></script>
+
+    <script type="text/javascript" charset="utf-8" src="../../assets/js/myueditor.js"></script>
+
+    <script>
+
+$(function(){
+    var ue = UE.getEditor('editor1');
+    var ue = UE.getEditor('editor2');
+    var ue = UE.getEditor('editor3');
+    var ue = UE.getEditor('editor4');
+    var ue = UE.getEditor('editor5');
+    var ue = UE.getEditor('editor6');
+    var ue = UE.getEditor('editor7');
+    var ue = UE.getEditor('editor8');
+    var ue = UE.getEditor('editor9');
+    var ue = UE.getEditor('editor10');
+
+    //时间选择
+ $('.date1').daterangepicker({
+         format : 'YYYY/MM/DD', //控件中from和to 显示的日期格式
+         singleDatePicker:true,
+         showDropdowns: true,
+        locale : {
+            applyLabel : '确定',
+            cancelLabel : '取消',
+            fromLabel : '起始时间',
+            toLabel : '结束时间',
+            daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+            monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月',
+                    '七月', '八月', '九月', '十月', '十一月', '十二月' ],
+            firstDay : 1
+        }
+    });
+})
+
+
+
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }
+
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

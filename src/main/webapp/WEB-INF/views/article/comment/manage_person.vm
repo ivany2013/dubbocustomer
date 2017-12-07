@@ -1,0 +1,133 @@
+ <div class="row">
+            <div class="text-left padding-10">
+                当前所选处理人:
+                 <div id="personPresent" style="overflow: hidden;margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px dashed #ccc">
+                    <div class="input-group showcy">
+                        <span class="form-control">习近平</span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default blue_color" type="button">移除</button>
+                        </span>
+                    </div>
+                    <div class="input-group showcy">
+                        <span class="form-control">王宝强</span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default blue_color" type="button">移除</button>
+                        </span>
+                    </div>
+                    <div class="input-group showcy">
+                        <span class="form-control">习近平</span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default blue_color" type="button">移除</button>
+                        </span>
+                    </div>
+                    <div class="input-group showcy">
+                        <span class="form-control">王宝强</span>
+                        <span class="input-group-btn">
+                            <button class="btn btn-default blue_color" type="button">移除</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row cleafix">
+                <div class="form-group form-group1 col-lg-5 col-sm-5 col-xs-5  no-padding">
+                    <p class="t_form_style col-lg-5 col-sm-5 col-xs-5 no-padding text-center"><span>所在部门：</span></p>
+                    <input type="text" class=" t_form_style col-lg-7 col-sm-7 col-xs-7" placeholder="" id="searchPartmentValue">
+                </div>
+                <div class="form-group form-group1 col-lg-5 col-sm-5 col-xs-5  no-padding">
+                    <p class="t_form_style col-lg-4 col-sm-4 col-xs-4 no-padding text-center"><span>管理员：</span></p>
+                    <input type="text" class=" t_form_style col-lg-8 col-sm-8 col-xs-8" placeholder="" id="searchValue">
+                </div>
+                <div class="form-group no-margin col-lg-2 col-sm-2 col-xs-2 no-padding text-right">
+                    <a href="javascript:void(0);" class="btn btn-primary margin-right-10" id="searchBtn">搜索</a>
+                </div>
+            </div>
+            <div class="t_height1 grouptree" style="min-height: 290px">
+                <ul id="treePerson" class="ztree treePerson" style="width: 100%;height: 290px;overflow: auto;"></ul>
+            </div>
+        </div>
+		<script src="/assets/js/page/comment/mySteelZtree.js">
+        </script>
+	<script>
+    //频道树设置
+    var setting = {
+		check: {
+			enable: true,
+			chkboxType: {"Y":"", "N":""}
+			},
+        data: {
+            key: {
+                dataurl:"t"
+            },
+            simpleData: {
+                enable: true
+            }
+        },
+		callback: {
+				onCheck: onCheck
+			}
+    };
+    var zNodes = ${zNodes};
+	var topNode = {id:"0",pId:"0",name:"上海钢联组织架构",isParent:true,open:true,nocheck:true}
+	zNodes.unshift(topNode);
+	
+	
+	
+    $(document).ready(function(){
+        //ztree调用
+		mySteelZTree.initZtree("treePerson",setting, zNodes);
+		onCheck();
+		$("body").on("click",".showcy .btn-default",function(){
+            $(this).parents(".showcy").remove();
+        })
+		
+    });
+	
+	var personIds="";
+	var personNames="";
+	function selectChecked() {
+			var zTree = $.fn.zTree.getZTreeObj("treePerson");
+			nodes = zTree.getCheckedNodes(true);
+			for (var i=0, l=nodes.length; i<l; i++) {
+				personIds += nodes[i].adminId +",";
+				personNames += nodes[i].name+",";
+			}
+			if(personIds == ""){
+				return false;
+			}
+		}
+	
+	
+	function onCheck(event, treeId, treeNode) {
+		if(treeNode == undefined){
+			var zTree = $.fn.zTree.getZTreeObj("treePerson");
+			nodes = zTree.getCheckedNodes(true);
+			html = "";
+			for (var i=0, l=nodes.length; i<l; i++) {
+				html += '<div class="input-group showcy" id="remove'+nodes[i].id+'"><span class="form-control">'+nodes[i].name+'</span><span class="input-group-btn"><button class="btn btn-default blue_color" type="button" onclick="removeNode('+nodes[i].id+')">移除</button></span></div>';
+			}
+			$("#personPresent").html(html);
+		}else{
+			if(treeNode.checked){
+    			html = '<div class="input-group showcy" id="remove'+treeNode.id+'"><span class="form-control">'+treeNode.name+'</span><span class="input-group-btn"><button class="btn btn-default blue_color" type="button" onclick="removeNode('+treeNode.id+')">移除</button></span></div>';
+    			$("#personPresent").prepend(html);
+			}else{
+			
+				var removeTem = "remove"+treeNode.id;
+				$("#personPresent").find("#"+removeTem).remove();
+			}
+		}
+	}
+	
+	function removeNode(nodeId){
+    	var treeObj = $.fn.zTree.getZTreeObj("treePerson");
+        var nodes = treeObj.getCheckedNodes(true);
+		for (var i=0, l=nodes.length; i<l; i++) {
+				if(nodeId == nodes[i].id ){
+					treeObj.checkNode(nodes[i], false, false);
+				}
+			}
+	}
+	
+	
+	
+    </script>

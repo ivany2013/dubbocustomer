@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/article/assets/css/main1.css" rel="stylesheet" type="text/css" />
+    #parse("/inc/header.vm")
+	<style>
+        .border11{border-radius:0px !important;padding-top:8px; }
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Page Body -->
+	<div class="page-body articles" id="articleCommentApp">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+                <li class="active">
+                    <a data-toggle="tab" href="#home9">
+                        文章评论
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="home9" class="tab-pane in active">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="row margin-top-10">
+                            <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
+    
+                                <div class="form-group t_form-group col-lg-7 col-sm-7 col-xs-12  no-padding">
+                                    <p class="t_form_style no-padding text-center" style="float:left;"><span>文章标题：</span></p>
+                                    <input type="text" class="t_form_style col-lg-10 col-sm-9 col-xs-8" placeholder="" v-model="comment.articleTitle">
+                                </div>
+                                <div class="form-group t_form-group col-lg-5 col-sm-5 col-xs-12  no-padding">
+    
+                                    <input type="text" id="date01" class="t_form_style col-lg-8 col-sm-8 col-xs-8" placeholder="" style="float:right;">
+                                    <p class="t_form_style no-padding text-center" style="float:right;"><span>最新评论时间：</span></p>
+                                </div>
+                                <div class="form-group t_form-group col-lg-7 col-sm-7 col-xs-10  no-padding">
+                                    <p class="t_form_style no-padding text-center" style="float:left;"><span> 编 辑 人：</span></p>
+                                    <input type="text" class="t_form_style col-lg-9 col-sm-8 col-xs-7 personNames" readonly  placeholder="" value="$personNames">
+                                     <a class="btn btn-primary bootbox-options1 border11" href="javascript:void(0);" @click="getPerson">选 择</a>
+                                </div>
+                                <div class="form-group t_form-group col-lg-5 col-sm-5 col-xs-12   text-right">
+                                    <a class="btn btn-primary" href="javascript:void(0);" @click="getArticleAll">搜 索</a>
+                                </div>
+                            </div>
+                        </div>
+						
+						
+                        <div id="articleCommentDiv1">
+                       
+						</div>
+						
+                       <!-- <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12  margin-top-10 no-padding-left no-padding-right clearfix">
+                                <label class="col-lg-2 col-sm-3 col-xs-12 ">
+                                    <span>每页</span>
+                                    <select name="editabledatatable_length" aria-controls="editabledatatable" class="form-control select_width">
+                                        <option value="5">5</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="100">100</option>
+                                        <option value="-1">All</option>
+                                    </select>
+                                    <span>条</span>
+                                 </label>
+                                <p class="col-lg-3 col-sm-3 col-xs-12" style="line-height:34px;"> 第<span>5</span>页,10行;共 <span>10</span>页,100行</p>
+                                <div class=" col-lg-7 col-sm-6 col-xs-12">
+                                    <ul class="pagination" style="float:right;">
+                                        <li class=""><a href="#">上一页</a></li>
+                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">下一页</a></li>
+                                        <li><p style="float:left;padding:0 10px;line-height:21px;">第<input type="text" class="margin text-center" style="width:30px;height:34px;">页</p></li>
+                                        <li><a href="javascript:void(0);" class="btn btn-primary " style="color:#fff;">确 认</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+							</div> -->
+                    </div>
+                </div>
+            </div>
+    
+            </div>
+    
+        </div>
+    </div>
+
+    <script id="myModal1" type="text/template">
+        <div class="row">
+		
+        </div>
+    </script>
+
+
+	#parse("/inc/footer.vm")
+
+    <!--Mysteel Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/moment.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/daterangepicker.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datepicker.js"></script>
+
+
+	<script src="/assets/js/pagination.js"></script>
+	
+	<script src="/assets/js/page/notice/vue.js"></script>
+	<script src="/assets/js/page/comment/article-comment.js"></script>
+	
+    <script>
+/*    var InitiateEditableDataTable = function () {
+        return {
+            init: function () {
+                //Datatable Initiating
+                var oTable = $('#editabledatatable').dataTable({
+                    //"aLengthMenu": false,
+                    //"lengthChange": false,
+                    //"paging":   true,
+                    "aLengthMenu": [
+                        [5, 15, 20, 100, -1],
+                        [5, 15, 20, 100, "All"]
+                    ],
+                    "dom": 't<"bottom"lifp<"clear">>',
+                    "ordering": false,
+                    "info":     true,
+                    "searching":false,
+                    'language': {
+                        'emptyTable': '没有数据',
+                        'loadingRecords': '加载中...',
+                        'processing': '查询中...',
+                        'search': '检索:',
+                        'lengthMenu': '每页 _MENU_ 条',
+                        'zeroRecords': '没有数据',
+                        'paginate': {
+                            'first':      '第一页',
+                            'last':       '最后一页',
+                            'next':       '下一页',
+                            'previous':   '上一页'
+                        },
+                        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+                        'infoEmpty': '没有数据',
+                        'infoFiltered': '(过滤总件数 _MAX_ 条)'
+                    }
+                });
+            }
+        };
+    }();
+    InitiateEditableDataTable.init();*/
+          //全选功能
+    $('.all_checked input[type="checkbox"]').click(function(){
+        if($(this).is(':checked')){
+            $(this).parents('body').find('input[type="checkbox"]').each(function(i,v){
+                if($(v).attr("disabled")==undefined) {
+                    $(v).prop('checked','true');
+                    $(v).attr('check','1');
+                }
+            })
+        }else{
+            $(this).parents('body').find('input[type="checkbox"]').removeAttr('checked');
+            $(this).parents('body').find('input[type="checkbox"]').removeAttr('check','1')
+        }
+    })
+
+    $(document).on('click','.tag [data-role=remove]',function(){
+        $(this).parent().remove();
+    })
+    //处理人选择
+   /* $(".bootbox-options1").on('click', function () {
+        bootbox.dialog({
+            message: $("#myModal1").html(),
+            title: "选择处理人",
+            className: "modal-inverse",
+            buttons: {
+                success: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function () { }
+                },
+                cancel: {
+                    label: "取消",
+                    className: "btn-primary"
+
+                }
+            }
+        });
+    });
+	*/
+//时间选择
+    var today = new Date();
+    var year = today.getFullYear(),month=(today.getMonth()+1),day=today.getDay();
+    $('#date01').daterangepicker({
+        "alwaysShowCalendars": true,
+        opens : 'left',
+        'ranges': {
+           '今天': [moment(), moment()],
+           '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           '最近7日': [moment().subtract(6, 'days'), moment()],
+           '最近30日': [moment().subtract(29, 'days'), moment()]
+        },
+        "startDate": year+"/"+month+"/"+day,
+        "endDate": year+"/"+month+"/"+day,
+    },function(start, end, label) {
+	var timestamp = Date.parse(new Date(start));
+	var timestamp2 = Date.parse(new Date(end));
+	
+	console.log(timestamp+"--"+timestamp2);
+	
+	articleCommentApp.comment.startTime=timestamp;
+	articleCommentApp.comment.endTime=timestamp2;
+		});
+		
+	$('#date01').on('apply.daterangepicker', function(ev, picker) {
+		var timestamp = Date.parse(new Date(picker.startDate));
+		var timestamp2 = Date.parse(new Date(picker.endDate));
+	
+		console.log(timestamp+"--"+timestamp2);
+	
+		articleCommentApp.comment.startTime=timestamp;
+		articleCommentApp.comment.endTime=timestamp2;
+	});
+		
+		
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }
+
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

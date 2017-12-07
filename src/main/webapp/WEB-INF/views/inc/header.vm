@@ -1,0 +1,27 @@
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+
+    <!--Basic基础 Styles-->
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/weather-icons.min.css" rel="stylesheet" />
+
+    <!--Fonts-->
+    <!--  <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
+
+    <!--Mysteel styles-->
+    <link id="mysteel-link" href="http://a.mysteelcdn.com/libs/article/assets/css/mysteel.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/demo.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/typicons.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/animate.min.css" rel="stylesheet" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/skins/black.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/article/assets/css/main.css" rel="stylesheet" type="text/css" />
+	<link href="/assets/css/common.css" rel="stylesheet" type="text/css" />
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/skins.min.js?v=02"></script>
+	

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+		<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    #parse("/inc/header.vm")
+		<style>
+        table td,table th{text-align: center !important;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+<!-- Page Body -->
+	  <input type="hidden" id="fromWebsiteId" name="fromWebsiteId" value="$!{fromWebsiteId}">
+    <div class="page-body" >
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="syncWebsiteTab">
+								<input type="hidden" name="websiteCount" value="$!{websiteList.size()}" id="websiteCount">
+								#foreach( $website in $websiteList)
+									<li #if($velocityCount == 1) class="active" #end>
+                    <a data-toggle="tab" href="#profile$!{website.id}" id="$!website.id" name="$!website.name" class="change-website-js">
+											$!website.name
+                    </a>
+									</li>
+								#end
+								
+            </ul>
+            <div class="tab-content">
+								<input type="hidden" name="currentSelectdNodeId" value="" id="currentSelectdNodeId">
+								#foreach( $website in $websiteList)
+                <div id="profile$!{website.id}" class="tab-pane in #if($velocityCount == 1)active#end website-tab-js">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-3 col-xs-12">
+                            <div class="well with-header" style="padding-left: 10px;padding-right: 10px;padding-bottom: 0;">
+                                <div class="header">
+																	频道
+                                    <a href="javascript:void(0);" id="" class="btn btn-primary btn-sm pull-right bootbox-confirm">隐藏停用</a>
+                                </div>
+                                <div class="topsearch">显示同步数值<label class="pull-right"><input class="checkbox-slider toggle colored-blue show-num-js off" checked="checked" type="checkbox">
+																			<span class="text"> </span></label></div>
+                                <div class="topsearch"><input type="email" name="to" placeholder="搜索" class="form-control search-value-js"></div>
+																<ul id="websiteChannelTree$!{website.id}" class="ztree treeDemo" style="width: 100%;height: 400px;overflow: auto;"></ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-sm-9 col-xs-12">
+                            <div class="well with-header sync-channel-list-js">
+                                <div class="header website-channelName-js$!{website.id}">-同步频道</div>
+                                <!--<iframe class="chanel_frame" frameborder="0" id="chanel_frame" style="width: 100%;height: 440px;" src="tb_zhandian.html"></iframe>-->
+																<div style="margin-bottom: 10px;"><a class="btn btn-blue pull-right margin-bottom-10 margin-right-10 createSyncChannel" href="Javascript:void(0)"><i class="fa fa-plus"></i> 新增同步频道</a></div>
+																
+																<!--Ajax 请求频道列表数据显示模块-->
+																<div id="channelList$!{website.id}"></div>
+																
+																<div class="margin-top-20">
+                                    <div class="buttons-preview">
+                                        <div class="checkbox pull-left padding-right-20 all_checked"><label><input type="checkbox"><span class="text"> 全选</span></label></div>
+                                        <a class="btn btn-blue createSyncChannel" href="Javascript:void(0)">新增同步频道</a>
+                                        <a class="btn btn-primary batch-open-js" href="javascript:void(0);">批量启用</a>
+                                        <a class="btn btn-primary batch-close-js" href="javascript:void(0);">批量停用</a>
+                                        <a class="btn btn-primary batch-remove-js" href="javascript:void(0);">批量删除</a>
+                                    </div>
+                                </div>
+																
+                            </div>
+                        </div>
+                    </div>
+                </div>
+								#end
+            </div>
+        </div>
+    </div>
+<!-- /Page Body -->
+            
+	
+    #parse("/inc/footer.vm")
+		<script src="/assets/js/pagination.js"></script>
+		<script src="/assets/js/page/sync/syncChannelCommon.js"></script>
+		<script src="/assets/js/page/sync/syncZtree.js"></script>
+		<script src="/assets/js/page/sync/syncChannel.js"></script>
+		
+    <script>
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = $(".chanel_frame").eq($("#myTab9 .active").index("li"));
+
+        if(thishref && mainFrame){
+            //mainFrame.src = thishref;
+            mainFrame.prop({
+              src: thishref
+            });
+            return false;
+        }
+    }
+    
+		var jsonArrayAll = $!{jsonArrayAll};
+		var fromWebsiteId = $!{fromWebsiteId};
+		var fromChannelId = $!{fromChannelId};		
+    </script>
+
+</body>
+<!--  /Body -->
+</html>
+

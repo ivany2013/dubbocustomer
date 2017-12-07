@@ -1,0 +1,39 @@
+#macro(pageNation $data)
+	
+<div class="row">
+	<div class="col-lg-12 col-sm-12 col-xs-12  margin-top-10 no-padding-left no-padding-right clearfix">
+	<div p_sortinfo="$!{data.orderBy}" p_isFirst=$!{data.isFirst} p_isLast=$!{data.isLast} p_currentpagenum="$!{data.pageNum}" p_totalsize="$!{data.total}" p_endrow="$!{data.endRow}" p_totalpagesnum="$!{data.pages}" p_pagesize="$!{data.pageSize}" p_startrow="$!{data.startRow}" style="display:none" class="paginator"></div>
+	#if($data.pages > 0)
+<div class="col-sm-6 col-md-6 col-lg-6">
+	<p>
+		 当前显示 $!{data.startRow} 到 $!{data.endRow} 条 , 共 $!{data.total} 条
+    </p>
+</div>
+ <div class="col-sm-6 col-md-6" >
+	
+	 <ul class="pagination"> 
+	  <li class="previous toPrePage" #if($data.pageNum ==1)  pageNum="1" #else pageNum="${data.prePage}" #end title="上一页"><a href="javascript:void(0);">上一页</a></li>
+	  #set($offsetStart=1)
+			#set($offsetEnd=${data.pages})
+			#if($offsetEnd > 5)
+				#if($offsetEnd - ${data.pageNum} >= 2)
+					#set($offsetEnd = ${data.pageNum} + 2)
+				#end
+				#set($offsetStart = $offsetEnd - 4)
+				#if($offsetStart < 1)
+					#set($offsetStart = 1)
+					#set($offsetEnd = 5)
+				#end  
+	   #end
+	  #foreach($foo in [$offsetStart..$offsetEnd])
+		<li #if($data.pageNum==$foo) class="active toTargetPage" #end class="toTargetPage" pageNum="$foo"><a href="javascript:void(0);">$foo</a></li>
+	  #end	
+	  <li class="next toNextPage" #if($data.pageNum ==$data.pages) pageNum="${data.pageNum}" #else pageNum="${data.nextPage}" #end title="下一页"><a href="javascript:void(0);">下一页</a></li>
+	  <li><p style="float:left;padding:0 10px;line-height:21px;">第<input id="pageNation_pageNum" type="text" class="margin text-center" style="width:30px;height:34px;" onblur="if(!/^[0-9]{0,}[1-9][0-9]{0,}$/.test(this.value)){ this.style.borderColor='red'} else{ this.style.borderColor='#e3e3e3'}">页</p></li>
+	  <li><a href="javascript:void(0);" class="btn btn-primary toTargetPageBtn" style="color:#fff;">确 认</a></li>
+  </ul>
+ </div>
+ </div>
+ </div>
+  #end
+#end 

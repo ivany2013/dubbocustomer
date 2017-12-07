@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ueditor图片对话框</title>
+
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="mysteel-link" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/mysteel.min.css" rel="stylesheet" type="text/css" />
+    <link id="skin-link" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/skins/black.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/common.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+
+    body:before {background-color: #fff;}
+        .warp {width: 420px;height: 153px;margin-left:5px;padding: 20px 0 0 15px;position: relative;}
+        .format span{display: inline-block; width: 58px;text-align: center; zoom:1;}
+        table td{padding:5px 0;}
+        #align{width: 65px;height: 23px;line-height: 22px;}
+        .textright {text-align: right;}
+        .textright span {display: inline-block;width: 60px;}
+        .show_img {border: 1px solid #ccc!important;}
+    </style>
+</head>
+<body>
+<div class="warp">
+<span style="display: none;"><input id="lock" type="checkbox" disabled="disabled"><span id="lockicon"></span></span>
+        <table width="420" cellpadding="0" cellspacing="0">
+          <tr>
+            <td colspan="3"><span class="format">
+                <input id="upfile" name="upfile" type="file" style="display:none">
+                <div class="input-append">
+                    <input id="photoCover" class="input-large" type="text" style="height:30px; width: 288px;" value="选择图片">
+                    <a class="btn btn-primary" onclick="$('input[id=upfile]').click();">浏览</a>
+                    <a href="javascript:void(0);" id="upload" class="btn btn-primary">上传</a>
+                </div>
+            </span></td>
+          </tr>
+          <tr>
+            <td rowspan="4">
+	            <div id="preview">
+	            	<img id="show_img" width="184"  class="img noimg" src="http://a.mysteelcdn.com/images/noimg.png">
+	            </div>
+            </td>
+            <td class="textright"><span>图片标题：</span></td>
+            <td><input class="form-control pull-left" type="text" style="width: 150px" id="title"/></td>
+          </tr>
+          <tr>
+            <td class="textright"><span>图片来源：</span></td>
+            <td><input class="form-control pull-left" type="text" style="width: 150px" id="source"/></td>
+          </tr>
+          <tr>
+            <td class="textright"><span>URL地址： </span></td>
+            <td><input class="form-control pull-left" id="url" style="width: 150px" type="text" /></td>
+          </tr>
+          <tr style="display: none;">
+            <td class="textright"><span>图片宽度：</span></td>
+            <td><input class="form-control pull-left" type="text" style="width: 150px" id="width"/></td>
+          </tr>
+          <tr style="display: none;">
+            <td class="textright"><span>图片高度：</span></td>
+            <td><input class="form-control pull-left" type="text" style="width: 150px" id="height"/></td>
+          </tr>
+        </table>
+</div>
+    <script type="text/javascript" src="../internal.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="image1.js"></script>
+    <script type="text/javascript" src="/assets/js/ajaxfileupload.js"></script>
+    <script src="/assets/js/msgUtil.js"></script>
+    <script src="/assets/js/check.js"></script>
+    <script type="text/javascript">
+  //文件上传
+    $('input[id=upfile]').change(function() {
+        $('#photoCover').val($(this).val());
+    });
+    //文件上传
+    $('input[id=upfile]').change(function() {
+        $('#photoCover').val($(this).val());
+    });
+    
+    $("#upload").on("click",function(){
+    	var fileName=$("#photoCover").val().split('\\')[$("#photoCover").val().split('\\').length-1];
+    	if(!fileName.IsPicture()){
+			$.err("上传的必须是除了BMP格式以外的图片")
+			return false;
+		}
+    	$.ajaxFileUpload
+        (
+            {
+				type:"POST",
+                url: '/article/file/upload', //用于文件上传的服务器端请求地址
+                secureuri: false, //是否需要安全协议，一般设置为false
+                fileElementId: "upfile", //文件上传域的ID
+                dataType: 'json', //返回值类型 一般设置为json
+                success: function (data, status)  //服务器成功响应处理函数
+                {
+					if(data.status=="200"){
+						$("#show_img").attr("src",data.data.url);
+						$("#picSrc").val(data.data.url);
+					}
+                }
+            }
+        )
+	})
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    #parse("/inc/header.vm")
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+		<input type="hidden" name="syncChannelId" id="syncChannelId" value=$!{syncChannelId}>
+		<input type="hidden" name="fromChannelId" id="fromChannelId" value="$!{fromChannelId}">  
+    <input type="hidden" name="fromWebsiteId" id="fromWebsiteId" value="$!{fromWebsiteId}">
+    <input type="hidden" name="editorType" id="editorType" value="$!{editorType}">
+    <div class="page-body">
+                    <div class="well with-header with-footer">
+                        <div class="header" id="articleHeader" ><span id="fromChannelAllName">$!{fromChannelAllName}</span>-同步-<span id="toChannelAllName">$!{toChannelAllName}</span>-文章管理
+													<div style="float:right"><a class="btn btn-primary" href="javascript:void(0);" id="backSyncMain"> 返回</a></div>
+												</div>
+												
+                        <div class="clearfix" id="syncDataList">
+                        </div>
+												
+                        <div class="row DTTTFooter">#pageNation($result)</div>
+												
+                        <div class="footer" style="bottom: -10px;">
+                            <div class="buttons-preview">
+                                <div class="checkbox pull-left padding-right-20 all_checked"><label><input type="checkbox"><span class="text"> 全选</span></label></div>
+                                <a class="btn btn-primary bootbox-confirm1 batch-delete-js" href="javascript:void(0);">批量删除</a>
+                            </div>
+                        </div>
+                    </div>
+    </div>
+
+		#parse("/inc/footer.vm")
+		
+		<script src="/assets/js/pagination.js"></script>
+		<script src="/assets/js/page/sync/syncChannelArticle.js"></script>
+
+</body>
+<!--  /Body -->
+</html>

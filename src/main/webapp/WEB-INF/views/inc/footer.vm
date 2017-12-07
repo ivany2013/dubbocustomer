@@ -1,0 +1,12 @@
+<script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/bootstrap.min.js"></script>
+
+    <!--Mysteel Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/mysteel.min.js"></script>
+	
+    <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery.ztree.all.min.js"></script>
+	<script src="http://a.mysteelcdn.com/libs/zTree/js/jquery.ztree.exhide.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/bootbox/bootbox.js"></script>
+	<script src="http://a.mysteelcdn.com/libs/article/assets/js/main.js"></script>
+	<script src="/assets/js/msgUtil.js"></script>
+   

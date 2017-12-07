@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	 <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/article/assets/css/main1.css" rel="stylesheet" type="text/css" />
+	 #parse("/inc/header.vm")
+    <style>
+        .border11{border-radius:0px !important;padding-top:8px; }
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body articles" id="articleCommentDetail">
+    <div class="tabbable">
+    <ul class="nav nav-tabs" id="myTab9">
+        <li class="active">
+            <a data-toggle="tab" href="#home9">
+                文章评论
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div id="home9" class="tab-pane in active">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <p class="line col-lg-9 col-sm-9 col-xs-12 text-left articles-tit margin-top-10  no-margin">文章标题:<span> <a href="#">$!articleTitle</a></span></p>
+                        <p class="line col-lg-3 col-sm-3 col-xs-12 text-right  margin-top-10  no-margin">
+                            <a class="btn btn-primary" href="javascript:history.back(-1);">返 回</a>
+                        </p>
+                    </div>
+                    <hr class="wide">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                            <div class="form-group t_form-group col-lg-6 col-sm-6 col-xs-12  no-padding no-margin" id="commentNum">
+                                <p class="t_form_style no-padding text-center no-margin">本文评论共<span class="num_style"></span>条</p>
+                            </div>
+                            <div class=" t_form-group  col-lg-offset-2 col-sm-offset-2 col-lg-4 col-sm-4 col-xs-12  no-padding ">
+                                <p class="t_form_style col-lg-4 col-sm-4 col-xs-4 no-padding text-center no-margin"><span>处理状态：</span></p>
+                                <select name="select" v-model="comment.status"  class=" t_form_style col-lg-8 col-sm-8 col-xs-8" @change="getArticleCommentDetail">
+                                    <option value="2">全部</option>
+                                    <option value="1">已处理</option>
+                                    <option value="0">未处理</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="wide">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="form-group t_form-group col-lg-7 col-sm-7 col-xs-10  no-padding">
+                                <p class="t_form_style col-lg-2 col-sm-3 col-xs-5 no-padding text-center"><span>处理人：</span></p>
+                                <input type="text" class="t_form_style col-lg-10 col-sm-9 col-xs-7 personNames" readonly  placeholder="">
+                            </div>
+                            <div class="form-group t_form-group col-lg-2 col-sm-2 col-xs-2  no-padding text-left">
+                                <a class="btn btn-primary bootbox-options1 border11" href="javascript:void(0);" @click="getPerson">选 择</a>
+                            </div>
+                            <div class="form-group t_form-group col-lg-3 col-sm-3 col-xs-12   text-right">
+                                <a class="btn btn-primary" href="javascript:void(0);" @click="getArticleCommentDetail">搜 索</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="articleCommentDetailDiv">
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+
+    <script id="myModal1" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src=".../../../pingdao/addEdite.html"></iframe>
+        </div>
+    </script>
+
+
+    <script id="myModal" type="text/template">
+        <div class="row">
+            <div class="list">
+                <div class="comments_content1 col-lg-12 col-sm-12 col-xs-12 no-padding">
+                    <div class="row no-padding">
+                        <p class="line col-sm-4 col-xs-12 text-left padding-5">评论时间：<span class="text-muted">2016/11/08</span></p>
+                        <p class="line col-sm-4 col-xs-12 text-left padding-5">文章ID：<span class="text-muted">000001</span></p>
+                        <p class="line col-sm-4 col-xs-12 text-left padding-5">文章标题：<span class="text-muted">10月我国出口钢材770万吨 同比下降14.6%</span></p>
+                        <p class="line col-sm-4 col-xs-12 text-left padding-5">评论人姓名：<span class="text-muted">刘英杰</span></p>
+                        <p class="line col-sm-4 col-xs-12 text-left padding-5">评论人公司：<span class="text-muted">上海宝钢特钢</span></p>
+                        <p class="line col-sm-4 col-xs-12 text-left padding-5">来源：<span class="text-muted">我的钢铁网手机版</span></p>
+                        <p class="line col-sm-12 col-xs-12 text-left padding-5">评论内容：<span class="text-muted">评论内容详情</span></p>
+                        <p class="line col-sm-12 col-xs-12 text-left padding-5">对应评论内容：<span class="text-muted">对应评论内容详情</span></p>
+                    </div>
+                    <hr class="wide">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="exampleInputEmail2">回复内容</label>
+                                <span class="input-icon icon-right">
+                                    <textarea class="form-control resize" rows="5"></textarea>
+                                </span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="fltop text-center">
+                <a href="javascript:void(0);" class="btn btn-primary margin-10">确定</a>
+                <a href="javascript:void(0);" class="btn btn-primary margin-10">不回复</a>
+                <a href="javascript:void(0);" class="btn btn-primary margin-10">前端隐藏</a>
+                <a href="javascript:void(0);" class="colse btn btn-primary margin-10">取消</a>
+            </div>
+        </div>
+    </script>
+	#parse("/inc/footer.vm")
+
+    <!--Mysteel Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.tableTools.min.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/moment.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/daterangepicker.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datepicker.js"></script>
+
+
+	<script src="/assets/js/pagination.js"></script>
+	
+	<script src="/assets/js/page/notice/vue.js"></script>
+	<script src="/assets/js/page/comment/article-comment-detail.js"></script>
+	
+    <script>
+    var InitiateEditableDataTable = function () {
+        return {
+            init: function () {
+                //Datatable Initiating
+                var oTable = $('#editabledatatable').dataTable({
+                    //"aLengthMenu": false,
+                    //"lengthChange": false,
+                    //"paging":   true,
+                    "aLengthMenu": [
+                        [5, 15, 20, 100, -1],
+                        [5, 15, 20, 100, "All"]
+                    ],
+                    "dom": 't<"bottom"lifp<"clear">>',
+                    "ordering": false,
+                    "info":     true,
+                    "searching":false,
+                    'language': {
+                        'emptyTable': '没有数据',
+                        'loadingRecords': '加载中...',
+                        'processing': '查询中...',
+                        'search': '检索:',
+                        'lengthMenu': '每页 _MENU_ 条',
+                        'zeroRecords': '没有数据',
+                        'paginate': {
+                            'first':      '第一页',
+                            'last':       '最后一页',
+                            'next':       '下一页',
+                            'previous':   '上一页'
+                        },
+                        'info': '第 _PAGE_ 页 / 总 _PAGES_ 页',
+                        'infoEmpty': '没有数据',
+                        'infoFiltered': '(过滤总件数 _MAX_ 条)'
+                    }
+                });
+            }
+        };
+    }();
+    InitiateEditableDataTable.init();
+
+
+
+$(document).on('click','.modal-dispose .colse',function(){
+        bootbox.hideAll();
+    })
+   /* $(".bootbox-options").on('click', function () {
+        bootbox.dialog({
+            message: $("#myModal").html(),
+            title: "处理评论",
+            className: "modal-dispose"
+        });
+    });
+    
+    //处理人选择
+    $(".bootbox-options1").on('click', function () {
+        bootbox.dialog({
+            message: $("#myModal1").html(),
+            title: "选择处理人",
+            className: "modal-inverse",
+            buttons: {
+                success: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function () { }
+                },
+                cancel: {
+                    label: "取消",
+                    className: "btn-primary"
+
+                }
+            }
+        });
+    });
+    $(document).on('click','.tag [data-role=remove]',function(){
+        $(this).parent().remove();
+    })
+*/
+
+//时间选择
+    var today = new Date();
+    var year = today.getFullYear(),month=(today.getMonth()+1),day=today.getDay();
+    $('#date01').daterangepicker({
+        "alwaysShowCalendars": true,
+        'ranges': {
+           '今天': [moment(), moment()],
+           '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           '最近7日': [moment().subtract(6, 'days'), moment()],
+           '最近30日': [moment().subtract(29, 'days'), moment()]
+        },
+        "startDate": year+"/"+month+"/"+day,
+        "endDate": year+"/"+month+"/"+day,
+    });
+    //全选
+    $('#checkall').on('click', function () {
+        if(!$('#checkall').hasClass("checked1")){
+            $('#editabledatatable tbody .checkbox input').prop('checked',true);
+            $('#checkall').addClass("checked1").find(".checkbox input").prop('checked',true);
+            $('#checkall').find("input").prop('checked',true);
+            return false
+        }else{
+            $('#editabledatatable tbody .checkbox input').prop('checked',false);
+            $('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+            $('#checkall').find("input").prop('checked',false);
+            return false
+        }
+    });
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }
+    //频道树设置
+    var setting = {
+        data: {
+            key: {
+                dataurl:"t"
+            },
+            simpleData: {
+                enable: true
+            }
+        }
+    };
+    var zNodes =[
+      { name:"上海钢联组织结构", open:true,
+        children: [
+          { name:"总裁办",
+            children: [
+              { name:"普钢频道", url:"pingdao.html", target:"_blank", click:"changemain(this);return false;"},
+              { name:"特钢频道", url:"pingdao.html", target:"_self", click:"changemain(this);return false;"},
+              { name:"钢管频道", url:"pingdao.html", target:"_self", click:"changemain(this);return false;"},
+              { name:"冶金炉料"}
+            ]},
+          { name:"运营中心",
+            children: [
+              { name:"叶子节点121"},
+              { name:"叶子节点122"},
+              { name:"叶子节点123"},
+              { name:"叶子节点124"}
+            ]},
+          { name:"父节点13 - 没有子节点", isParent:true}
+        ]},
+      { name:"孵化项目部",
+        children: [
+          { name:"钢材频道", open:true,
+            children: [
+              { name:"叶子节点211"},
+              { name:"叶子节点212"},
+              { name:"叶子节点213"},
+              { name:"叶子节点214"}
+            ]},
+          { name:"父节点22 - 折叠",
+            children: [
+              { name:"叶子节点221"},
+              { name:"叶子节点222"},
+              { name:"叶子节点223"},
+              { name:"叶子节点224"}
+            ]},
+          { name:"父节点23 - 折叠",
+            children: [
+              { name:"叶子节点231"},
+              { name:"叶子节点232"},
+              { name:"叶子节点233"},
+              { name:"叶子节点234"}
+            ]}
+        ]},
+      { name:"钢材事业部", isParent:true}
+
+    ];
+
+    $(document).ready(function(){
+        //ztree调用
+        $.fn.zTree.init($(".treeDemo"), setting, zNodes);
+
+    });
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

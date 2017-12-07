@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+
+    #parse("/inc/css.vm")
+    <style>
+        .well1.with-header {
+            padding-top: 46px;
+        }
+        .well1 .wide{
+            border-top:1px dashed #ccc;
+            margin-top:8px;
+            margin-bottom:8px;
+        }
+        .well1 .showcy{
+            margin-bottom:5px;
+        }
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body >
+
+    <!-- Page Body -->
+    <div class="page-body" id="example">
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="myTab9">
+            <li class="active">
+                <a data-toggle="tab" href="#home9">
+                    文章管理
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="home9" class="tab-pane in active">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-4 col-xs-12 showsub">
+                        <!-- <a href="javascript:void(0);" class="btn btn-block btn-blue"><i class="btn-label fa fa-list pull-left"></i>一级频道1</a> -->
+                        <div class="form-group shownext" style="margin-bottom: 0;">
+                            <span class="input-icon icon-left">
+                                <i class="fa fa-th-list black"></i>
+                                <input type="text" class="form-control searchValue" id="searchValue" placeholder="">
+                            </span>
+                        </div>
+                        <div class="widget-body">
+                            <div class="bodypal">
+                                <ul class="ztree" id="treeDemo"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-8 col-xs-12">
+                       <!--
+						<a class="btn btn-blue pull-right" onclick="mainjs.changemain(this)" datahref="inc/neirong/addwz.html" href="javascript:void(0);"><i class="fa fa-plus"></i> 新增文章</a>
+						-->
+					   
+						 <a class="btn btn-blue pull-right oper addOper" v-on:click="toAddArticlePage" href="javascript:void(0);"><i class="fa fa-plus"></i> 新增文章</a>
+
+					</div>
+                </div>
+                <div class="row margin-top-10">
+                    <div class="col-sm-12">
+                        <form id="registrationForm" method="post" class="form-horizontal"
+                              data-bv-message="This value is not valid"
+                              data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                              data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                              data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                            <div class="row margin-bottom-10 padding-left-10 text_field">
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-horizontal">
+                                  <div class="form-group">
+                                    <label class="col-md-5 control-label no-padding-right">文章ID：</label>
+                                    <div class="input-group col-md-7">
+                                        <input class="form-control" type="text" v-model="articleId">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-horizontal">
+                                  <div class="form-group">
+                                    <label class="col-md-5 control-label no-padding-right">同步ID：</label>
+                                    <div class="input-group col-md-7">
+                                        <!--<input type="text" class="form-control" name="同步ID" v-model="syncId"
+                                           pattern="[a-zA-Z0-9]+"
+                                           data-bv-regexp-message="只能由字母数字组成"  />-->
+										<input type="text" class="form-control" name="同步ID" v-model="sourceArticleId" />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-horizontal">
+                                  <div class="form-group">
+                                    <label class="col-md-5 control-label no-padding-right">文章标题：</label>
+                                    <div class="input-group col-md-7">
+                                        <input type="text" class="form-control" v-model="title">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-horizontal">
+                                  <div class="form-group">
+                                    <label class="col-md-5 control-label no-padding-right">编辑时间：</label>
+                                    <div class="input-group col-md-7">
+                                        <input type="text" id="date01"  class="form-control" >
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 form-horizontal">
+                                  <div class="form-group">
+                                    <label class="col-md-5 control-label no-padding-right">状  态：</label>
+                                    <div class="input-group col-md-7">
+                                        <select id="" v-model="status"><option value="">全部</option><option value="1">未发布</option><option value="2">待发布</option><option value="0">已发布</option></select>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 buttons-preview">
+                                  <button  class="btn btn-primary reload" v-on:click.stop.prevent="reloadCondition">重置</button><button  class="btn btn-primary"  id="search">搜索</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row margin-top-10 wzmain" >
+                    <div class="col-sm-12">
+                        <div class="tablelist">
+						</div>
+                        <div class="clearfix"></div>
+                        <div class="fltop buttons-preview oper oper_bottom" style="border-top: 1px dashed #ccc; ">
+                            <div class="checkbox pull-left padding-top-10 margin-right-10" id="checkall"><label><input type="checkbox"><span class="text">全选</span></label></div>
+                            <a href="javascript:void(0);" v-on:click="toAddArticlePage" class="btn btn-blue margin-top-10 addOper">新增文章</a>
+                            <a href="javascript:void(0);" class="btn btn-primary margin-top-10 fbwz">发布文章</a>
+                            <a href="javascript:void(0);" class="btn btn-primary margin-top-10 cxfb">撤销发布</a>
+                            <a href="javascript:void(0);" id="bootbox-options" class="btn btn-primary margin-top-10">移动文章</a>
+							<a href="javascript:void(0);" id="push" class="btn btn-primary margin-top-10" >推送文章</a>
+                            <a href="javascript:void(0);" class="btn btn-primary margin-top-10 delete">删除文章</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+	#parse("/inc/js.vm")
+	
+    <script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="/article/toMoveTreePage?websiteId=$!websiteId"></iframe>
+        </div>
+    </script>
+    <script id="addEditeModal" type="text/template">
+        <div class="row">
+            <!-- <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="add_pd.html"></iframe> -->
+            <h6>当前所选<span class="text1"></span></h6>
+            <div style="overflow: hidden;margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px dashed #ccc">
+                <div class="input-group showcy">
+                    <span class="form-control text1"></span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default blue_color" type="button">移除</button>
+                    </span>
+                </div>
+                <div class="input-group showcy">
+                    <span class="form-control text1"></span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default blue_color" type="button">移除</button>
+                    </span>
+                </div>
+                <div class="input-group showcy">
+                    <span class="form-control text1"></span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default blue_color" type="button">移除</button>
+                    </span>
+                </div>
+                <div class="input-group showcy">
+                    <span class="form-control text1"></span>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default blue_color" type="button">移除</button>
+                    </span>
+                </div>
+            </div>
+            <div class="row inputrow">
+                <div class="col-xs-5">
+                    <div style="width: 35%;float: left;line-height: 34px;text-align: center;"><span class="text1"></span>名称： </div>
+                    <input style="width: 65%;float: left;" type="text" name="subject" placeholder="" class="form-control">
+                </div>
+                <div class="col-xs-offset-5 col-xs-2">
+                    <button type="button" class="btn btn-default">搜索</button>
+                </div>
+            </div>
+            <div class="row" style="border:1px solid #ccc;margin-top:10px;">
+                <iframe frameborder="0" id="main_frame" style="width: 100%;height: 300px;background-color: #fff;margin-top: 15px;" src="../pingdao/grouptree.html"></iframe>
+            </div>
+        </div>
+    </script>
+    <!--
+	<script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="mobantree.html"></iframe>
+        </div>
+    </script>
+	-->
+    <script>
+    $(document).ready(function(){
+        $("body").delegate('.bootbox-options','click',function(e){
+			var articleId=$(e.target).closest("tr").find("td:eq(1)").text().trim();
+			if(vm.channelId==''){
+    			vm.channelId=Cookies.get("treeNodeId");
+    		}
+			var srcAttr="/article/toMoveTreePage?websiteId=$!websiteId&&channelId="+vm.channelId;
+			var dom="<div class='row'><iframe frameborder='0' id='main_frame' style='width: 100%;height: 400px;' src='"+srcAttr+"'></iframe></div>"
+			$("#myModal").html(dom);
+			bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "移动文章",
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { 
+							var moveChannelId=Cookies.get('moveChannelId');
+							if(moveChannelId=='all'){
+								$.err("请选择站点下的频道");
+								return false;
+							}
+							if(!moveChannelId||moveChannelId==""){
+								$.err("请选择频道");
+								return false;
+							}
+							//否则修改文章的channelId和域名
+							var param={};
+							param.channelId=moveChannelId;
+							param.version=$(e.target).parent().find(".version").val();
+							param.id=articleId;
+							vm.modifyArticleChannel(param);
+							Cookies.set('moveChannelId',"");
+						}
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+		})
+		$("body").delegate('#bootbox-options','click',function(e){
+		
+		var ckeck = $("#editabledatatable .checkbox input:checked");
+		var articleIds=[];
+		var versions=[];
+		for(var i=0;i<ckeck.length;i++){
+			if($(ckeck[i]).closest("tr").find(".version").val()){
+    			articleIds.push($(ckeck[i]).closest("tr").find("td:eq(1)").text().trim());
+    			versions.push($(ckeck[i]).closest("tr").find(".version").val().trim());
+			}
+		}
+		if(vm.channelId==''){
+			vm.channelId=Cookies.get("treeNodeId");
+		}
+		var srcAttr="/article/toMoveTreePage?websiteId=$!websiteId&&channelId="+vm.channelId;
+			var dom="<div class='row'><iframe frameborder='0' id='main_frame' style='width: 100%;height: 400px;' src='"+srcAttr+"'></iframe></div>"
+			$("#myModal").html(dom);
+		if(ckeck.length>0){
+			bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "移动文章",
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { 
+							var moveChannelId=Cookies.get('moveChannelId');
+							if(!moveChannelId||moveChannelId==""){
+        						$.err("请选择频道");
+        						return false;
+        					}
+        					var param=[];
+							//var version=$(e.target).parent().find(".version").val();
+        					for(var i=0;i<articleIds.length;i++){
+        						param.push({channelId:moveChannelId,id:articleIds[i],version:versions[i]});
+        					}
+        					vm.modifyBatchArticle(param);
+        					Cookies.set('moveChannelId',"");
+							$("#checkall input").prop("checked",false)
+							$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+						}
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            })};})
+		
+			$("body").delegate('.push','click',function(e){
+			var articleId=$(e.target).closest("tr").find("td:eq(1)").text().trim();
+			bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "推送文章",
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { 
+						}
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+		})
+		$("body").delegate('#push','click',function(e){
+		
+		var ckeck = $("#editabledatatable .checkbox input:checked");
+		var articleIds=[];
+		var versions=[];
+		for(var i=0;i<ckeck.length;i++){
+			articleIds.push($(ckeck[i]).closest("tr").find("td:eq(1)").text().trim());
+			versions.push($(ckeck[i]).closest("tr").find(".version").val().trim());
+		}
+		if(ckeck.length>0){
+			bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "推送文章",
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { 
+							$("#checkall input").prop("checked",false)
+							$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+						}
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            })};})
+			
+			
+//时间选择
+    var today = new Date();
+    var year = today.getFullYear(),month=(today.getMonth()+1),day=today.getDay();
+    $('#date01').daterangepicker({
+        "alwaysShowCalendars": true,
+        'ranges': {
+           '今天': [moment(), moment()],
+           '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           '最近7日': [moment().subtract(6, 'days'), moment()],
+           '最近30日': [moment().subtract(29, 'days'), moment()]
+        },
+		"opens": "left",
+        "startDate": year+"/"+month+"/"+day,
+        "endDate": year+"/"+month+"/"+day,
+    });
+//全选
+    $('#checkall').on('click', function () {
+        if(!$('#checkall').hasClass("checked1")){
+            $('#editabledatatable tbody .checkbox input').prop('checked',true);
+            $('#checkall').addClass("checked1").find(".checkbox input").prop('checked',true);
+            $('#checkall').find("input").prop('checked',true);
+            return false
+        }else{
+            $('#editabledatatable tbody .checkbox input').prop('checked',false);
+            $('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+            $('#checkall').find("input").prop('checked',false);
+            return false
+        }
+    });
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }
+		
+
+        //隐藏频道
+        $("#bootbox-confirm").on('click', function () {
+            bootbox.confirm("确认隐藏?", function (result) {
+                if (result) {
+                    //
+                }
+            });
+        });
+		
+        $(".showsub .shownext").on('focusin', function () {
+            var next = $(this).next(".widget-body");
+            next.find('.bodypal').slideDown("slow");
+        });
+        $(".showsub .shownext").next(".widget-body").on("mouseleave",function(){
+            $(this).find('.bodypal').slideUp("slow");
+        })
+
+        //选择站点
+        $("#sitechange .dropdown-menu a").on("click",function(){
+            var _text = $(this).text();
+            $(this).parents(".btn-group").find("a").first().text(_text);
+            $.msg(_text);
+        })
+
+        $("#registrationForm").bootstrapValidator();
+        
+        bootbox.setDefaults({
+            locale: "zh_CN",
+        });
+/*        $("body").on("click",".reload",function(){
+            var _this = this
+            bootbox.confirm("确认重置?", function (result) {
+                if (result) {
+                    //window.location.reload();
+                }
+            });
+        })*/
+    });
+    </script>
+<script>
+	var vm = new Vue({
+    	el:"#example",
+    	data:{
+			websiteId:$!websiteId,
+			websiteName:'$!websiteName',
+			channelId:"",
+			typeId:$!typeId,
+			articleId:"",
+			sourceArticleId:"",
+	        title:"",
+	        status:""
+    	},
+    	methods:{
+			//点击treeNode触发回调方法
+			clickCallBack:function(event, treeId, treeNode, clickFlag){
+				this.resetInput();
+				//如果是被禁用的频道
+				
+				if(treeNode.disable){
+					$(".addOper").hide();
+				}else{
+					$(".addOper").show();
+				}
+				if(treeNode.id=='all'){
+    				return false;
+				}
+				$("#searchValue").val(treeNode.name)
+				var param={};
+				param.channelId=treeNode.id;
+				param.articleId="";
+				param.sourceArticleId="";
+				param.startEditTime="";
+				param.endEditTime= "";
+				param.title="";
+				param.status="";
+				this.channelId=treeNode.id;
+				Cookies.set("treeNodeId",treeNode.id);
+				Cookies.set("currChannelId",treeNode.id);
+				vm.getTable(param);
+			},
+			resetInput:function(){
+				this.articleId="";
+					this.sourceArticleId="";
+    				this.title="";
+    				this.status="";
+					$("#date01").val("");
+			},
+			//点击搜索，查询表
+			searchTable:function(){
+					var param={};
+					param.articleId=this.articleId;
+					param.sourceArticleId=this.sourceArticleId;
+					param.startEditTime=this.getStartEditTime();
+    				param.endEditTime= this.getEndEditTime();
+    				param.title=this.title;
+    				param.status=this.status;
+					this.getTable(param);
+					return false;
+			},
+			reloadCondition:function(e){
+					this.articleId="";
+					this.sourceArticleId="";
+    				this.title="";
+    				this.status="";
+					$("#date01").val("");
+					var param={};
+					param.articleId="";
+					param.sourceArticleId="";
+					param.startEditTime="";
+    				param.endEditTime= "";
+    				param.title="";
+    				param.status="";
+					this.getTable(param);
+			},
+			//获取表
+    		getTable:function(param){
+			console.log(this.channelId);
+				console.log(Cookies.get("treeNodeId"));
+    			if(param.channelId=='all'){
+    				return false;
+				}
+    			param.pageSize=20;
+        		param.pageNum=1,
+				param.typeId=this.typeId
+        		$(".tablelist").pagination({
+        			url : "/article/queryTable",
+        			paramJson : param,
+					callback:function(){
+    					if($(".tablelist:contains('暂无数据')").length==0){
+							$(".oper_bottom").show()
+						}else{
+    						$(".oper_bottom").hide()
+						}
+					}
+        		});
+    		},
+			//获取树
+			getTree:function(){
+			var websiteId=this.websiteId;
+				$.ajax({
+    			   url: "/article/queryTree",
+    			   data:{
+				   		websiteId:websiteId
+				   },
+    			   dataType:"json",
+    			   success: function(data){
+    				  console.log(data);
+					 var zNodes=ztreeTool.formatJson(data.data,vm.websiteName);
+					  if(!zNodes){
+					  	return false;
+					  }
+					  var setting={
+    					callback: {
+    						onClick: vm.clickCallBack
+    					},
+						data: {
+            				simpleData: {
+            					enable: true
+            				}
+            			}
+                	}
+					  mySteelZTree.initZtree("treeDemo",setting,zNodes)
+					  
+					  
+					  var tree = $.fn.zTree.getZTreeObj("treeDemo");
+					  
+					  
+					  var obj=tree.getNodesByParam("pId",'all')[0];
+					  //搜索栏属性更改
+					  if(!obj){
+						 $("#searchValue").attr("placeholder","暂无频道");						  
+					  	}else{
+					  	    var name="暂无频道";
+							for(var i=0;i<zNodes.length;i++){
+								if(zNodes[i].pId=='all'){
+    								name=zNodes[i].name;
+    								break;
+								}
+							}
+						  $("#searchValue").attr("placeholder",name);
+					  }
+					  
+					  //获取第一个节点
+					  
+					  var param={};
+											  
+					  var treeNodeId=Cookies.get("treeNodeId");
+       				
+					//从cookie里面拿节点id如果这个did在当前节点中存在，则覆盖参数中的频道iD
+					if(treeNodeId!=null||undefined!=treeNodeId){
+    				  var tree = $.fn.zTree.getZTreeObj("treeDemo");
+    				  var node = tree.getNodeByParam("id", treeNodeId,null);
+					  if(node){
+    					  param.channelId=node.id;
+						  $("#searchValue").attr("placeholder",node.name);	
+						  tree.expandNode(node, true, true, true);
+						   tree.selectNode(node);
+						   //如果是被禁用的频道
+            				if(node.disable){
+            					$(".addOper").hide();
+            				}else{
+            					$(".addOper").show();
+            				}
+					  }
+					  vm.getTable(param);
+    				}else{
+    				  Cookies.remove("treeNodeId");
+					  if(tree.getNodesByParam("pId",'all').length!=0){
+						  var first_node = tree.getNodeByParam("name", tree.getNodesByParam("pId",'all')[0].name);
+						  //如果是被禁用的频道
+            				if(first_node.disable){
+            					$(".addOper").hide();
+            				}else{
+            					$(".addOper").show();
+            				}
+						  param.channelId=vm.channelId=first_node.id;
+					  }else{
+					  		 param.channelId=vm.channelId=-1;
+							 $(".oper").hide();
+					  }
+					  //否则走默认的查表	
+					   vm.getTable(param);
+					}
+				   }
+    			});
+			},
+			//修改文章 发送/撤销状态
+			modifyArticleStatus:function(param){
+				$.ajax({
+				   type:"POST",
+    			   url: "/article/modifyArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+    				   	if(data.status==200){
+    						$.msg("操作成功");
+							$(".tablelist").pagination("refresh");
+						}else{
+							$.err("操作失败");
+						}
+				   }
+    			});
+			},
+			//修改文章置顶状态
+			modifyArticleToped:function(param){
+				$.ajax({
+				   type:"POST",
+    			   url: "/article/modifyArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+    				   	if(data.status==200){
+    						$.msg("修改成功");
+							$(".tablelist").pagination("refresh");
+						}else{
+							$.err("修改失败");
+						}
+				   }
+    			});
+			},
+			//移动文章
+			modifyArticleChannel:function(param){
+				$.ajax({
+				   type:"POST",
+    			   url: "/article/modifyArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+    				   	if(data.status==200){
+    						$.msg("修改成功");
+							$(".tablelist").pagination("refresh");
+						}else{
+							$.err("修改失败");
+						}
+				   }
+    			});
+			},
+			removeArticle:function(e){
+				var param={};
+				param.articleId=$(e.target).parent().parent().parent().find("td").eq(1).text();
+				
+				$.ajax({
+				   url: "/article/removeArticle",
+    			   data:param,
+    			   dataType:"json",
+    			   success: function(data){
+				   		var param={};
+						param.channelId=vm.channelId;
+						param.websiteId=vm.websiteId;
+					  	vm.getTable(param);
+				   }
+				})
+			},
+			removeBatchArticle:function(param){
+				$.ajax({
+					type:"POST",
+				   url: "/article/removeBatchArticle",
+    			   data:JSON.stringify(param),
+    			   dataType:"json",
+				   contentType : 'application/json;charset=utf-8', //设置请求头信息  
+    			   success: function(data){
+				   		if(data.status==200){
+							$("#checkall input").prop("checked",false);
+							$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+							$(".tablelist").pagination("refresh");
+						}else{
+							$("#checkall input").prop("checked",false);
+							$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+							$.err("修改失败");
+						}
+				   		$.loading.end();
+				   }
+				})
+			},
+			modifyBatchArticle:function(param){
+				$.ajax({
+					type:"POST",
+    			   url: "/article/modifyBatchArticle",
+    			   data:JSON.stringify(param),
+				   contentType : 'application/json;charset=utf-8', //设置请求头信息  
+    			   dataType:"json",
+    			   success: function(data){
+						$.loading.end();
+				   		if(data.status==200){
+							$(".tablelist").pagination("refresh");
+						}else{
+							$.err("修改失败");
+						}
+				   }
+    			});
+			},
+			toAddArticlePage:function(){
+    			if(this.channelId=='all'){
+					$.err("请选择频道");
+					return false;
+    			}
+				if(this.channelId==''){
+					this.channelId=Cookies.get("treeNodeId");
+    			}
+				window.location.href="/article/toAddArticlePage?typeId="+this.typeId+"&&channelId="+this.channelId;
+			},
+			toModifyArticlePage:function(event){
+				var articleId=$(event.target).closest("tr").find("td:eq(1)").text().trim();
+				window.location.href="/article/toModifyArticlePage?typeId="+this.typeId+"&&channelId="+this.channelId+"&&articleId="+articleId;
+			},
+			getStartEditTime:function(){
+				if(!$("#date01").val()){
+					return "";
+				}
+				var reg=/(\d{4}\/\d{2}\/\d{2}) - (\d{4}\/\d{2}\/\d{2})/;
+				var result= reg.exec($("#date01").val());
+				return moment(result[1],"YYYY/MM/DD").format("x");
+			},
+	        getEndEditTime: function(){
+				if(!$("#date01").val()){
+					return "";
+				}
+				var reg=/(\d{4}\/\d{2}\/\d{2}) - (\d{4}\/\d{2}\/\d{2})/;
+				var result= reg.exec($("#date01").val());
+				return moment(result[2],"YYYY/MM/DD").add('day',1).format("x");
+			}
+    	},
+		mounted:function(){
+			this.getTree();
+			if($!websiteId==2){
+				$("#push").show();	
+			}else{
+				$("#push").hide();	
+			}
+		}
+    });
+	
+	$("#search").on("click",vm.searchTable);
+	
+	//删除事件
+	//跳转到修改页面事件
+	$(".tablelist").delegate(".modify","click",function(e){
+		vm.toModifyArticlePage(e);
+	});
+	$("body").delegate(".remove","click",function(e){
+        bootbox.confirm("确认删除?", function (result) {
+            if (result) {
+				vm.removeArticle(e);
+            }
+        });
+    });
+	 $("body").delegate(".status","click",function(e){
+	  var alertStr="";
+	  if($(e.target).text().trim()=="发布"||$(e.target).text().trim()=="定时发布"){
+	  	alertStr="确认发布?"
+	  }else{
+	  	alertStr="确认撤销?"
+	  }
+	  bootbox.confirm(alertStr, function (result) {
+            if (result) {
+				var param={};
+    	if($(e.target).text().trim()=="发布"||$(e.target).text().trim()=="定时发布"){
+			//状态改为已发布
+			param.status=0;
+			//添加发布人id,发布人，发布时间
+			param.publisherId="$!admin.adminId";
+			param.publishTime=new moment().format("x");
+			param.publisherName="$!admin.name";
+		}
+		else{
+			//状态改为未发布
+			param.status=1;
+			//清空发布人id,发布人，发布时间
+			param.publisherId="";
+			param.publishTime="";
+			param.publisherName="";
+		}
+    	param.id=$(e.target).parent().parent().parent().find("td").eq(1).text();
+		param.channelId=vm.channelId;
+		param.websiteId=vm.websiteId;
+		param.version=$(e.target).parent().find(".version").val();
+		vm.modifyArticleStatus(param);
+                }
+        });
+        }
+    );
+	 $("body").delegate(".fbwz","click",function(){
+        var ckeck = $("#editabledatatable .checkbox input:checked");
+        if(ckeck.length>0){
+        var _this = this
+        bootbox.confirm("确认发布?", function (result) {
+            if (result) {
+				$.loading.start();
+                //window.location.reload();
+				var checkNodes=$("#editabledatatable .checkbox input:checked");
+				var param=[];
+				for(var i=0;i<checkNodes.length;i++){
+					var currRow=checkNodes.eq(i);
+					var version=checkNodes.eq(i).parent().parent().parent().parent().find(".version").val();
+					var currTime=new moment().format("x");
+					var currStatus=checkNodes.eq(i).closest("tr").find("td:eq(8)").text().trim();
+					if(currStatus=="未发布"||currStatus=="待发布"){
+    					param.push({status:0,id:currRow.val(),version:version,publisherId:"$!admin.adminId",publisherName:"$!admin.name",publishTime:currTime});
+					}
+				}
+				if(param.length!=0){
+    				//1代表把未发布或者待发布改为已发布状态
+    				vm.modifyBatchArticle(param);
+					$("#checkall input").prop("checked",false);
+					$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+				}else{
+					$("#checkall input").prop("checked",false);
+					$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+					$(".tablelist").pagination("refresh");
+					$.loading.end();
+				}
+            }
+        });
+        }
+    });
+    $("body").delegate(".cxfb","click",function(){
+        var ckeck = $("#editabledatatable .checkbox input:checked");
+        if(ckeck.length>0){
+        var _this = this
+        bootbox.confirm("确认撤销发布?", function (result) {
+            if (result) {
+				$.loading.start();
+                //window.location.reload();
+				var checkNodes=$("#editabledatatable .checkbox input:checked");
+				var param=[];
+				for(var i=0;i<checkNodes.length;i++){
+					var currRow=checkNodes.eq(i);
+					var version=checkNodes.eq(i).parent().parent().parent().parent().find(".version").val();
+					var currStatus=checkNodes.eq(i).closest("tr").find("td:eq(8)").text().trim();
+					if(currStatus=="已发布"||currStatus=="待发布"){
+						param.push({status:1,id:currRow.val(),version:version,publisherId:"",publisherName:"",publishTime:""});
+					}
+				}
+				if(param.length!=0){
+    				//0代表把已发布改为未发布状态
+    				vm.modifyBatchArticle(param);
+					$("#checkall input").prop("checked",false);
+					$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+				}else{
+					$("#checkall input").prop("checked",false);
+					$('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+					$(".tablelist").pagination("refresh");
+					$.loading.end();
+				}
+            }
+        });
+        }
+    });
+
+    $("body").delegate(".delete","click",function(){
+        var ckeck = $("#editabledatatable .checkbox input:checked");
+        if(ckeck.length>0){
+        var _this = this
+        bootbox.confirm("确认批量删除?", function (result) {
+            if (result) {
+				$.loading.start();
+				var checkNodes=$("#editabledatatable .checkbox input:checked");
+				var param=[];
+				for(var i=0;i<checkNodes.length;i++){
+					var currRow=checkNodes.eq(i);
+					param.push({articleId:currRow.val()});
+				}
+                vm.removeBatchArticle(param);
+            }
+        });
+        }
+    });
+	
+	$("body").delegate(".toped","click",function(e){
+		 var param={};
+		 	param.id=$(e.target).parent().parent().parent().find("td").eq(1).text();
+    		param.channelId=vm.channelId;
+    		param.websiteId=vm.websiteId;
+    		param.version=$(e.target).parent().find(".version").val();
+		 if($(e.target).text().trim()=="不置顶"){
+			param.toped=0;
+		 }else{
+		 	param.toped=1;
+		 }       
+    		vm.modifyArticleToped(param);
+    });
+	$('#searchValue').bind('input propertychange', function() {
+    	$('.bodypal').slideDown("slow");
+	});
+	</script>
+</body>
+<!--  /Body -->
+</html>

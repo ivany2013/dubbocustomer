@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    #parse("/inc/header.vm")
+    <style>
+      table td{ vertical-align:middle !important;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+
+<table class="table table-striped table-bordered table-hover bigtable">
+    <tbody>
+        <tr>
+            <td class="odd text-center" width="15%">站点代码</td>
+            <td width="85%">$!{result.id}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">站点名称</td>
+            <td>$!{result.name}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">站点域名</td>
+            <td>$!{result.domain}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">站点标题</td>
+            <td>$!{result.title}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">关键字</td>
+            <td>$!{result.keywords}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">站点描述</td>
+            <td>$!{result.description}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">站点模板</td>
+            <td>$!{result.templateName}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">创建时间</td>
+            <td>$velocityTool.formatTime($!{result.editTime},'yyyy/MM/dd HH:mm')</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">创建人</td>
+            <td>$!{result.editName}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">状态</td>
+            <td>#if($!{result.status} == 0) 启用 #else 停用 #end</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">操作</td>
+            <td><a class="btn btn-blue" onclick="mainjs.changemain(this)" datahref="/article/system/channel/toAddChannel?websiteId=$!{result.id}&parentId=0&channelPath=$!{channelPath}" href="javascript:void(0);"><i class="fa fa-plus"></i> 新增子频道</a></td>
+        </tr>
+    </tbody>
+	</table>
+    #parse("/inc/footer.vm")
+</body>
+<!--  /Body -->
+</html>

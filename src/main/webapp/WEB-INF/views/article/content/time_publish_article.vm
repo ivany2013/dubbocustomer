@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<!-- Head -->
+
+	<head>
+		<meta charset="utf-8" />
+		<title>文章管理</title>
+
+		<meta name="description" content="Dashboard" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<!--
+		<link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+		<link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link id="bootstrap-rtl-link" href="" rel="stylesheet" />
+		<link href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/font-awesome.min.css" rel="stylesheet" />
+		<link href="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+
+		<link id="mysteel-link" href="http://a.mysteelcdn.com/libs/article/assets/css/mysteel.min.css" rel="stylesheet" type="text/css" />
+		<link id="skin-link" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/css/skins/black.min.css" rel="stylesheet" type="text/css" />
+		<link href="http://a.mysteelcdn.com/libs/article/assets/css/main.css" rel="stylesheet" type="text/css" />
+		-->
+		#parse("/inc/css.vm")
+		<style type="text/css">
+			.thiswell select {
+				padding: 5px;
+			}
+			body::before {
+                background-color: rgb(251, 251, 251);
+            }
+			.modal-inverse .modal-header {border-bottom: 1px solid #d5d5d5; width:700px;}
+			.modal-content {background-color: #eee;width:700px;}
+		</style>
+	</head>
+	<!-- /Head -->
+	<!-- Body -->
+
+	<body>
+		<div id="app">
+			<dsfb></dsfb>
+		</div>
+		#parse("/inc/js.vm")
+		 <script src="/assets/js/datetime/bootstrap-datepicker.js"></script>
+		<script type="text/javascript">
+			var data = {
+				date:"",
+				year:"",
+				years: [],
+				month:"",
+				months:[],
+				hours:[],
+				minutes:[],
+				days:[],
+				day:"17",
+				minute:"00",
+				hour:"00",
+				week:"",
+				error:"",
+				dayRange:""
+			}
+			function getWeek(){
+				var date=$(".year").val()+""+$(".month").val()+$(".day").val();
+				var week=moment(date,"YYYYMMDD").lang('zh-cn').format("dddd");
+				return week;
+			}
+			Vue.component('dsfb', {
+				template: '<div class="well thiswell " style="margin: 0;padding-bottom: 8px;border: none">'+
+			'<div class="row">'+
+			'<div class="col-xs-2" style="line-height: 34px;text-align: right;">发布时间：</div>'+
+			'<div class="col-xs-2 form-group"><select id="u47087_input" v-model="year">'+
+			'<option  v-for="y of years"  class="year" @change="refreshDate">{{year}}</option></select> 年</div>'+
+			'<div class="col-xs-2 form-group"><select id="u47092_input" v-model="month">'+
+			'<option v-for="m of months" class="month" @change="refreshDate">{{month}}</option></select> 月</div>'+
+			'<div class="col-xs-2 form-group"><select id="u47095_input " class="day" v-model="day" @change="refreshDate">'+
+				'<option v-for="day in days"">{{day}}</option></select>'+ 
+			'日</div>'+
+			'<div class="col-xs-2 form-group"><select id="u47098_input" class="hour" v-model="hour" @change="refreshDate">'+
+				'<option v-for="h of hours" >{{h}}</option></select> 时'+
+			'</div>'+
+			'<div class="col-xs-2 form-group minutes"><select id="u47101_input" v-model="minute" @change="refreshDate">'+
+			'<option v-for="minute of minutes" >{{minute}}</option></select> 分</div></div>'+
+			'<div class="row" style="text-align: center;">本文章将于{{year}}年{{month}}月{{day}}日 {{week}} {{dayRange}} {{hour}}:{{minute}} 发布<br><span class="red">{{error}}</span></div></div>',
+				data: function() {
+					return data;
+				},
+				computed:{
+					week:function(){
+						var date=this.year+this.month+this.day;
+						return moment(date,"YYYYMMDD").format("dddd");
+					},
+				},
+				methods:{
+					refreshDate:function(){
+						if(this.hour>=0&&this.hour<=6){
+            				data.dayRange= "凌晨";
+        				}else if(this.hour>6&&this.hour<=11){
+							data.dayRange="早上";
+						}else if(this.hour>11&&this.hour<=13){
+        					data.dayRange="中午";
+        				}else if(this.hour>13&&this.hour<=17){
+        					data.dayRange="下午";
+        				}else if(this.hour>17&&this.hour<=24){
+        					data.dayRange="晚上";
+        				}
+						var date=this.year+this.month+this.day+this.hour+this.minute;
+						//得到选择框的时间
+						console.log("date",date);
+						var inputDate=moment(date,"YYYYMMDDHHmm").format('x');
+						console.log("inputDate:"+inputDate);
+						var after5Minute=moment().add("minute",5).format('x');
+						//获取当前的时间
+						//如果当前的时间小于选择框的时间
+						if(inputDate<after5Minute){
+							data.error="定时发布时间至少是当前时间的五分钟之后";
+							Cookies.set("timePublishError",false);
+							return false;
+						}
+						//定时发布时间不能超过24个小时
+						var after12HourCurrDate=moment().add(24,'hour').format('x');
+						console.log("after12HourCurrDate:"+after12HourCurrDate);
+						if(after12HourCurrDate<inputDate){
+							data.error="定时发布时间距离当前时间不能超过24小时！"
+							Cookies.set("timePublishError",false);
+							return false;
+						}
+						data.error="";
+						
+						Cookies.set("timePublishError",true);
+						Cookies.set("dsTime",this.getTime())
+					},
+					getTime:function(){
+						var date=this.year+this.month+this.day+this.hour+this.minute+"00";
+						//得到选择框的时间
+						console.log("date",date);
+    					var inputDate=moment(date,"YYYYMMDDHHmmss").format('x');
+						
+						return inputDate;
+					}
+				}
+			})
+			var vm=new Vue({
+				el: '#app',
+				data:{
+				
+				}
+			})
+
+			$(function() {
+				var m=moment().add(1,'days').hours(8).minute(30).second(0);
+				
+				for(var i=0;i<24;i++){
+    				if(i<10){
+    					data.hours.push("0"+i);
+					}else{
+						data.hours.push(i);
+					}
+				}					
+				for(var i=0;i<60;i++){
+					if(i<10){
+    					data.minutes.push("0"+i);
+					}else{
+						data.minutes.push(i);
+					}
+				}	
+				data.year=m.format("YYYY");
+				if(moment().format("YYYY")==moment().add('day',1).format("YYYY")){
+					data.years.push(moment().format("YYYY"));
+				}else{
+					data.years.push(moment().format("YYYY"));
+					data.years.push(moment().add('day',1).format("YYYY"));
+				}
+				data.month=m.format("MM");
+				if(moment().format("MM")==moment().add('day',1).format("MM")){
+					data.months.push(moment().format("MM"));
+				}else{
+					data.months.push(moment().format("MM"));
+					moment().add('day',1).format("MM")
+				}
+				
+				if(moment().format("DD")==moment().add(24, "hour").format("DD")){
+    				data.days.push(moment().format("DD"));
+				}else{
+    				data.days.push(moment().format("DD"));
+					data.days.push(moment().add(24, "hour").format("DD"));
+				}
+				data.day=m.format("DD");
+				
+				data.hour=m.format("HH");
+				data.minute=m.format("mm");
+				data.week=m.week();
+				Cookies.set("timePublishError",true);
+				Cookies.set("dsTime",m.format('x'))
+				
+				if(data.hour>=0&&data.hour<=6){
+    				data.dayRange= "凌晨";
+				}else if(data.hour>6&&data.hour<=11){
+					data.dayRange="早上";
+				}else if(data.hour>11&&data.hour<=13){
+					data.dayRange="中午";
+				}else if(data.hour>13&&data.hour<=17){
+					data.dayRange="下午";
+				}else if(data.hour>17&&data.hour<=24){
+					data.dayRange="晚上";
+				}
+			})
+			
+		</script>
+	</body>
+	<!--  /Body -->
+
+</html>

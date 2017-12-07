@@ -1,0 +1,47 @@
+@charset "utf-8";html{-webkit-text-size-adjust:none;margin:0;padding:0;width:100%;background:#fff}
+body{font-family:helvetica,Arial,"Hiragino Sans GB","Microsoft YaHei",simsun;-webkit-touch-callout:none;margin:0;font-size:16px;line-height:1.5;color:#5D5D5D;word-wrap:break-word;padding:0 10px!important}
+.bar{margin:0 -9px 0 -15px;background:#f3f3f3;padding:5px 0 5px 15px;height:30px}
+.bar .avatar{width:30px;height:30px;overflow:hidden;float:left;-webkit-border-radius:30px;-moz-border-radius:30px;border-radius:30px;margin-right:10px;border:0}
+.bar .name{color:#8f8f8f;font-weight:700;line-height:30px}
+header{padding-top:15px;padding-bottom:9px;display:block}
+header .title{display:block;font-size:20px;line-height:24px;font-weight:bolder;color:#000;padding-bottom:5px}
+header .time{padding-left:6px}
+header .source,header .time{color:#999;font-size:11px;height:11px;line-height:11px}
+body>p{margin:1em 0;line-height:1.5}
+p{word-wrap:break-word;display:block;text-align:justify}
+img{max-width:100%;display:block;clear:both;margin:0 auto;background-color: transparent;color: transparent; border: none;}
+a{color:#a42020;text-decoration:none;border:0;outline:0}
+a:active{border:0;outline:0}
+table{margin:0 auto;font-size:14px;text-align:center;border-spacing:0;border-collapse:collapse}
+table tr td{border:1px solid #dadada;padding:2px}
+#authors,table{color:#464646}
+h1,h2,h3,h4,h5,h6{position:relative;margin:1em 0;font-size:16px;line-height:1.75;font-weight:400}
+hr{margin:1.5em 0;border:1px solid #E9E9E9;border-width:1px 0 0}
+blockquote{line-height:1.4;padding:12px 8px;color:#999;background-color:#F3F4F5;margin:10px 0}
+#profile{-moz-background-size:20px;background-size:20px;padding:15px 0;background:url(http://s2.pstatp.com/appdetail/3.2.1/arrow_pgc@2x.png) no-repeat right center;position:relative;-moz-background-size:15px 15px;background-size:15px 15px}
+#profile a{display:block;padding:5px 22px 5px 5px;border:1px solid #ddd}
+#profile table{width:100%;text-align:left;margin-bottom:0}
+#profile table tr td{border:0}
+.profile_v{position:absolute;left:60px;top:74px}
+.profile_v img{width:15px;height:15px;background:0 0}
+.profile_avatar{float:left;width:40px;height:40px;overflow:hidden;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;margin-right:5px}
+.profile_avatar img{display:block;width:64px;background:0 0;background:url(http://s2.pstatp.com/r2/image/toutiao/avatar_bg_70.png) #e7e7e7 no-repeat center center;border:0}
+.profile_info{padding:0 0 3px;color:#464646;font-size:16px;line-height:22px;font-weight:700;height:20px;overflow:hidden}
+.profile_desc{color:#464646;font-size:12px;line-height:18px;max-height:34px;overflow:hidden;white-space:nowrap;width:235px;text-overflow:ellipsis}
+.preview_float{height:60px;overflow:hidden}
+.preview_float.with_ad{height:auto}
+.tele-ic{display:inline-block;width:12px;height:12px;line-height:12px;background:url(//s2.pstatp.com/pgc/v2/resource/pgc_web/static/ueditor/images/editor_ic_telephone2.041123b.png) no-repeat}
+[tt]{display:block;border:0;margin:0 auto;width:100%;height:1px}
+h1{font-weight:700;line-height:24px;padding-left:12px;font-size:18px;position:relative}
+h1:after{content:"";width:4px;height:18px;background:#f85959;top:3px;position:absolute;left:0}
+.pgc-img-caption{color:#999;text-align:center;margin-top:-6px;font-size:9px}
+body code,body pre{font-size:12px;line-height:1.5em;padding:10px;margin:15px 0;display:block;background:#F0F0F0;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;font-family:monaco,Consolas,"Liberation Mono",Courier,monospace;white-space:pre;word-wrap:normal;overflow-x:auto}
+iframe{width:100%;border:0}
+.iframe-hide{display:none}
+.check-word{border-bottom:2px solid #ff4e45}
+.editor-phone-btn-group{text-align:center}
+.editor-phone-btn{display:inline-block;width:130px;line-height:35px;border:1px solid #F85959!important;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;color:#F85959!important;margin-right:46px;font-size:16px}
+.editor-phone-btn:last-child{margin-right:0}
+.editor-phone-btn::before{content:'';display:inline-block;vertical-align:top;width:15px;height:15px;position:relative;top:9px;margin-right:5px;background-repeat:no-repeat;-moz-background-size:15px 15px;background-size:15px 15px}
+.editor-phone-btn-contact::before{background-image:url(//s2.pstatp.com/pgc/v2/resource/pgc_web/static/ueditor/images/contact-day.f18f01e.png)}
+.editor-phone-btn-book::before{background-image:url(//s2.pstatp.com/pgc/v2/resource/pgc_web/static/ueditor/images/book-day.1ddccee.png)}

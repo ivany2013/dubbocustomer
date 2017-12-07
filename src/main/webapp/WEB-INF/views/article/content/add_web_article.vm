@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+	#parse("/inc/css.vm")	
+    <style>
+        .modal-footer {text-align: center;}
+        .modal-footer button{margin: 0 5px;}
+		
+		.edui-default .edui-for-insertimage .edui-dialog-content {height: 250px !important;width: 450px !important;}
+    </style>
+
+
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body" id="app">
+         <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+                <li class="active">
+                    <a data-toggle="tab" href="#home9">
+                        文章管理
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="home9" class="tab-pane in active">
+                    <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well with-header">
+                            <div class="header">${currWebsite.name}-${channelName}-新增文章</div>
+                                <div class="row">
+                                    <form class="form-horizontal form-bordered" role="form">
+                                        <table class="table table-striped table-bordered table-hover bigtable">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="odd text-center">文章内容</td>
+                                                    <td colspan="3">
+                                                       <div id="pagelet-write" class="pagelet-write ueEditor" >
+                                                            <div class="edit-wrap" >
+                                                                <script type="text/plain" id="editor" style="width: 100%;" name="content"></script>
+                                                                <div class="con-split"></div>
+                                                            </div>
+                                                        </div>
+                                                      <div id="pdfEdit" style="display:none">
+    													<div>
+                                                              <button id="prev">Previous</button>
+                                                              <button id="next">Next</button>
+                                                              &nbsp; &nbsp;
+                                                              <span>Page: <span id="page_num"></span> / <span id="page_count"></span></span>
+                                                            </div>
+        													<canvas id="the-canvas" style="border:1px solid black;"/>
+														</div>	
+                                                        <input id="upfile" name="upfile" type="file" style="display:none">
+															<input id="pdfFileId"  type="hidden">
+                                                        <div class="input-append col-xs-12 padding-10">
+                                                            <input v-if="pdfVisible==false" id="fileCover" class="input-large col-xs-6" type="text" style="height:30px;" value="未选择任何文件">
+                                                            <a v-if="pdfVisible==false" class="btn btn-primary margin-left-5" onclick="$('input[id=upfile]').click();">浏览</a>
+                                                            <a v-if="pdfVisible==false" href="javascript:void(0);" id="loadfile" class="btn btn-primary" @click="pdfUpload" >上传文章</a>
+                                                            <a v-if="pdfVisible==true" href="javascript:void(0);" class="btn btn-primary reset_push " >重置</a>
+															<br/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="odd text-center">操作</td>
+                                                    <td colspan="3">
+                                                        <div class="buttons-preview">
+                                                            <a href="javascript:void(0);" class="btn btn-blue">预览文章</a>
+                                                            <button   class="btn btn-primary" v-on:click.stop.prevent="saveArticle">保存文章</button>
+                                                            <a href="javascript:void(0);" class="btn btn-primary" v-on:click.stop.prevent="publishArticle"  >发布文章</a>
+                                                            <a href="javascript:void(0);" onclick="window.history.go(-1)" class="btn btn-primary">取消返回</a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="pingdao/moban.html"></iframe>
+        </div>
+    </script>
+
+
+
+     <!--Basic Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/jquery-2.0.3.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/bootstrap.min.js"></script>
+
+    <!--Mysteel Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/mysteel.min.js"></script>
+    <!--Page Related Scripts-->
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/bootbox/bootbox.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/main.js"></script>
+
+
+
+
+    <script type="text/javascript" charset="utf-8" src="http://a.mysteelcdn.com/libs/jquery.cookie.min.js"></script>
+<!--     <script type="text/javascript" charset="utf-8" src="http://a.mysteelcdn.com/libs/article/assets/js/ueditor/ueditor_more.js"></script>  -->
+
+<!--     <script type="text/javascript" charset="utf-8" src="http://www.steelphone.com/2016/czc/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://www.steelphone.com/2016/czc/ueditor/ueditor.all.js"></script> -->
+ <script type="text/javascript" charset="utf-8" src="/assets/js/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/assets/js/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/assets/js/myueditor.js"></script>
+	<script src="/assets/js/jquery-1.4.2.min.js"></script>
+	#parse("/inc/js.vm")
+	<script src="/assets/js/pdf.js"></script>
+	<script src="/assets/js/pdf.worker.js"></script>
+	<script src="/assets/js/PDFTool.js"></script>
+    <script type="text/javascript">
+	$(function(){
+	bootbox.setDefaults({
+        locale: "zh_CN",
+    })
+		//window.UEDITOR_HOME_URL = 'http://192.168.20.123:8085/';
+        $("#bootbox-options,#bootbox-options2").on('click', function () {
+            bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "选择模板",
+                lage:true,
+                className: "modal-inverse",
+				channelList:[],
+				
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { }
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("#addEdite").on('click', function () {
+            bootbox.dialog({
+                message: $("#addEditeModal").html(),
+                title: "选择模板",
+                lage:true,
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { }
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("#sflx").on('click', function () {
+            bootbox.dialog({
+                message: $("#sflxModal").html(),
+                title: "选择模板",
+                lage:true,
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { }
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+
+                    }
+                }
+            });
+        });
+        $("#submit").on("click",function(){
+            //mainjs.changeLevel();
+            window.history.go(-1)
+        })
+        $("#return").on("click",function(){
+            //mainjs.changeLevel();
+            window.history.go(-1)
+        })
+        $("body").on("click",".showcy .btn-default",function(){
+            $(this).parents(".showcy").remove();
+        })
+        //文件上传
+        $('input[id=lefile]').change(function() {
+            $('#photoCover').val($(this).val());
+        });
+		
+		
+		
+        $("body").delegate("input[id=upfile]","change",function(){
+			 $('#fileCover').val($(this).val());
+		})
+
+    	$("body").delegate('.reset_push','click',function(){
+        bootbox.confirm("确认重置已上传文章？", function (result) {
+            if (result) {
+				vm.resetPdf();
+            }
+            });
+        })
+	})
+    </script>
+	<script>
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				websiteId:$!websiteId,
+				channelId:$!channelId,
+				attachment:"",
+				contentType:0,
+				pdfUrl:"",
+				url:"",
+				content:"",
+				editorName:"$!admin.name",
+				editorId:$!admin.adminId,
+				pdfVisible:false
+			},
+			methods:{
+				//保存文章
+				saveArticle:function(event){
+					//保存文章，没有发布时间和发布人
+					var request=this.getParam();
+					request.status=1;
+					$.ajax({
+						type:"POST",
+						url:"/article/addArticle",
+						data:JSON.stringify(request),
+						dataType:"json",  
+    					contentType : 'application/json;charset=utf-8', //设置请求头信息  
+						success:function(data){
+							if(data.status=="200"){
+								$.msg("上传成功");	
+								history.go(-1);
+							}else{
+								$.err("上传失败");		
+							}
+						}
+					})
+				},
+				//发布文章
+				publishArticle:function(){
+					//发布文章需要发布时间和发布人
+					var param=this.getParam();
+					//发布文章 发布人是当前人
+					param.publisherId=$!admin.adminId;
+					param.publishTime=new moment().format("x");
+					param.publisherName="$!admin.name";
+					param.status=0;
+					$.ajax({
+						type:"POST",
+						url:"/article/addArticle",
+						data:JSON.stringify(param),
+						dataType:"json",  
+    					contentType : 'application/json;charset=utf-8', //设置请求头信息  
+						success:function(data){
+							if(data.status=="200"){
+								$.msg("上传成功");		
+								history.go(-1);
+							}else{
+								$.err("上传失败");		
+							}
+						}
+					})
+				},
+				//定时发布
+				publisTimeArticle:function(){
+					//定时发布需要发布时间和发布人
+					var param=this.getParam();
+					param.publisherId=$!admin.adminId;
+					param.publishTime=Cookies.get("dsTime");
+					$.msg("推送时间"+param.publishTime)
+					param.publisherName="$!admin.name";
+					param.status=2;
+					$.ajax({
+						type:"POST",
+						url:"/article/addArticle",
+						data:JSON.stringify(param),
+						dataType:"json",  
+    					contentType : 'application/json;charset=utf-8', //设置请求头信息  
+						success:function(data){
+							if(data.status=="200"){
+								$.msg("上传成功");	
+								history.go(-1);
+							}else{
+								$.err("上传失败");		
+							}
+						}
+					})
+				},
+				getParam(){
+					var param={};
+					param.channelId=this.channelId;
+					param.websiteId=this.websiteId;
+					param.sourceType="1";
+					param.contentTemplate="1";
+					
+					param.publisherId="";
+					param.publishTime="";
+					param.publisherName="";
+					var title=ue.getContentTxt();
+					param.title=title.substr(0,10);	
+					param.editorId=this.editorId;
+					param.lastEditorId=this.editorId;
+					param.editorName=this.editorName;
+					
+					var currTime=new moment().format("x");
+					param.editTime=currTime;
+					param.lastEditTime=currTime;
+					
+					var articleContent={};
+					articleContent.pdfUrl=this.pdfUrl;
+					articleContent.contentType=this.contentType;
+					articleContent.content=ue.getContent();
+					param.articleContent=articleContent;
+					console.log(param);
+					return param;
+				},
+				pdfUpload:function(){
+					var path=$("#fileCover").val();
+					var suffix=path.substr(path.lastIndexOf(".")+1,path.length);
+					if(path.trim()==""||path.trim()=="未选择任何文件"){
+						$.err("请上传文件");
+						return false;
+    				}
+					if(suffix!='pdf'){
+						$.msg("只能上传pdf文件");
+						return false;
+					}
+					$.loading.start();
+					$.ajaxFileUpload
+                    (
+                        {
+							type:"POST",
+                            url: '/article/file/uploadPDF', //用于文件上传的服务器端请求地址
+                            secureuri: false, //是否需要安全协议，一般设置为false
+                            fileElementId: "upfile", //文件上传域的ID
+                            dataType: 'json', //返回值类型 一般设置为json
+                            success: function (data, status)  //服务器成功响应处理函数
+                            {	
+							$.loading.end();
+								if(data.status=="200"){
+    								var url=data.data.url;
+									var fileId=data.data.fileId;
+    								pdfInit(url);
+    								$("#pdfEdit").show();
+									$(".ueEditor").hide();
+									vm.pdfVisible=true;
+									vm.pdfUrl=fileId;
+									//0内容类型为富文本编辑器 1代表pdf
+									vm.contentType=1;
+								}else{
+									$.err("文章上传失败");
+								}
+							}
+						}	
+					)		
+			},
+			//PDF内容重置
+			resetPdf:function(){
+				$("#pdfEdit").hide();
+				$(".ueEditor").show();
+				$("#fileCover").val("");
+				$("#upfile").val("");
+				$("#pdfFileId").val("");
+				vm.pdfVisible=false;
+				vm.pdfUrl="";
+				//0内容类型为富文本编辑器 1代表pdf
+				vm.contentType=0;
+			},
+			}
+		})
+	</script>
+</body>
+<!--  /Body -->
+</html>

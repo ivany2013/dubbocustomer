@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+	#parse("/inc/header.vm")
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Page Body -->
+    <div class="page-body">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+				<input type="hidden" id="pageChannelId" value="$!{result.channelId}"/>
+                #foreach($website in $!{result.websites})
+				<li #if($!{result.currentWebsite.id} == $!{website.id}) class="active" #end>
+					<input type="hidden" class="websiteId" value="$!{website.id}"/>	
+                    <a data-toggle="tab" href="#webiste$!{website.id}">
+    						$!{website.name}
+                    </a>
+                </li>
+				#end
+            </ul>
+            <div class="tab-content">
+				#foreach($website in $!{result.websites})	
+                <div id="webiste$!{website.id}" #if($!{result.currentWebsite.id} == $!{website.id}) class="tab-pane in active" #else class="tab-pane" #end >
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-3 col-xs-12">
+                            <div class="well with-header" style="padding-left: 10px;padding-right: 10px;padding-bottom: 0;">
+                                <div class="header">
+										频道
+                                    <a href="javascript:void(0);" id="hidebtn" class="btn btn-primary btn-sm pull-right bootbox-confirm">隐藏停用</a>
+                                </div>
+                                <div class="topsearch"><input id="searchValue" name="to" placeholder="搜索" class="search-value-js form-control"></div>
+                                <div><ul id="channelTree$!{website.id}" class="ztree" style="width: 100%;height: 530px;overflow: auto;"></ul></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-sm-9 col-xs-12">
+                            <div class="well with-header">
+                                <div class="header site name">$!{website.name}</div>
+                                <div>
+                                    <iframe class="chanel_frame" frameborder="0" id="chanelFrame$!{website.id}" style="width: 100%;height: 540px;"  
+										#if(${result.channelId} && ${result.channelId} > 0) src="/article/system/channel/channelDetail?channelId=$!{result.channelId}" 
+											#else src="/article/system/channel/websiteDetail?websiteId=$!{website.id}" #end>
+									</iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				#end
+            </div>
+        </div>
+    </div>
+    #parse("/inc/footer.vm")
+	<script src="/assets/js/page/channel/channelZtree.js"></script>
+	<script src="/assets/js/page/channel/manage.js"></script>
+</body>
+<!--  /Body -->
+</html>

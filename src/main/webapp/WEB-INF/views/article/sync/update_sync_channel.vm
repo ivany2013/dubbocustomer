@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />	
+		#parse("/inc/header.vm")
+    <style>
+    .modal-footer {text-align: center;}
+    .modal-footer button{margin: 0 5px;}
+    .site,.pd_hide{display: none;}
+    table td{vertical-align: middle !important;}
+    </style>
+
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+		
+		<input type="hidden" name="version" id="version" value="$!{syncChannel.version}">  
+		<input type="hidden" name="currentChannelId" id="currentChannelId" value="$!{channelId}">  
+		<input type="hidden" name="syncChannelId" id="syncChannelId" value="$!{syncChannel.id}">  
+    <input type="hidden" name="websiteId" id="websiteId" value="$!{websiteId}">  
+    <input type="hidden" name="websiteName" id="websiteName" value="$!{websiteName}">  
+    <input type="hidden" name="editorType" id="editorType" value="$!{editorType}">  
+    <input type="hidden" name="masterChannelId" id="masterChannelId" value="$!{syncChannel.masterChannelId}">  
+    <div class="page-body">
+        <div class="well with-header">
+            <div class="header">$!{syncChannel.masterChannelName}-同步-$!{channelAllName}-修改</div>
+            <div>
+              <table class="table table-striped table-bordered table-hover bigtable margin-bottom-10" id="editTable">
+                  <tbody>
+                      <tr>
+                          <td class="odd text-center" width="20%">频道名称</td>
+                          <td width="85%" class="channel">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p><a class="btn btn-primary edit-select-js" channelId="$!{syncChannel.masterChannelId}" href="javascript:void(0);" sourcewebsiteId="$!{channel.websiteId}">选择频道</a></p>
+                                    <div class="selected-channel-data-js" id="$!{syncChannel.masterChannelId}" name="$!{syncChannel.masterChannelName}">
+																			$!{syncChannel.masterChannelName}
+                                    </div>
+                                </div>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="odd text-center" width="20%">品种名称</td>
+                          <td width="85%" class="breed">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p><button class="btn btn-primary edit-select-js" #if(${editorType} == 1)disabled #end>选择品种</button></p>
+                                    <div class="selected-base-data-js" ids="$!{syncChannel.masterBreedsIds}" names="$!{syncChannel.masterBreeds}">
+																				#if($breedList.size() > 0)
+																				#foreach( $breed in $breedList)
+																				<div class="input-group showcy">
+                                            <span class="form-control base-name-js">$!{breed.name}</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove_popup delete-node-js" id="$!{breed.id}" value="$!{breed.name}" type="button">移除</button>
+                                            </span>
+                                        </div>
+																				#end
+																				#end
+                                    </div>
+                                </div>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="odd text-center" width="20%">城市名称</td>
+                          <td width="85%" class="city">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p><button class="btn btn-primary edit-select-js" #if(${editorType} == 1)disabled #end>选择城市</button></p>
+                                    <div class="selected-base-data-js" ids="$!{syncChannel.masterCitysIds}" names="$!{syncChannel.masterCitys}" >
+																				
+																				#if($cityList.size() > 0)
+																				#foreach( $city in $cityList)
+																				<div class="input-group showcy">
+                                            <span class="form-control base-name-js">$!{city.name}</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove_popup delete-node-js" id="$!{city.id}" value="$!{city.name}" type="button">移除</button>
+                                            </span>
+                                        </div>
+																				#end
+																				#end
+																				
+                                    </div>
+                                </div>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="odd text-center" width="20%">钢厂名称</td>
+                          <td width="85%" class="factory">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p><button class="btn btn-primary edit-select-js" #if(${editorType} == 1)disabled #end>选择钢厂</button></p>
+                                    <div class="selected-base-data-js" ids="$!{syncChannel.masterFactorysIds}" names="$!{syncChannel.masterFactorys}">
+																			
+																				#if($factoryList.size() > 0)
+																				#foreach( $factory in $factoryList)
+																				<div class="input-group showcy">
+                                            <span class="form-control base-name-js">$!{factory.name}</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove_popup delete-node-js" id="$!{factory.id}" value="$!{factory.name}" type="button">移除</button>
+                                            </span>
+                                        </div>
+																				#end
+																				#end
+																				
+                                    </div>
+                                </div>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="odd text-center" width="20%">港口名称</td>
+                          <td width="85%" class="port">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p><button class="btn btn-primary edit-select-js" #if(${editorType} == 1)disabled #end>选择港口</button></p>
+                                    <div class="selected-base-data-js" ids="$!{syncChannel.masterPortsIds}" names="$!{syncChannel.masterPorts}">
+																				#if($portList.size() > 0)
+																				#foreach( $port in $portList)
+																				<div class="input-group showcy">
+                                            <span class="form-control base-name-js">$!{port.name}</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove_popup delete-node-js" num="$!{port.id}" value="$!{port.name}" type="button">移除</button>
+                                            </span>
+                                        </div>
+																				#end
+																				#end
+                                    </div>
+                                </div>
+                            </div>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="odd text-center" width="20%">同步状态</td>
+                          <td width="85%">
+                            <div class="control-group ">
+                                <div class="radio pull-left margin-top-10" ><label><input name="form-field-radio" type="radio" #if($!syncChannel.status == 0) checked="checked" #end value="0"><span class="text">启用 </span></label></div>
+                                <div class="radio pull-left margin-top-10" status="1"><label><input name="form-field-radio" type="radio" class="inverted" value="1" #if($!syncChannel.status == 1) checked="checked" #end><span class="text">停用</span></label></div>
+                            </div>
+                          </td>
+                      </tr>
+                    <tr>
+                        <td class="odd text-center">操作</td>
+                        <td>
+                            <div class="buttons-preview">
+                                <button href="javascript:void(0);" class="btn btn-primary" id="eidtSaveSyncChannel">确认修改</button>
+                                <a href="/sync/syncManage?fromWebsiteId=$!{websiteId}&fromChannelId=$!{channelId}" class="btn btn-primary">取消返回</a>
+                            </div>
+                        </td>
+                    </tr>
+
+                  </tbody>
+              </table>
+            </div>
+        </div>
+    </div>
+    <script id="addEditeModal" type="text/template">
+        <div class="row">
+            <!-- <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="add_pd.html"></iframe> -->
+            <div class="show pd_hide" style="overflow: hidden;margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px dashed #ccc">
+                <h6>当前所选<span class="text1"></span></h6>
+                <div id="syncChannelChoose">
+								
+								</div>
+            </div>
+            <div class="row inputrow">
+                <div class="col-xs-5 show site" >
+                    <div style="float: left;line-height: 34px;text-align: center;">站点： </div>
+                    
+										<select id="changeWebsite">
+											#foreach( $website in $websiteList )
+                      <option value="$!website.name" id="$website.id" #if(${websiteId} == $!{website.id}) selected="true" #end>$!website.name</option>
+											#end 
+                    </select>
+										
+                </div>
+                <div class="col-xs-5">
+                    <div style="width: 35%;float: left;line-height: 34px;text-align: center;"><span class="text1"></span>名称： </div>
+                    <input style="width: 65%;float: left;" type="text" name="subject" placeholder="" class="form-control" id="searchValue">
+                </div>
+                <div class="col-xs-2 text-right">
+                    <button type="button" class="btn btn-primary search" id="searchBtn">搜 索</button>
+                </div>
+            </div>
+            <div class="row tree-channel" style="border:1px solid #ccc;margin-top:10px;display:none;">
+                <ul id="treeChannel" class="ztree"></ul>
+            </div>
+            <div class="row base-channel" style="border:1px solid #ccc;margin-top:10px;display:none;">
+                <ul id="treeBase" class="ztree"></ul>
+            </div>
+        </div>
+    </script>
+    
+		#parse("/inc/footer.vm")
+		<script src="/assets/js/page/sync/syncChannelCommon.js"></script>
+		<script src="/assets/js/page/sync/addSyncChannelZtree.js"></script>
+		<script src="/assets/js/page/sync/addSyncChannel.js"></script>
+		
+</body>
+<!--  /Body -->
+</html>

@@ -1,0 +1,38 @@
+<table id="editabledatatable" class="table table-bordered table-hover flip-content text-center margin-top-20">
+                            <thead class="flip-content ">
+                                <tr>
+                                    <th class="text-center">文章ID</th>
+                                    <th class="text-center">文章标题</th>
+                                    <th class="text-center">编辑人ID</th>
+                                    <th class="text-center">编辑人</th>
+                                    <th class="text-center">发布时间</th>
+                                    <th class="text-center">最新评论时间</th>
+                                    <th class="text-center">评论数</th>
+                                    <th class="text-center">已处理数</th>
+                                    <th class="text-center">未处理数</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+			#set($size = $result.list.size())
+			  #if($size==0)
+			    <tr><td colspan="9" align="center">没有数据!</td></tr> 
+			   #else
+				#foreach($obj in ${result.list})
+                                <tr>
+                                    <td>$obj.articleId</td>
+                                    <td align="center">
+										<div style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;width:150px;"><a onclick="mainjs.changemain(this)" href="#">$!obj.articleTitle</a></div>
+										</td>
+                                    <td class="">$!obj.editorId</td>
+                                    <td class="">$!obj.editorName</td>
+                                    <td class="">$!velocityTool.getNewTime($obj.publishTime)</td>
+                                    <td class="">$!velocityTool.getNewTime($obj.maxCommentTime)</td>#set($sumComment = $!{obj.sumHandered} + $!{obj.unSumHandered})
+                                    <td class=""><a onclick="mainjs.changemain(this)" href="/comment/toArticleDetailPage?type=2&sumNum=$!sumComment&articleId=$!obj.articleId&articleTitle=$!obj.articleTitle"> $!sumComment</a></td>
+                                    <td class=""><a onclick="mainjs.changemain(this)" href="/comment/toArticleDetailPage?type=1&sumNum=$!obj.sumHandered&articleId=$!obj.articleId&articleTitle=$!obj.articleTitle">$!obj.sumHandered</a></td>
+                                    <td class=""><a onclick="mainjs.changemain(this)" href="/comment/toArticleDetailPage?type=0&sumNum=$!obj.unSumHandered&articleId=$!obj.articleId&articleTitle=$!obj.articleTitle">$!obj.unSumHandered</a></td>
+                                </tr>
+				#end
+			  #end
+                            </tbody>
+                        </table>
+			<div class="row DTTTFooter">#pageNation($result)</div>

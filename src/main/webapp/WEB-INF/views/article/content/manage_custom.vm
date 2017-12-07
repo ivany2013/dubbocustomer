@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+    <meta charset="utf-8" />
+    <title>文章管理</title>
+
+    <meta name="description" content="Dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="http://a.mysteelcdn.com/libs/mysteelUI/assets/img/favicon.png" type="image/x-icon">
+
+   #parse("/inc/css.vm")
+    <style>
+        .well1.with-header {
+            padding-top: 46px;
+        }
+        .well1 .wide{
+            border-top:1px dashed #ccc;
+            margin-top:8px;
+            margin-bottom:8px;
+        }
+        .well1 .showcy{
+            margin-bottom:5px;
+        }
+        .inputrow{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+        .modal-footer {text-align: center;}
+        .modal-footer button{margin: 0 5px;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Page Body -->
+		<input type="hidden" name="userId" value="$!{userId}" id="userId"> 
+    <div class="page-body">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+                <li class="active">
+                    <a data-toggle="tab" href="#home9">
+                        定制管理
+                    </a>
+                </li>
+            </ul>
+          <div class="tab-content">
+              <div id="home9" class="tab-pane in active">
+                <div class="row subscribe-type-js"  data-ids="$channelIds">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well well1 with-header">
+                            <div class="header">一稿多投</div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <a class="btn btn-primary margin-right-10 addEdite" href="javascript:void(0);">新增频道</a>
+                                    <a class="btn btn-primary addEdite" href="javascript:void(0);">申请频道</a>
+                                </div>
+                            </div>
+                            <hr class="wide">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12"x>
+                                    <p>已定制频道</p>
+                                    <div class="select-temp-js channel">
+        							#set($size = $result.list.size())
+                        			  #if($size==0)
+        									没有数据!
+                        			   #else
+                        				#foreach($obj in ${list})
+        									#if($obj.type == 0)
+                                            <div class="input-group showcy">
+                                                <span class="form-control">$obj.itemName</span>
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default blue_color remove-js" type="button" data-id="$obj.id">移除</button>
+                                                </span>
+                                            </div>
+        									#end
+        								#end
+        							  #end
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row subscribe-type-js"  data-ids="$breedIds">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well well1 with-header">
+                            <div class="header">定制品种</div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <a class="btn btn-primary margin-right-10 addEdite" href="javascript:void(0);">新增品种</a>
+                                    <a class="btn btn-primary addEdite" href="javascript:void(0);">申请品种</a>
+                                </div>
+                            </div>
+                            <hr class="wide">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p>已定制品种</p>
+                                    <div class="select-temp-js breed">
+        							#set($size = $result.list.size())
+                        			  #if($size==0)
+        									没有数据!
+                        			   #else
+                        				#foreach($obj in ${list})
+        									#if($obj.type == 1)
+                                        <div class="input-group showcy">
+                                            <span class="form-control">$obj.itemName</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove-js" type="button"  data-id="$obj.id">移除</button>
+                                            </span>
+                                        </div>
+        									#end
+        								#end
+        							  #end
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row subscribe-type-js"  data-ids="$cityIds">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well well1 with-header">
+                            <div class="header">定制城市</div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <a class="btn btn-primary margin-right-10 addEdite" href="javascript:void(0);">新增城市</a>
+                                    <a class="btn btn-primary addEdite" href="javascript:void(0);">申请城市</a>
+                                </div>
+                            </div>
+                            <hr class="wide">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p>已定制城市</p>
+                                    <div class="select-temp-js city">
+                                   #set($size = $result.list.size())
+                        			  #if($size==0)
+        									没有数据!
+                        			   #else
+                        				#foreach($obj in ${list})
+        									#if($obj.type == 2)
+                                        <div class="input-group showcy">
+                                            <span class="form-control">$obj.itemName</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove-js" type="button"  data-id="$obj.id">移除</button>
+                                            </span>
+                                        </div>
+        									#end
+        								#end
+        							  #end
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row subscribe-type-js"  data-ids="$factorylIds">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well well1 with-header">
+                            <div class="header">定制钢厂</div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <a class="btn btn-primary margin-right-10 addEdite" href="javascript:void(0);">新增钢厂</a>
+                                    <a class="btn btn-primary addEdite" href="javascript:void(0);">申请钢厂</a>
+                                </div>
+                            </div>
+                            <hr class="wide">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p>已定制钢厂</p>
+                                    <div class="select-temp-js factory">
+                                        #set($size = $result.list.size())
+                        			  #if($size==0)
+        									没有数据!
+                        			   #else
+                        				#foreach($obj in ${list})
+        									#if($obj.type == 3)
+                                        <div class="input-group showcy">
+                                            <span class="form-control">$obj.itemName</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove-js" type="button"  data-id="$obj.id">移除</button>
+                                            </span>
+                                        </div>
+        									#end
+        								#end
+        							  #end
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row subscribe-type-js" data-ids="$portIds">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well well1 with-header">
+                            <div class="header">定制港口</div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <a class="btn btn-primary margin-right-10 addEdite" href="javascript:void(0);">新增港口</a>
+                                    <a class="btn btn-primary addEdite" href="javascript:void(0);">申请港口</a>
+                                </div>
+                            </div>
+                            <hr class="wide">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12">
+                                    <p>已定制港口</p>
+                                    <div class="select-temp-js port">
+                                   #set($size = $result.list.size())
+                        			  #if($size==0)
+        									没有数据!
+                        			   #else
+                        				#foreach($obj in ${list})
+        									#if($obj.type == 4)
+                                        <div class="input-group showcy">
+                                            <span class="form-control">$obj.itemName</span>
+                                            <span class="input-group-btn">
+                                                <button class="btn btn-default blue_color remove-js" type="button"  data-id="$obj.id">移除</button>
+                                            </span>
+                                        </div>
+        									#end
+        								#end
+        							  #end
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+    </div>
+
+    <script id="addEditeModal" type="text/template">
+        <div class="row">
+            <!-- <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="add_pd.html"></iframe> -->
+            <h6>当前所选<span class="text1"></span></h6>
+            <div style="overflow: hidden;margin-bottom: 10px;padding-bottom: 10px;border-bottom: 1px dashed #ccc" id="currentTemp">
+                	无
+            </div>
+            <div class="row inputrow show">
+                <div class="col-xs-5">
+                    <div style="float: left;line-height: 34px;text-align: center;">站点： </div>
+                    <select id="changeWebsite" a="${websiteId}">
+					#foreach( $website in $websiteList )
+                      <option value="$!website.name" id="$website.id" #if(${websiteId} == $!website.id) selected="true" #end>$!website.name</option>
+					#end 
+                    </select>
+                </div>
+                <div class="col-xs-5">
+                    <div style="width: 35%;float: left;line-height: 34px;text-align: center;"><span class="text1"></span>名称： </div>
+                    <input id="searchValue1" style="width: 65%;float: left;" type="text" name="subject" placeholder="" class="form-control">
+                </div>
+                <div class="col-xs-2 text-right">
+                    <button type="button" class="btn btn-primary" id="searchBtn">搜 索</button>
+                </div>
+            </div>
+            <div class="row inputrow" >
+                <div class="col-xs-5">
+                    <div style="width: 35%;float: left;line-height: 34px;text-align: center;"><span class="text1"></span>名称： </div>
+                    <input style="width: 65%;float: left;" type="text" name="subject" placeholder="" class="form-control" id="searchValue">
+                </div>
+                <div class="col-xs-offset-5 col-xs-2 text-right">
+                    <button type="button" class="btn btn-primary" id="searchBtn">搜 索</button>
+                </div>
+            </div>
+            <div class="row" style="border:1px solid #ccc;margin-top:10px;">
+                <ul id="subscribeTree" class="ztree "></ul>
+            </div>
+        </div>
+    </script>
+    #parse("/inc/js.vm")
+	
+	
+	<script src="/assets/js/page/sync/addSyncChannelZtree.js"></script>
+	<script src="/assets/js/page/userCustom.js"></script>
+
+    <script>
+	$(function(){
+		$("#content").find(".active").removeClass("active");
+		$("#content li:eq(0)").addClass("active");
+	})
+	
+	/*
+	//全选
+    $('#checkall').on('click', function () {
+        if(!$('#checkall').hasClass("checked1")){
+            $('#editabledatatable tbody .checkbox input').prop('checked',true);
+            $('#checkall').addClass("checked1").find(".checkbox input").prop('checked',true);
+            $('#checkall').find("input").prop('checked',true);
+            return false
+        }else{
+            $('#editabledatatable tbody .checkbox input').prop('checked',false);
+            $('#checkall').removeClass("checked1").find(".checkbox input").prop('checked',false);
+            $('#checkall').find("input").prop('checked',false);
+            return false
+        }
+    });
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }*/	
+		
+		var jsonArrayAll = $!{jsonArrayAll};
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

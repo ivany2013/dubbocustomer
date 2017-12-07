@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <link href="http://a.mysteelcdn.com/libs/article/assets/css/main1.css" rel="stylesheet" type="text/css" />
+     #parse("/inc/header.vm")
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+	 <style>
+
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body comments" id="commentApp">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+                <li class="active">
+                    <a data-toggle="tab" href="#home9">
+                        未处理评论
+                    </a>
+                </li>
+                <li>
+                    <a data-toggle="tab" href="#profile9"  v-on:click="getTreated">
+                        已处理评论
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="home9" class="tab-pane in active">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12 showsub">
+                            <div class="form-group   col-xs-12 ">
+                                <p class="t_form_style  text-center"><span>处理人：</span></p>
+                                <input type="text" class="t_form_style personNames" placeholder="" readonly  id="personNames" value="$!personNames">
+                                <a class="btn btn-primary pull-left btn_select bootbox-options1"  href="javascript:void(0);" v-on:click="getPerson">选 择</a>
+                                <a class="btn btn-primary pull-right"  href="javascript:void(0);" v-on:click="getUntreated" >搜 索</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="wide">
+                    <div class="row">
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12" id="untreatedDiv">
+                           <!-- <div class="comments_content col-lg-12 col-sm-12 col-xs-12">
+                                <div class="list">
+                                    <div class="comments_content1 col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="row no-padding">
+                                            <p class="line col-sm-3 col-xs-12 text-left">评论时间：<span class="text-muted">2016/11/08</span></p>
+                                            <p class="line col-sm-4 col-xs-12 text-left">文章ID：<span class="text-muted">000001</span></p>
+                                            <p class="line col-sm-5 col-xs-12 text-left">文章标题：<span class="text-muted"> <a href="#">10月我国出口钢材770万吨 同比下降14.6%</a></span></p>
+                                            <p class="line col-sm-3 col-xs-12 text-left">评论人姓名：<span class="text-muted">刘英杰</span></p>
+                                            <p class="line col-sm-4 col-xs-12 text-left">评论人公司：<span class="text-muted">上海宝钢特钢</span></p>
+                                            <p class="line col-sm-5 col-xs-12 text-left">来源：<span class="text-muted">我的钢铁网手机版</span></p>
+                                            <p class="line col-sm-4 col-xs-12 text-left">对应评论内容：<span class="text-muted">---</span></p>
+                                        </div>
+                                        <hr class="wide">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail2">回复内容</label>
+                                                    <span class="input-icon icon-right">
+                                                        <textarea class="form-control resize" rows="5"></textarea>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fltop" >
+                                        <a href="javascript:void(0);" class="btn btn-primary margin-right-10 margin-top-10">确定</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary margin-right-10 margin-top-10">不回复</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary margin-right-10 margin-top-10">前端隐藏</a>
+                                    </div>
+                                </div>
+                                <div class="list">
+                                    <div class="comments_content1 col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="row no-padding">
+                                            <p class="line col-sm-3 col-xs-12 text-left">评论时间：<span class="text-muted">2016/11/08</span></p>
+                                            <p class="line col-sm-4 col-xs-12 text-left">文章ID：<span class="text-muted">000001</span></p>
+                                            <p class="line col-sm-5 col-xs-12 text-left">文章标题：<span class="text-muted"><a href="#">10月我国出口钢材770万吨 同比下降14.6%</a></span></p>
+                                            <p class="line col-sm-3 col-xs-12 text-left">评论人姓名：<span class="text-muted">刘英杰</span></p>
+                                            <p class="line col-sm-4 col-xs-12 text-left">评论人公司：<span class="text-muted">上海宝钢特钢</span></p>
+                                            <p class="line col-sm-5 col-xs-12 text-left">来源：<span class="text-muted">我的钢铁网手机版</span></p>
+                                            <p class="line col-sm-4 col-xs-12 text-left">对应评论内容：<span class="text-muted">---</span></p>
+                                        </div>
+                                        <hr class="wide">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail2">回复内容</label>
+                                                    <span class="input-icon icon-right">
+                                                        <textarea class="form-control resize" rows="5"></textarea>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fltop" style="padding-bottom:10px;border-bottom:1px solid #ccc">
+                                        <a href="javascript:void(0);" class="btn btn-primary margin-right-10 margin-right-10 margin-top-10">确定</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary margin-right-10 margin-right-10 margin-top-10">不回复</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary margin-right-10 margin-right-10 margin-top-10">前端隐藏</a>
+                                    </div>
+                                </div>
+
+                                <p class="more_p"><i class="more_thread"></i><span class="more">查看更多</span></p>
+								</div> -->
+                        </div>
+                    </div>
+                </div>
+                <div id="profile9" class="tab-pane">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12 showsub">
+                            <div class="form-group   col-xs-12 ">
+                                <p class="t_form_style  text-center"><span>处理人：</span></p>
+                                <input type="text" class="t_form_style personNames" placeholder="" value="$!personNames">
+                                <a class="btn btn-primary pull-left btn_select bootbox-options1"  href="javascript:void(0);" v-on:click="getPerson">选 择</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12 showsub">
+                            <div class="form-group   col-xs-12 ">
+                                <p class="t_form_style  text-center"><span>处理时间：</span></p>
+                                <input id="date01" type="text" class="t_form_style " placeholder="" style="width:200px;">
+                                <a class="btn btn-primary pull-right"  href="javascript:void(0);" v-on:click="getTreated">搜 索</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="wide">
+                    <div class="row" id="treatedDiv">
+                     <!--   <div  class="col-lg-12 col-sm-12 col-xs-12 no-padding">
+                            <div class="list1 clearfix">
+                                <table class="table  table-bordered dataTable no-footer margin-top-10" aria-describedby="editabledatatable_info">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">评论时间</th>
+                                            <th class="text-center">文章ID</th>
+                                            <th class="text-center">文章标题</th>
+                                            <th class="text-center">评论人姓名</th>
+                                            <th class="text-center">评论人公司</th>
+                                            <th class="text-center">处理时间</th>
+                                            <th class="text-center">处理人ID</th>
+                                            <th class="text-center">处理人姓名</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">2016/11/08<br/>09:09:09</td>
+                                            <td class="text-center">000001</td>
+                                            <td class="text-center"><a href="#">10月我国出口钢材770万吨 同比下降14.6%</a></td>
+                                            <td class="text-center">刘泽众</td>
+                                            <td class="text-center">上海宝钢特钢</td>
+                                            <td class="text-center">2016/11/08<br/>09:09:09</td>
+                                            <td class="text-center">23232</td>
+                                            <td class="text-center">刘英杰</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-lg-12 col-sm-12 col-xs-12 SDF" >
+                                    <p>评论内容：评论内容详情</p>
+                                    <p class="cut_off_rule SDF1" >对应评论内容：对应评论内容详情</p>
+                                    <div class="col-lg-10 col-sm-10 col-xs-12 no-padding">
+                                        <p  >处理结果：不回复 </p>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2 col-xs-12 text-right no-padding min-height" >
+                                        <a href="javascript:void(0);" class="btn btn-primary bootbox-options">重新处理</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="list1 clearfix">
+                                <table class="table  table-bordered dataTable no-footer margin-top-10" aria-describedby="editabledatatable_info">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">评论时间</th>
+                                            <th class="text-center">文章ID</th>
+                                            <th class="text-center">文章标题</th>
+                                            <th class="text-center">评论人姓名</th>
+                                            <th class="text-center">评论人公司</th>
+                                            <th class="text-center">处理时间</th>
+                                            <th class="text-center">处理人ID</th>
+                                            <th class="text-center">处理人姓名</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">2016/11/08<br/>09:09:09</td>
+                                            <td class="text-center">000001</td>
+                                            <td class="text-center"><a href="#">10月我国出口钢材770万吨 同比下降14.6%</a></td>
+                                            <td class="text-center">刘泽众</td>
+                                            <td class="text-center">上海宝钢特钢</td>
+                                            <td class="text-center">2016/11/08<br/>09:09:09</td>
+                                            <td class="text-center">23232</td>
+                                            <td class="text-center">刘英杰</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-lg-12 col-sm-12 col-xs-12 SDF" >
+                                    <p>评论内容：评论内容详情</p>
+                                    <p class="cut_off_rule SDF1" >对应评论内容：对应评论内容详情</p>
+                                    <div class="col-lg-10 col-sm-10 col-xs-12 no-padding">
+                                        <p  >处理结果：不回复 </p>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2 col-xs-12 text-right no-padding min-height" >
+                                        <a href="javascript:void(0);" class="btn btn-primary bootbox-options">重新处理</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="list1 clearfix">
+                                <table class="table  table-bordered dataTable no-footer margin-top-10" aria-describedby="editabledatatable_info">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">评论时间</th>
+                                            <th class="text-center">文章ID</th>
+                                            <th class="text-center">文章标题</th>
+                                            <th class="text-center">评论人姓名</th>
+                                            <th class="text-center">评论人公司</th>
+                                            <th class="text-center">处理时间</th>
+                                            <th class="text-center">处理人ID</th>
+                                            <th class="text-center">处理人姓名</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">2016/11/08<br/>09:09:09</td>
+                                            <td class="text-center">000001</td>
+                                            <td class="text-center"><a href="#">10月我国出口钢材770万吨 同比下降14.6%</a></td>
+                                            <td class="text-center">刘泽众</td>
+                                            <td class="text-center">上海宝钢特钢</td>
+                                            <td class="text-center">2016/11/08<br/>09:09:09</td>
+                                            <td class="text-center">23232</td>
+                                            <td class="text-center">刘英杰</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-lg-12 col-sm-12 col-xs-12 SDF" >
+                                    <p>评论内容：评论内容详情</p>
+                                    <p class="cut_off_rule SDF1" >对应评论内容：对应评论内容详情</p>
+                                    <div class="col-lg-10 col-sm-10 col-xs-12 no-padding">
+                                        <p  >处理结果：不回复 </p>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2 col-xs-12 text-right no-padding min-height" >
+                                        <a href="javascript:void(0);" class="btn btn-primary bootbox-options">重新处理</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-xs-12  margin-top-10 no-padding-left no-padding-right clearfix">
+                                    <label class="col-lg-2 col-sm-3 col-xs-12 ">
+                                        <span>每页</span>
+                                        <select name="editabledatatable_length" aria-controls="editabledatatable" class="form-control select_width">
+                                            <option value="5">5</option>
+                                            <option value="15">15</option>
+                                            <option value="20">20</option>
+                                            <option value="100">100</option>
+                                            <option value="-1">All</option>
+                                        </select>
+                                        <span>条</span>
+                                     </label>
+                                    <p class="col-lg-3 col-sm-3 col-xs-12" style="line-height:34px;"> 第<span>5</span>页,10行;共 <span>10</span>页,100行</p>
+                                    <div class=" col-lg-7 col-sm-6 col-xs-12" >
+                                        <ul class="pagination" style='float:right;'>
+                                            <li class=""><a href="#">上一页</a></li>
+                                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#">下一页</a></li>
+                                            <li><p style="float:left;padding:0 10px;line-height:21px;">到第<input type="text" class="margin text-center" style="width:30px;height:34px;">页</p></li>
+                                            <li><a href="javascript:void(0);" class="btn btn-primary " style="color:#fff;">确 认</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+							</div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script id="myModal" type="text/template">
+    </script>
+    <script id="modalDemo" type="text/template">
+    </script>
+	
+	#parse("/inc/footer.vm")
+
+    <!--Mysteel Scripts-->
+<!--     <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery-1.4.4.min.js"></script> -->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/moment.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/daterangepicker.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datepicker.js"></script>
+
+
+	<script src="/assets/js/pagination.js"></script>
+	
+	<script src="/assets/js/page/notice/vue.js"></script>
+	<script src="/assets/js/page/comment/comment.js"></script>
+	
+    <script>
+	
+	
+    $(document).ready(function(){
+	
+    $(document).on('click','.modal-dispose .colse',function(){
+        bootbox.hideAll();
+    })
+    //处理人选择
+	
+   
+
+//时间选择
+    var today = new Date();
+    var year = today.getFullYear(),month=(today.getMonth()+1),day=today.getDay();
+    $('#date01').daterangepicker({
+        "alwaysShowCalendars": true,
+        'ranges': {
+           '今天': [moment(), moment()],
+           '昨日': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+           '最近7日': [moment().subtract(6, 'days'), moment()],
+           '最近30日': [moment().subtract(29, 'days'), moment()]
+        },
+        "startDate": year+"/"+month+"/"+day,
+        "endDate": year+"/"+month+"/"+day,
+    },
+	function(start, end, label) {
+	
+	var timestamp = Date.parse(new Date(start));
+	
+	var timestamp2 = Date.parse(new Date(end));
+	console.log(timestamp+"--"+timestamp2);
+	
+	commentApp.comment.startTime=timestamp;
+	commentApp.comment.endTime=timestamp2;
+		}
+		);
+		
+	$('#date01').on('apply.daterangepicker', function(ev, picker) {
+    	var timestamp = Date.parse(new Date(picker.startDate));
+    	var timestamp2 = Date.parse(new Date(picker.endDate));
+    	console.log(timestamp+"--"+timestamp2);
+    	
+    	commentApp.comment.startTime=timestamp;
+    	commentApp.comment.endTime=timestamp2;
+	});	
+		
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }
+		
+    });
+	
+	
+	
+    
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

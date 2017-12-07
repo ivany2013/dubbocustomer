@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+   #parse("/inc/header.vm")
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+    <!-- Loading Container -->
+    <div class="loading-container">
+        <div class="loading-progress">
+            <div class="rotator">
+                <div class="rotator">
+                    <div class="rotator colored">
+                        <div class="rotator">
+                            <div class="rotator colored">
+                                <div class="rotator colored"></div>
+                                <div class="rotator"></div>
+                            </div>
+                            <div class="rotator colored"></div>
+                        </div>
+                        <div class="rotator"></div>
+                    </div>
+                    <div class="rotator"></div>
+                </div>
+                <div class="rotator"></div>
+            </div>
+            <div class="rotator"></div>
+        </div>
+    </div>
+    <!--  /Loading Container -->
+    <!-- Navbar -->
+      #parse("/inc/navbar.vm")
+    <!-- /Navbar -->
+    <!-- Main Container -->
+    <div class="main-container container-fluid">
+        <!-- Page Container -->
+        <div class="page-container">
+            <!-- Page Sidebar -->
+           #parse("/inc/sidebar.vm")
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-header page-breadcrumbs">
+                    <ul id="breadcrumb" class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="#">主页$sayHello</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+                <iframe frameborder="0" id="main_frame" style="width: 100%;height: 100%;" src=""></iframe>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+        <!-- /Page Container -->
+        <!-- Main Container -->
+
+    </div>
+    <input type="hidden" id="level" level1="" level2="" level3="" level4="" level5=""></input>
+
+     <!--Basic Scripts-->
+    #parse("/inc/footer.vm")
+     <script src="http://a.mysteelcdn.com/libs/article/assets/js/topnav.js?v=002"></script>
+    <script type="text/javascript">
+	function indexGetCommentNum(){
+		var data={};
+		var publisherIds = new Array();;
+		publisherIds.push($amdinId);
+		data.publisherIds = publisherIds;
+		$.ajax({
+    		type:"POST",
+    		url:"/comment/queryUntreatedCommentNum",
+    		data: JSON.stringify(data),//将对象序列化成JSON字符串  
+            dataType:"json",  
+            contentType : 'application/json;charset=utf-8', //设置请求头信息  
+    		success:function(msg){
+				if(msg.status == '200'){
+					if(msg.data != null){
+						$("#commentNumTip").html("( "+msg.data+" )");
+					}else{
+						$("#commentNumTip").html("( 0 )");
+					}
+				}else{
+					
+				}
+				
+    		}
+		});
+		
+	}
+	
+	$(function(){indexGetCommentNum();setInterval('indexGetCommentNum()',10000);})
+	
+	
+	
+        var main_frame = $("#main_frame");
+        var thistop = main_frame.position().top + $(".navbar").height();
+        var mainheight = $(window).height() - thistop-5;
+        main_frame.height(mainheight);
+        $(window).resize(function(){
+            var thistop = main_frame.position().top + $(".navbar").height();
+            var mainheight = $(window).height() - thistop-5;
+            main_frame.height(mainheight);
+        });
+
+        $(function($) {
+            $("body").on('click', ".changeMain", function(event) {
+                event.preventDefault();
+                if($(this).hasClass('changeMain')){
+                    var map1 = $(this).parents(".open").find(".menu-text").text();
+                    $(".nav li").removeClass('active');
+                    $(this).parent("li").addClass('active');
+                    var map2 = $(this).find(".menu-text").text();
+                    var mapli = $(this).parents("li");
+                    var maptext = [];
+                    maptext.push('<li><i class="fa fa-home"></i><a href="#">主页</a></li>');
+                    for(var i=mapli.length-1;i>=0;i--){
+                        if(mapli.eq(i).find(".tip").length>0){
+                            mapli.eq(i).find(".tip").hide();
+                        }
+                        var litext = $.trim(mapli.eq(i).find(".menu-text").eq(0).text());
+                        maptext.push('<li>'+litext+'</li>');
+                        $("#level").attr("level"+(mapli.length-i),litext);
+                    }
+                    $("#breadcrumb").html(maptext.join(""));
+                    mainjs.changemain($(this)[0]);
+                }
+            });
+        });
+    </script>
+</body>
+<!--  /Body -->
+</html>

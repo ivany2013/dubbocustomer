@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	<link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    #parse("/inc/header.vm")
+	<style>
+        .modal-footer {text-align: center;}
+        .modal-footer button{margin: 0 5px;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+<table class="table table-striped table-bordered table-hover bigtable">
+    <tbody>
+        <tr>
+            <td class="odd text-center" width="20%">频道代码</td>
+            <td width="80%">$!{result.id}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道中文名称</td>
+            <td>$!{result.name}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道英文名称</td>
+            <td>$!{result.englishName}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道域名</td>
+            <td>$!{result.domain}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">内容页面模板</td>
+            <td>$!{result.pageTemplate}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">内容页面名称规则</td>
+            <td>$!{result.pageNameRule}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">列表页面模板</td>
+            <td>$!{result.listPageTemplate}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">列表页面名称规则</td>
+            <td>$!{result.listPageNameRule}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道中文标题</td>
+            <td>$!{result.title}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道英文标题</td>
+            <td>$!{result.englishTitle}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">编辑器</td>
+            <td>
+				#foreach($enum in $!{editorTypeEnums})
+					#if($!{result.editorType} == $!{enum.value})
+						$!{enum.desc}
+						#break
+					#end
+				#end
+			</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">编辑组</td>
+            <td>
+				#foreach($editor in $!{result.eidtorList})
+					#if($velocityCount == 1)
+						$!{editor.editorName}
+					#else	
+						；$!{editor.editorName}
+					#end	
+				#end	
+			</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">所需积分</td>
+            <td>$!{result.accessScore}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">收费类型</td>
+            <td>$!{result.accessControl}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">上传目录</td>
+            <td>$!{result.imageUploadFolder}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道关键字</td>
+            <td>$!{result.keywords}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道描述</td>
+            <td>$!{result.description}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道状态</td>
+            <td>
+				#foreach($enum in $!{channelStatusEnums})
+					#if($!{result.status} == $!{enum.value}) 
+						$!{enum.desc} 
+						#break
+					#end
+				#end
+			</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">频道编辑人</td>
+            <td>$!{result.lastEditorName}</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">编辑时间</td>
+            <td>$velocityTool.formatTime($!{result.lastEditTime},'yyyy/MM/dd HH:mm')</td>
+        </tr>
+        <tr>
+            <td class="odd text-center">操作</td>
+            <td>
+                <a class="btn btn-blue margin-right-10 margin-bottom-10" onclick="mainjs.changemain(this)" datahref="/article/system/channel/toAddChannel?websiteId=$!{result.websiteId}&parentId=$!{result.id}&channelPath=$!{channelPath}" href="javascript:void(0);"><i class="fa fa-plus"></i> 新增子频道</a>
+                <a class="btn btn-blue margin-right-10 margin-bottom-10" onclick="mainjs.changemain(this)" datahref="/article/system/channel/toUpdateChannel?channelId=$!{result.id}&channelPath=$!{channelPath}" href="javascript:void(0);"><i class="fa fa-edit"></i> 修改频道</a>
+                <a class="btn btn-primary margin-right-10 margin-bottom-10" id="bootbox-options" href="javascript:void(0);"><i class="fa fa-arrows"></i> 移动频道</a>
+                <a class="btn btn-primary margin-right-10 margin-bottom-10 delete" href="javascript:void(0);"><i class="fa fa-times"></i> 删除频道</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+    <script id="myModal" type="text/template">
+        <div class="row">
+            <iframe frameborder="0" id="main_frame" style="width: 100%;height: 400px;" src="/article/system/channel/toMoveChannel?websiteId=$!{result.websiteId}&id=$!{result.id}"></iframe>
+        </div>
+    </script>
+		
+    #parse("/inc/footer.vm")
+	<script src="/assets/js/js.cookie.js"></script>
+	
+    <script type="text/javascript">
+	bootbox.setDefaults({
+        locale: "zh_CN",
+    });
+	
+        $("#bootbox-options").on('click', function () {
+            window.parent.bootbox.dialog({
+                message: $("#myModal").html(),
+                title: "移动频道至",
+                className: "modal-inverse",
+                buttons: {
+                    success: {
+                        label: "确认",
+                        className: "btn-primary",
+                        callback: function () { 
+							var ydWebsiteId = Cookies.get('ydWebsiteId');
+							var ydChannelId = Cookies.get('ydChannelId');
+							Cookies.remove('ydChannelId');
+							Cookies.remove('ydWebsiteId');
+							if(ydWebsiteId && ydWebsiteId != '' && ydChannelId && ydChannelId != '')
+							{
+								$.ajax({
+                                   type: "POST",
+                                   url: "/article/system/channel/moveChannel",
+                                   data: {channelId:$!{result.id},parentChannelId:ydChannelId,websiteId:ydWebsiteId},
+                                   success: function(result){
+                                     if(result.status == "200")
+                                	 {
+									 	$.msg("移动成功！");
+										setTimeout(function(){
+    										var mainFrame = document.getElementById("main_frame") || top.document.getElementById("main_frame");
+                                     		if(mainFrame){
+                                     			mainFrame.src="/article/system/channel/toChannelManage?websiteId="+ydWebsiteId+"&id=$!{result.id}";
+                                     		}
+                                     		else
+                                 			{
+                                     			bootbox.alert("移动成功！mainFrame对象不存在，无法实现跳转");
+                                 			}
+                                    	},1000);
+                                	 }
+                                     else
+                                	 {
+                                    	 bootbox.alert("移动失败！status:"+result.status+"  msg:" + result.msg);
+                                	 }
+                                   }
+                                });
+							}
+							else
+							{
+								bootbox.alert("请至少选择一个频道");
+							}
+						}	
+                    },
+                    cancel: {
+                        label: "取消",
+                        className: "btn-primary"
+                    }
+                }
+            });
+        });
+
+        $(".delete").on('click', function () {
+            bootbox.confirm("确认删除频道?", function (result) {
+                if (result) {
+                    $.ajax({
+                       type: "POST",
+                       url: "/article/system/channel/removeChannel",
+                       data: {channelId:$!{result.id}},
+                       success: function(result){
+                         if(result.status == "200")
+                    	 {
+						 	$.msg("删除成功！");
+							setTimeout(function(){
+								var mainFrame = document.getElementById("main_frame") || top.document.getElementById("main_frame");
+                         		if(mainFrame){
+                         			mainFrame.src="/article/system/channel/toChannelManage?websiteId=$!{result.websiteId}";
+                         		}
+                         		else
+                     			{
+                         			bootbox.alert("删除成功！mainFrame对象不存在，无法实现跳转");
+                     			}
+                        	},1000);	
+                    	 }
+                         else
+                    	 {
+                        	 bootbox.alert("删除失败！status:"+result.status+"  msg:" + result.msg);
+                    	 }
+                       }
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+<!--  /Body -->
+</html>

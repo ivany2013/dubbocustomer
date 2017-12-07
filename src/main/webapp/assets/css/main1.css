@@ -1,0 +1,352 @@
+        .comments .t_form_style,.modal-dispose1 .t_form_style{
+            float:left;
+            display: inline-block;
+            height: 34px;
+            line-height: 34px;
+
+        }
+        .comments .btn_select{
+            margin-left:2px;
+            border-radius:0;
+            height:34px;
+        }
+        .comments .wide{
+            margin-left: 0;margin-right: 0;
+            border-top: 1px dashed rgba(0,0,0,.2);
+        }
+        .comments .form-group{
+            margin-bottom:0;
+        }
+        .comments .status{
+            float:left;
+            margin-right:10px;
+        }
+        .comments_content1{
+            margin-top:10px;
+            border:1px solid #ccc;
+        }
+        .comments .auditiong .line {
+            margin-bottom: 0;
+            font: 13px/30px "Microsoft YaHei";
+        }
+        .comments .text-muted{
+            color: #777;
+        }
+        .comments .resize{
+            resize:none;
+        }
+        .comments .fltop{
+            padding-bottom:10px;
+            border-bottom:1px solid #ccc;
+        }
+        .more_p{
+            position: relative;
+            margin-bottom: 0;
+        }
+        .more{
+            position: relative;
+            z-index: 10;
+            display: block;
+            width: 60px;
+            margin:0 auto;
+            line-height: 40px;
+            text-align: center;
+            background: #fbfbfb;
+            cursor: pointer;
+        }
+        .more_thread{
+            position: absolute;
+            left:0;
+            top:18px;
+            display: block;
+            width: 100%;
+            border-top:1px dashed #ccc;
+        }
+        .comments .row{
+            padding:0 5px;
+        }
+        .comments .SDF{
+            border-bottom:1px solid #999;
+        }
+        .comments .SDF1{
+            border-bottom:1px dashed #ccc;
+        }
+        .comments .min-height{
+            min-height:40px;
+        }
+        .select_width{
+            display: inline-block;
+            width: 54px;
+        }
+        .modal-dispose .row{
+            margin:0 0px;
+        }
+        .modal-dispose .modal-body{
+            padding:5px;
+        }
+        .modal-dispose .padding-5{
+            padding:0 5px;
+            overflow:hidden;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+        }
+        .modal-dispose p{
+            margin-bottom:0;
+        }
+        .modal-dispose .wide{
+            margin-top:5px;
+            margin-bottom:5px;
+        }
+        .tag {
+            font-weight: 400;
+            font-size: 13px;
+            border: 1px solid #2dc3e8;
+            background: #2dc3e8;
+            color: #fff;
+            position: relative;
+            padding: 4px 24px 4px 8px;
+            margin: 3px 0 3px 2px;
+            display: inline-block;
+            -webkit-border-radius: 2px;
+            -webkit-background-clip: padding-box;
+            -moz-border-radius: 2px;
+            -moz-background-clip: padding;
+            border-radius: 2px;
+            background-clip: padding-box;
+        }
+        .tag [data-role=remove] {
+            display: block;
+            top: -1px;
+            right: 0;
+            padding: 3px 4px 3px 5px;
+            width: 23px;
+            height: 22px;
+            position: absolute;
+            cursor: pointer;
+        }
+        .tag [data-role=remove]:after {
+            content: "";
+            font-family: fontAwesome;
+            padding: 2px 1px;
+            line-height: 16px;
+            font-size: 14px;
+            text-align: center;
+            zoom: 1;
+            filter: alpha(opacity=70);
+            -webkit-opacity: .7;
+            -moz-opacity: .7;
+            opacity: .7;
+        }
+        .t_height1{
+            min-height:300px;
+            border:1px solid #ccc;
+        }
+        .modal-dispose1 .text-left{
+            line-height: 34px;
+            border-bottom:1px dashed #999;
+        }
+        .modal-dispose1 .form-group1{
+            margin-top:10px;
+            margin-bottom:0;
+        }
+/*评论管理-评论样式结束*/
+        .t_form_style{
+            display: inline-block;
+            height:34px;
+            line-height: 34px;
+        }
+        .articles .well{
+            padding-bottom:50px;
+        }
+        .articles .dataTables_length {
+            float: left;
+            line-height: 36px;
+            margin-top: 5px;
+        }
+        .articles .dataTables_info {
+            float: left;
+            padding-left: 15px;
+        }
+        .articles .dataTables_paginate {
+            float: right;
+        }
+                .tag {
+            font-weight: 400;
+            font-size: 13px;
+            border: 1px solid #2dc3e8;
+            background: #2dc3e8;
+            color: #fff;
+            position: relative;
+            padding: 4px 24px 4px 8px;
+            margin: 3px 0 3px 2px;
+            display: inline-block;
+            -webkit-border-radius: 2px;
+            -webkit-background-clip: padding-box;
+            -moz-border-radius: 2px;
+            -moz-background-clip: padding;
+            border-radius: 2px;
+            background-clip: padding-box;
+        }
+        .tag [data-role=remove] {
+            display: block;
+            top: -1px;
+            right: 0;
+            padding: 3px 4px 3px 5px;
+            width: 23px;
+            height: 22px;
+            position: absolute;
+            cursor: pointer;
+        }
+        .tag [data-role=remove]:after {
+            content: "";
+            font-family: fontAwesome;
+            padding: 2px 1px;
+            line-height: 16px;
+            font-size: 14px;
+            text-align: center;
+            zoom: 1;
+            filter: alpha(opacity=70);
+            -webkit-opacity: .7;
+            -moz-opacity: .7;
+            opacity: .7;
+        }
+        .t_height1{
+            min-height:300px;
+            border:1px solid #ccc;
+        }
+        .modal-dispose1 .text-left{
+            line-height: 34px;
+            border-bottom:1px dashed #999;
+        }
+        .modal-dispose1 .form-group1{
+            margin-top:10px;
+            margin-bottom:0;
+        }
+
+                .t_form_style{
+            display: inline-block;
+            height:34px;
+            line-height: 34px;
+        }
+        .articles .well{
+            padding-bottom:50px;
+        }
+        .articles .dataTables_length {
+            float: left;
+            line-height: 36px;
+            margin-top: 5px;
+        }
+        .articles .dataTables_info {
+            float: left;
+            padding-left: 15px;
+        }
+        .articles .dataTables_paginate {
+            float: right;
+        }
+                .tag {
+            font-weight: 400;
+            font-size: 13px;
+            border: 1px solid #2dc3e8;
+            background: #2dc3e8;
+            color: #fff;
+            position: relative;
+            padding: 4px 24px 4px 8px;
+            margin: 3px 0 3px 2px;
+            display: inline-block;
+            -webkit-border-radius: 2px;
+            -webkit-background-clip: padding-box;
+            -moz-border-radius: 2px;
+            -moz-background-clip: padding;
+            border-radius: 2px;
+            background-clip: padding-box;
+        }
+        .tag [data-role=remove] {
+            display: block;
+            top: -1px;
+            right: 0;
+            padding: 3px 4px 3px 5px;
+            width: 23px;
+            height: 22px;
+            position: absolute;
+            cursor: pointer;
+        }
+        .tag [data-role=remove]:after {
+            content: "";
+            font-family: fontAwesome;
+            padding: 2px 1px;
+            line-height: 16px;
+            font-size: 14px;
+            text-align: center;
+            zoom: 1;
+            filter: alpha(opacity=70);
+            -webkit-opacity: .7;
+            -moz-opacity: .7;
+            opacity: .7;
+        }
+        .t_height1{
+            min-height:300px;
+            border:1px solid #ccc;
+        }
+        .modal-dispose1 .text-left{
+            line-height: 34px;
+            border-bottom:1px dashed #999;
+        }
+        .modal-dispose1 .form-group1{
+            margin-top:10px;
+            margin-bottom:0;
+        }
+        .header_tit{
+            font: 16px/36px "Microsoft YaHei";
+            font-weight: 600;
+            color: #555;
+        }
+        .articles-tit {
+            font: 16px/36px "Microsoft YaHei";
+            font-weight: 500;
+            color: #555;
+        }
+        hr {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .num_style{
+            font-size: 18px;
+            color:red;
+        }
+        .articles .SDF{
+            border-bottom:1px solid #999;
+        }
+        .articles .SDF1{
+            border-bottom:1px dashed #ccc;
+        }
+        .articles .min-height {
+            min-height: 40px;
+        }
+        .select_width {
+            display: inline-block;
+            width: 54px;
+        }
+        .comments_content1 {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
+        .modal-dispose .modal-body{
+            padding:5px;
+        }
+        .modal-dispose .row {
+            margin: 0 0px;
+        }
+        .modal-dispose .padding-5{
+            padding:0 5px;
+            overflow:hidden;
+            white-space:nowrap;
+            text-overflow:ellipsis;
+        }
+        .modal-dispose p{
+            margin-bottom:0;
+        }
+        .modal-dispose .wide{
+            margin-top:5px;
+            margin-bottom:5px;
+        }
+/*评论管理-文章样式结束*/

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--
+MysteelAdmin - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
+Version: 1.0.0
+
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- Head -->
+<head>
+	#parse("/inc/header.vm")
+    <!--Basic基础 Styles-->
+    <link href="http://a.mysteelcdn.com/libs/zTree/css/metroStyle/metroStyle.css" rel="stylesheet" type="text/css" />
+    <!--Fonts-->
+    <!--  <link href="http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300" rel="stylesheet" type="text/css"> -->
+
+    <!--Mysteel styles-->
+    <link href="http://a.mysteelcdn.com/libs/article/assets/css/main1.css" rel="stylesheet" type="text/css" />
+    <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/skins.min.js?v=02"></script>
+    <style>
+        .modal-darkorange .explain{
+            font:14px/32px "微软雅黑";
+        }
+        .modal-footer {text-align: center;}
+        .modal-footer button{margin: 0 5px;}
+        .btn_1,.btn_2,.content_1,.content_2{display: none;}
+        .show{display: block;}
+    </style>
+</head>
+<!-- /Head -->
+<!-- Body -->
+<body>
+
+    <!-- Page Body -->
+    <div class="page-body comments" id="noticeApp">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab9">
+		#foreach($obj in ${website})
+			#if($obj.status == 0)
+				#if($!{velocityCount} == 1)
+                <li class="active" value="$obj.id">
+                    <a data-toggle="tab" href="javascript:void(0)" v-on:click="changeChannel($obj.id)">
+                        $obj.name
+                    </a>
+                </li>
+				#else
+					<li>
+                    <a data-toggle="tab" href="javascript:void(0)" v-on:click="changeChannel($obj.id)">
+                        $obj.name
+                    </a>
+                </li>
+						#end
+					#end
+				#end
+            </ul>
+            <div class="tab-content">
+            <div id="home9" class="tab-pane in active">
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well with-header">
+                            <div class="header">版权说明</div>
+                            <div class="row">
+                                <table class="table table-striped table-bordered table-hover bigtable margin-bottom-10">
+                                    <tbody>
+                                        <tr>
+                                            <td class="odd text-center" width="20%">原创版版权说明</td>
+                                            <td width="85%" class="">
+                                                <div class="content_1 show" style="word-break:break-all;">{{comment.copyright}}</div>
+                                                <div class="content_2">
+                                                    <textarea name="" id="" rows="3" class="col-xs-12" v-model="comment.copyright"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="odd text-center">操作</td>
+                                            <td>
+                                                <div class="btn_1 show">
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="modify('copyright')">修改</a>
+                                                </div>
+                                                <div class="btn_2">
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="saveChangeCopyright('copyright')" >保存</a>
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="cancel('copyright')">取消</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped table-bordered table-hover bigtable">
+                                    <tbody>
+                                        <tr>
+                                            <td class="odd text-center" width="20%">转载版版权说明</td>
+                                            <td width="85%" class="">
+                                                <div class="content_1 show" style="word-break:break-all;">{{comment.articleReprint}}</div>
+                                                <div class="content_2">
+                                                    <textarea name="" id="" rows="3" class="col-xs-12" v-model = "comment.articleReprint"></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="odd text-center">操作</td>
+                                            <td>
+                                                <div class="btn_1 show">
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="modify('articleReprint')">修改</a>
+                                                </div>
+                                                <div class="btn_2">
+                                                    <a class="btn btn-primary" href="javascript:void(0);"  v-on:click="saveChangeArticleReprint('articleReprint')" >保存</a>
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="cancel('articleReprint')" >取消</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="well with-header">
+                            <div class="header">免责说明</div>
+                            <div class="row">
+                                <table class="table table-striped table-bordered table-hover bigtable margin-bottom-10">
+                                    <tbody>
+                                        <tr>
+                                            <td class="odd text-center" width="20%">免责说明</td>
+                                            <td width="85%" class="">
+                                                <div class="content_1 show" style="word-break:break-all;">{{comment.escapeClause}}</div>
+                                                <div class="content_2">
+                                                    <textarea name="" id="" rows="3" class="col-xs-12" v-model="comment.escapeClause" ></textarea>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="odd text-center">操作</td>
+                                            <td>
+                                                <div class="btn_1 show">
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="modify('escapeClause')">修改</a>
+                                                </div>
+                                                <div class="btn_2">
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="saveChangeEscapeClause('escapeClause')">保存</a>
+                                                    <a class="btn btn-primary" href="javascript:void(0);" v-on:click="cancel('escapeClause')">取消</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <table class="table  table-bordered table-hover bigtable margin-bottom-10">
+            <tbody>
+                <tr>
+                    <td class="text-center explain" width="150px">免责说明</td>
+                    <td ><textarea class="form-control" rows="3" placeholder="" style="resize:none;"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+	#parse("/inc/footer.vm")
+
+    <!--Basic Scripts-->
+
+    <!--Mysteel Scripts-->
+<!--     <script src="http://a.mysteelcdn.com/libs/zTree/js/jquery-1.4.4.min.js"></script> -->
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/jquery.dataTables.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.tableTools.min.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/mysteelUI/assets/js/datatable/dataTables.bootstrap.min.js"></script>
+
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/moment.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/daterangepicker.js"></script>
+    <script src="http://a.mysteelcdn.com/libs/article/assets/js/datetime/bootstrap-datepicker.js"></script>
+
+	
+	<script src="/assets/js/page/notice/vue.js"></script>
+	<script src="/assets/js/page/notice/notice.js"></script>
+	
+    <script>
+    $(function(){
+    $('.btn_1 a').click(function(){
+		
+        $(this).parents('.btn_1').removeClass('show').siblings('.btn_2').addClass('show');
+        $(this).parents('table').find('.content_1').removeClass('show').siblings().addClass('show');//.find('textarea').val(text)
+    })
+    $('.btn_2 a').click(function(){
+        if($(this).text()=='保存'){
+		if(noticeApp.comment.copyright.length > 300 || noticeApp.comment.escapeClause.length > 300 ||noticeApp.comment.articleReprint.length > 300){
+				return false;
+			}
+            $(this).parents('table').find('.content_2').removeClass('show').siblings().addClass('show');//.text(text)
+        }
+		$(this).parents('table').find('.content_2').removeClass('show').siblings().addClass('show');//.text(text)
+        $(this).parents('.btn_2').removeClass('show').siblings('.btn_1').addClass('show');
+    })
+    })
+
+
+    function changemain(e) {
+        var _dom = e || window.event.target;
+        var thishref = _dom.href;
+        if(thishref == ("javascript:void(0);" || "" || "#")){
+            thishref = _dom.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.href || _dom.parentNode.getAttribute("datahref");
+        }else if(typeof thishref === "undefined" && _dom.parentNode.parentNode.tagName.toUpperCase() === 'A') {
+            thishref = _dom.parentNode.parentNode.href || _dom.parentNode.parentNode.getAttribute("datahref");
+        }else {
+            thishref = _dom.href
+        }
+        var mainFrame = document.getElementById("chanel_frame");
+        if(thishref && mainFrame){
+            mainFrame.src = thishref;
+            return false;
+        }
+    }
+    </script>
+
+</body>
+<!--  /Body -->
+</html>
